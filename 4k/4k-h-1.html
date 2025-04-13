@@ -130,6 +130,11 @@
       max-width: 400px;
       margin: auto;
     }
+    /* 新增：滚动容器，超出部分可横向滚动 */
+    .scrollable {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
       header { font-size: 1.2rem; padding: 10px; }
@@ -180,49 +185,51 @@
 
     <!-- 【文１】 山本:你家有几口人？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-01.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">几</td>
-          <td class="chinese">口</td>
-          <td class="chinese">人</td>
-          <td class="chinese">？</td>
-          <!-- 空セルでパディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>nǐ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>jǐ</td>
-          <td>kǒu</td>
-          <td>rén</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">几</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">？</td>
+            <!-- 空セルでパディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>jǐ</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         山本:あなたの家は何人家族ですか。
       </div>
@@ -236,58 +243,61 @@
 
     <!-- 【文２】 李：我家有三口人：爸爸、妈妈和我。你家呢？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-02.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">三</td>
-          <td class="chinese">口</td>
-          <td class="chinese">人</td>
-          <td class="chinese">：</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">、</td>
-          <td class="chinese">妈</td>
-          <td class="chinese">妈</td>
-          <td class="chinese">和</td>
-          <td class="chinese">我</td>
-          <td class="chinese">。</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">呢</td>
-          <td class="chinese">？</td>
-<td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>sān</td>
-          <td>kǒu</td>
-          <td>rén</td>
-          <td>：</td>
-          <td>bà</td>
-          <td>bà</td>
-          <td>、</td>
-          <td>mā</td>
-          <td>mā</td>
-          <td>hé</td>
-          <td>wǒ</td>
-          <td>。</td>
-          <td>nǐ</td>
-          <td>jiā</td>
-          <td>ne</td>
-          <td>？</td>
-<td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">三</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">：</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">、</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">和</td>
+            <td class="chinese">我</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">呢</td>
+            <td class="chinese">？</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>sān</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>：</td>
+            <td>bà</td>
+            <td>bà</td>
+            <td>、</td>
+            <td>mā</td>
+            <td>mā</td>
+            <td>hé</td>
+            <td>wǒ</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>ne</td>
+            <td>？</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :私の家は3人家族です。父、母と私です。あなたの家はどうですか。      </div>
+        李  :私の家は3人家族です。父、母と私です。あなたの家はどうですか。
+      </div>
       <div class="audio-player">
         <audio controls>
           <source src="sound/4k-h1-038-02.mp3" type="audio/mpeg">
@@ -298,56 +308,58 @@
 
     <!-- 【文３】 山本：我家有四口人：爸爸、妈妈、哥哥和我。 -->
     <div class="sentence" data-audio="sound/4k-h1-038-03.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">四</td>
-          <td class="chinese">口</td>
-          <td class="chinese">人</td>
-          <td class="chinese">：</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">、</td>
-          <td class="chinese">妈</td>
-          <td class="chinese">妈</td>
-          <td class="chinese">、</td>
-          <td class="chinese">哥</td>
-          <td class="chinese">哥</td>
-          <td class="chinese">和</td>
-          <td class="chinese">我</td>
-          <td class="chinese">。</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>sì</td>
-          <td>kǒu</td>
-          <td>rén</td>
-          <td>：</td>
-          <td>bà</td>
-          <td>bà</td>
-          <td>、</td>
-          <td>mā</td>
-          <td>mā</td>
-          <td>、</td>
-          <td>gē</td>
-          <td>gē</td>
-          <td>hé</td>
-          <td>wǒ</td>
-          <td>。</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">四</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">：</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">、</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">、</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">和</td>
+            <td class="chinese">我</td>
+            <td class="chinese">。</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>sì</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>：</td>
+            <td>bà</td>
+            <td>bà</td>
+            <td>、</td>
+            <td>mā</td>
+            <td>mā</td>
+            <td>、</td>
+            <td>gē</td>
+            <td>gē</td>
+            <td>hé</td>
+            <td>wǒ</td>
+            <td>。</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私の家は4人家族です。父、母、兄と私です。
+        山本:私の家は4人家族です。父、母、兄と私です。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -359,51 +371,52 @@
 
     <!-- 【文４】 李：你家有宠物吗？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-04.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">宠</td>
-          <td class="chinese">物</td>
-          <td class="chinese">吗</td>
-          <td class="chinese">？</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>nǐ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>chǒng</td>
-          <td>wù</td>
-          <td>ma</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">宠</td>
+            <td class="chinese">物</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>chǒng</td>
+            <td>wù</td>
+            <td>ma</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-       李  :あなたの家にはペットがいますか。
+        李  :あなたの家にはペットがいますか。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -415,51 +428,53 @@
 
     <!-- 【文５】 山本：我家没有宠物。你家呢？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-05.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">家</td>
-          <td class="chinese">没</td>
-          <td class="chinese">有</td>
-          <td class="chinese">宠</td>
-          <td class="chinese">物</td>
-          <td class="chinese">。</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">呢</td>
-          <td class="chinese">？</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jiā</td>
-          <td>méi</td>
-          <td>yǒu</td>
-          <td>chǒng</td>
-          <td>wù</td>
-          <td>。</td>
-          <td>nǐ</td>
-          <td>jiā</td>
-          <td>ne</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">没</td>
+            <td class="chinese">有</td>
+            <td class="chinese">宠</td>
+            <td class="chinese">物</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">呢</td>
+            <td class="chinese">？</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>méi</td>
+            <td>yǒu</td>
+            <td>chǒng</td>
+            <td>wù</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>ne</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私の家にはペットがいません。あなたの家はどうですか。
+        山本:私の家にはペットがいません。あなたの家はどうですか。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -469,54 +484,55 @@
       </div>
     </div>
 
-    <!-- 【文６】 李：我家有一只狗和两只猫，都非常可爱！ -->
+    <!-- 【文６】 山本：我家有一只狗和两只猫，都非常可爱！ -->
     <div class="sentence" data-audio="sound/4k-h1-038-06.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">一</td>
-          <td class="chinese">只</td>
-          <td class="chinese">狗</td>
-          <td class="chinese">和</td>
-          <td class="chinese">两</td>
-          <td class="chinese">只</td>
-          <td class="chinese">猫</td>
-          <td class="chinese">，</td>
-          <td class="chinese">都</td>
-          <td class="chinese">非</td>
-          <td class="chinese">常</td>
-          <td class="chinese">可</td>
-          <td class="chinese">爱</td>
-          <td class="chinese">！</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>yī</td>
-          <td>zhī</td>
-          <td>gǒu</td>
-          <td>hé</td>
-          <td>liǎng</td>
-          <td>zhī</td>
-          <td>māo</td>
-          <td>，</td>
-          <td>dōu</td>
-          <td>fēi</td>
-          <td>cháng</td>
-          <td>kě</td>
-          <td>ài</td>
-          <td>！</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">一</td>
+            <td class="chinese">只</td>
+            <td class="chinese">狗</td>
+            <td class="chinese">和</td>
+            <td class="chinese">两</td>
+            <td class="chinese">只</td>
+            <td class="chinese">猫</td>
+            <td class="chinese">，</td>
+            <td class="chinese">都</td>
+            <td class="chinese">非常</td>
+            <td class="chinese">可</td>
+            <td class="chinese">爱</td>
+            <td class="chinese">！</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>yī</td>
+            <td>zhī</td>
+            <td>gǒu</td>
+            <td>hé</td>
+            <td>liǎng</td>
+            <td>zhī</td>
+            <td>māo</td>
+            <td>，</td>
+            <td>dōu</td>
+            <td>fēi</td>
+            <td>cháng</td>
+            <td>kě</td>
+            <td>ài</td>
+            <td>！</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-      李  :私の家には1匹の犬と2匹の猫がいます。みながとても可愛いです。           
+        李  :私の家には1匹の犬と2匹の猫がいます。みながとても可愛いです。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -531,7 +547,7 @@
   <footer>© 楽しい中国語アプリ</footer>
 
   <script>
-    // すべての sentence 要素と select 要素を取得
+    // すべてのsentence要素とselect要素を取得
     const sentences = document.querySelectorAll('.sentence');
     const displayModeSelect = document.getElementById('displayMode');
     
