@@ -22,7 +22,7 @@
 
         /* ヘッダは濃い青を背景色にし、文字色を白に */
         header {
-            background-color: #003366; /* ASロゴの濃青イメージ */
+            background-color: #003366;
             color: white;
             padding: 20px;
             text-align: center;
@@ -39,7 +39,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* 表示モード切り替え部分 */
+        /* 表示モード切替え部分 */
         .controls {
             margin-bottom: 20px;
             text-align: center;
@@ -67,34 +67,26 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
-
-        /* 前の画面ボタン */
         .prev-button {
-            background-color: #CC0000; /* ロゴの赤をイメージ */
+            background-color: #CC0000;
         }
         .prev-button:hover {
-            background-color: #990000; /* 少し濃い赤 */
+            background-color: #990000;
         }
-
-        /* 再生ボタン */
         .play-button {
             background-color: #003366;
         }
         .play-button:hover {
             background-color: #002244;
         }
-
-        /* 停止ボタン */
         .stop-button {
-            background-color: #FF6600; /* ワンポイントのオレンジなどでもOK */
+            background-color: #FF6600;
         }
         .stop-button:hover {
             background-color: #CC5200;
         }
-
-        /* 次の画面ボタン */
         .next-button {
-            background-color: #CC0000; /* 赤 */
+            background-color: #CC0000;
         }
         .next-button:hover {
             background-color: #990000;
@@ -104,12 +96,12 @@
         .sentence {
             margin-bottom: 30px;
             padding: 15px;
-            border-left: 4px solid #003366; /* 濃青のライン */
+            border-left: 4px solid #003366;
             background-color: #f1f1f1;
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            overflow: hidden; /* 防止内容溢出 */
+            overflow: hidden;
         }
         .sentence:hover {
             transform: translateY(-5px);
@@ -165,7 +157,7 @@
         .audio-player {
             margin-top: 20px;
             text-align: center;
-            display: none; /* デフォルトは非表示 */
+            display: none;
         }
         audio {
             width: 100%;
@@ -173,17 +165,16 @@
             margin: auto;
         }
 
-        /* ロゴ画像をヘッダー内で表示したい場合（任意） */
-        .logo {
-            max-width: 150px;
-            float: left;
-            margin-right: 10px;
+        /* 横スクロール用のコンテナを追加 */
+        .scrollable {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* スマートフォン向けメディアクエリ */
         @media screen and (max-width: 600px) {
             header {
-                font-size: 1.2rem; /* ヘッダ文字の縮小 */
+                font-size: 1.2rem;
                 padding: 10px;
             }
             .container {
@@ -222,13 +213,13 @@
 </head>
 <body>
 
-    <!-- ヘッダー部分（内容更新済み） -->
+    <!-- ヘッダー -->
     <header>
-        第2課 - 今天是我的生日
+        第3課 - 你下午打工吗
     </header>
 
     <div class="container">
-        <!-- 切り替え表示の部分 -->
+        <!-- 表示モード切替 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -238,235 +229,359 @@
                 <option value="all">中国語＋ピンイン＋日本語訳</option>
             </select>
         </div>
- 
-<!-- ボタンエリア -->
+
+        <!-- ボタンエリア -->
         <div style="text-align: center;">
-            <button class="prev-button" onclick="location.href='2k.html'">前の画面</button>
+            <button class="prev-button" onclick="location.href='3k-h-1.html'">前の画面</button>
             <button class="play-button" id="playButton">順番に再生</button>
             <button class="stop-button" id="stopButton">停止</button>
-            <button class="next-button" onclick="location.href='2k-h-2.html'">次の画面</button>
+            <button class="next-button" onclick="location.href='3k.html'">次の画面</button>
         </div>
 
-        <!-- 【文１】 -->
-        <div class="sentence" data-audio="sound/2k-h1-014-01.mp3">
-            <table>
-                <tr>
-                    <td class="chinese">李</td>
-                    <td class="chinese">:</td>
-                    <td class="chinese">优</td>
-                    <td class="chinese">子</td>
-                    <td class="chinese">，</td>
-                    <td class="chinese">今</td>
-             <td class="chinese">天</td>
-                    <td class="chinese">是</td>
-                    <td class="chinese">星</td>
-                    <td class="chinese">期</td>
-                    <td class="chinese">天</td>
-                    <td class="chinese">吗</td>
-                    <td class="chinese">？</td>
-                    <td class="chinese"></td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                </tr>
-                <tr class="pinyin hidden">
-                    <td>Lǐ</td>
-                    <td>:</td>
-                    <td>Yōu</td>
-                    <td>zǐ，</td>
-                    <td>，</td>
-                    <td>jīntiān</td>
-                    <td>shì</td>
-                    <td>xīngqītiān</td>
-                    <td>ma</td>
-                    <td>？</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                </tr>
-            </table>
+        <!-- 【文１】 李：优子，你在哪儿打工？ -->
+        <div class="sentence" data-audio="sound/3k-h2-029-07.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">李</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">优</td>
+                      <td class="chinese">子</td>
+                      <td class="chinese">，</td>
+                      <td class="chinese">你</td>
+                      <td class="chinese">在</td>
+                      <td class="chinese">哪</td>
+                      <td class="chinese">儿</td>
+                      <td class="chinese">打</td>
+                      <td class="chinese">工</td>
+                      <td class="chinese">？</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Lǐ</td>
+                      <td>:</td>
+                      <td>Yōu</td>
+                      <td>zǐ</td>
+                      <td>，</td>
+                      <td>nǐ</td>
+                      <td>zài</td>
+                      <td>nǎ</td>
+                      <td>r</td>
+                      <td>dǎ</td>
+                      <td>gōng</td>
+                      <td>？</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                  </tr>
+              </table>
+            </div>
             <div class="translation hidden">
-                李  :優子さん、今日は日曜日ですか。
+                李  :优子，你在哪儿打工？
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/2k-h1-014-01.mp3" type="audio/mpeg">
+                    <source src="sound/3k-h2-029-07.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文２】 -->
-        <div class="sentence" data-audio="sound/k-h1-014-02.mp3">
-            <table>
-                <tr>
-                    <td class="chinese">山</td>
-                    <td class="chinese">本</td>
-                    <td class="chinese">:</td>
-                    <td class="chinese">不</td>
-                    <td class="chinese">是</td>
-                    <td class="chinese">，</td>
-                    <td class="chinese">今</td>
-                    <td class="chinese">天</td>
-                    <td class="chinese">不</td>
-                    <td class="chinese">是</td>
-                    <td class="chinese">星</td>
-                    <td class="chinese">期</td>
-                    <td class="chinese">天</td>
-                    <td class="chinese">。</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                </tr>
-                <tr class="pinyin hidden">
-                    <td>Shān</td>
-                    <td>běn</td>
-                    <td>:</td>
-                    <td>Bú</td>
-                    <td>shì，</td>
-                    <td>，</td>
-                    <td>jīn</td>
-                    <td>tiān</td>
-                    <td>bú</td>
-                    <td>shì</td>
-                    <td>xīng</td>
-                    <td>qī</td>
-                    <td>tiān</td>
-                    <td>。</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                </tr>
-            </table>
+        <!-- 【文２】 山本：我在车站附近的药妆店打工，你呢？ -->
+        <div class="sentence" data-audio="sound/3k-h2-029-08.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">山</td>
+                      <td class="chinese">本</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">我</td>
+                      <td class="chinese">在</td>
+                      <td class="chinese">车站</td>
+                      <td class="chinese">附近</td>
+                      <td class="chinese">的</td>
+                      <td class="chinese">药</td>
+                      <td class="chinese">妆</td>
+                      <td class="chinese">店</td>
+                      <td class="chinese">打</td>
+                      <td class="chinese">工</td>
+                      <td class="chinese">，</td>
+                      <td class="chinese">你</td>
+                      <td class="chinese">呢</td>
+                      <td class="chinese">？</td>
+                      <td class="chinese">　</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Shān</td>
+                      <td>běn</td>
+                      <td>:</td>
+                      <td>wǒ</td>
+                      <td>zài</td>
+                      <td>chēzhàn</td>
+                      <td>fùjìn</td>
+                      <td>de</td>
+                      <td>yào</td>
+                      <td>zhuāng</td>
+                      <td>diàn</td>
+                      <td>dǎ</td>
+                      <td>gōng</td>
+                      <td>，</td>
+                      <td>nǐ</td>
+                      <td>ne</td>
+                      <td>？</td>
+                      <td>　</td>
+                  </tr>
+              </table>
+            </div>
             <div class="translation hidden">
-                山本:いいえ、今日は日曜日ではありません。
+                山本:我在车站附近的药妆店打工，你呢？
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/2k-h1-014-02.mp3" type="audio/mpeg">
+                    <source src="sound/3k-h2-029-08.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文３】 -->
-        <div class="sentence" data-audio="sound/2k-h1-014-03.mp3">
-            <table>
-                <tr>
-                    <td class="chinese">李</td>
-                    <td class="chinese">:</td>
-                    <td class="chinese">今</td>
-                    <td class="chinese">天</td>
-                    <td class="chinese">星</td>
-                    <td class="chinese">期</td>
-                    <td class="chinese">几</td>
-                    <td class="chinese">？</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                </tr>
-                <tr class="pinyin hidden">
-                    <td>Lǐ</td>
-                    <td>:</td>
-                    <td>Jīn</td>
-                    <td>tiān</td>
-                    <td>xīng</td>
-                    <td>qī</td>
-                    <td>jǐ</td>
-                    <td>？</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                </tr>
-            </table>
+        <!-- 【文３】 李：我在大学附近的便利店打工。 -->
+        <div class="sentence" data-audio="sound/3k-h2-029-09.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">李</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">我</td>
+                      <td class="chinese">在</td>
+                      <td class="chinese">大学</td>
+                      <td class="chinese">附近</td>
+                      <td class="chinese">的</td>
+                      <td class="chinese">便利店</td>
+                      <td class="chinese">打</td>
+                      <td class="chinese">工</td>
+                      <td class="chinese">。</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Lǐ</td>
+                      <td>:</td>
+                      <td>wǒ</td>
+                      <td>zài</td>
+                      <td>dàxué</td>
+                      <td>fùjìn</td>
+                      <td>de</td>
+                      <td>biànlìdiàn</td>
+                      <td>dǎ</td>
+                      <td>gōng</td>
+                      <td>。</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                  </tr>
+              </table>
+            </div>
             <div class="translation hidden">
-                李  :今日は何曜日ですか。
+                李  :我在大学附近的便利店打工。
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/2k-h1-014-03.mp3" type="audio/mpeg">
+                    <source src="sound/3k-h2-029-09.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文４】 -->
-        <div class="sentence" data-audio="sound/2k-h1-014-04.mp3">
-            <table>
-                <tr>
-                    <td class="chinese">山</td>
-                    <td class="chinese">本</td>
-                    <td class="chinese">:</td>
-                    <td class="chinese">今</td>
-                    <td class="chinese">天</td>
-                    <td class="chinese">星</td>
-                    <td class="chinese">期</td>
-                    <td class="chinese">一</td>
-                    <td class="chinese">。</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                </tr>
-                <tr class="pinyin hidden">
-                    <td>Shān</td>
-                    <td>běn</td>
-                    <td>:</td>
-                    <td>Jīn</td>
-                    <td>tiān</td>
-                    <td>xīng</td>
-                    <td>qī</td>
-                    <td>yī</td>
-                    <td>。</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                </tr>
-            </table>
+        <!-- 【文４】 李：便利店的客人多吗？ -->
+        <div class="sentence" data-audio="sound/3k-h2-029-10.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">山</td>
+                      <td class="chinese">本</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">便利店</td>
+                      <td class="chinese">的</td>
+                      <td class="chinese">客人</td>
+                      <td class="chinese">多</td>
+                      <td class="chinese">吗</td>
+                      <td class="chinese">？</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                      <td class="chinese">　</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Shān</td>
+                      <td>běn</td>
+                      <td>:</td>
+                      <td>biànlìdiàn</td>
+                      <td>de</td>
+                      <td>kèrén</td>
+                      <td>duō</td>
+                      <td>ma</td>
+                      <td>？</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                      <td>　</td>
+                  </tr>
+              </table>
+            </div>
             <div class="translation hidden">
-               山本:今日は月曜日です。
+                李  :便利店的客人多吗？
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/2k-h1-014-04.mp3" type="audio/mpeg">
+                    <source src="sound/3k-h2-029-10.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
+        <!-- 【文５】 山本：我从下午3点到晚上9点打工。 -->
+        <div class="sentence" data-audio="sound/3k-h1-028-05.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">山</td>
+                      <td class="chinese">本</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">我</td>
+                      <td class="chinese">从</td>
+                      <td class="chinese">下</td>
+                      <td class="chinese">午</td>
+                      <td class="chinese">3</td>
+                      <td class="chinese">点</td>
+                      <td class="chinese">到</td>
+                      <td class="chinese">晚</td>
+                      <td class="chinese">上</td>
+                      <td class="chinese">9</td>
+                      <td class="chinese">点</td>
+                      <td class="chinese">打</td>
+                      <td class="chinese">工</td>
+                      <td class="chinese">。</td>
+                      <td class="chinese">　</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Shān</td>
+                      <td>běn</td>
+                      <td>:</td>
+                      <td>wǒ</td>
+                      <td>cóng</td>
+                      <td>xià</td>
+                      <td>wǔ</td>
+                      <td>3</td>
+                      <td>diǎn</td>
+                      <td>dào</td>
+                      <td>wǎn</td>
+                      <td>shàng</td>
+                      <td>9</td>
+                      <td>diǎn</td>
+                      <td>dǎ</td>
+                      <td>gōng</td>
+                      <td>。</td>
+                      <td>　</td>
+                  </tr>
+              </table>
+            </div>
+            <div class="translation hidden">
+                山本:我从下午3点到晚上9点打工。
+            </div>
+            <div class="audio-player">
+                <audio controls>
+                    <source src="sound/3k-h1-028-05.mp3" type="audio/mpeg">
+                    オーディオがサポートされていません。
+                </audio>
+            </div>
+        </div>
+
+        <!-- 【文６】 李：从下午3点到晚上9点？辛苦！辛苦！ -->
+        <div class="sentence" data-audio="sound/3k-h1-028-06.mp3">
+            <div class="scrollable">
+              <table>
+                  <tr>
+                      <td class="chinese">李</td>
+                      <td class="chinese">:</td>
+                      <td class="chinese">从</td>
+                      <td class="chinese">下</td>
+                      <td class="chinese">午</td>
+                      <td class="chinese">3</td>
+                      <td class="chinese">点</td>
+                      <td class="chinese">到</td>
+                      <td class="chinese">晚</td>
+                      <td class="chinese">上</td>
+                      <td class="chinese">9</td>
+                      <td class="chinese">点</td>
+                      <td class="chinese">？</td>
+                      <td class="chinese">辛</td>
+                      <td class="chinese">苦</td>
+                      <td class="chinese">！</td>
+                      <td class="chinese">辛</td>
+                      <td class="chinese">苦</td>
+                      <td class="chinese">！</td>
+                  </tr>
+                  <tr class="pinyin hidden">
+                      <td>Shān</td>
+                      <td>běn</td>
+                      <td>:</td>
+                      <td>cóng</td>
+                      <td>xià</td>
+                      <td>wǔ</td>
+                      <td>3</td>
+                      <td>diǎn</td>
+                      <td>dào</td>
+                      <td>wǎn</td>
+                      <td>shàng</td>
+                      <td>9</td>
+                      <td>diǎn</td>
+                      <td>?</td>
+                      <td>xīn</td>
+                      <td>kǔ</td>
+                      <td>!</td>
+                      <td>xīn</td>
+                      <td>kǔ</td>
+                      <td>!</td>
+                  </tr>
+              </table>
+            </div>
+            <div class="translation hidden">
+                李  :从下午3点到晚上9点？辛苦！辛苦！
+            </div>
+            <div class="audio-player">
+                <audio controls>
+                    <source src="sound/3k-h1-028-06.mp3" type="audio/mpeg">
+                    オーディオがサポートされていません。
+                </audio>
+            </div>
+        </div>
     </div>
 
     <footer>© 楽しい中国語アプリ</footer>
@@ -479,15 +594,13 @@
         // 表示モードを切り替える関数
         function updateDisplayMode() {
             const mode = displayModeSelect.value;
-
             sentences.forEach(sentence => {
                 const pinyinRow = sentence.querySelector('.pinyin');
                 const translation = sentence.querySelector('.translation');
                 // まず全部隠す
                 pinyinRow.classList.add('hidden');
                 translation.classList.add('hidden');
-
-                // 選択された表示モードによって表示をコントロール
+                // 選択された表示モードによって表示
                 if (mode === 'chinesePinyin') {
                     pinyinRow.classList.remove('hidden');
                 } else if (mode === 'chineseTranslation') {
@@ -498,20 +611,15 @@
                 }
             });
         }
-
-        // 最初に表示モードを反映
         updateDisplayMode();
-        // セレクトボックス変更で反映
         displayModeSelect.addEventListener('change', updateDisplayMode);
 
         // クリックで個別再生
         let currentAudio = null;
         let activeSentence = null;
-
         sentences.forEach(sentence => {
             const audio = sentence.querySelector('audio');
             sentence.addEventListener('click', () => {
-                // 同じ文を連続クリックで停止→リセット
                 if (activeSentence === sentence) {
                     audio.pause();
                     audio.currentTime = 0;
@@ -519,18 +627,15 @@
                     activeSentence = null;
                     return;
                 }
-                // 他の再生中を強制停止
                 if (activeSentence) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                     activeSentence.classList.remove('active');
                 }
-                // 現在の文を再生
                 activeSentence = sentence;
                 currentAudio = audio;
                 sentence.classList.add('active');
                 audio.play();
-                // 再生終了後にリセット
                 audio.onended = () => {
                     sentence.classList.remove('active');
                     activeSentence = null;
@@ -538,22 +643,19 @@
             });
         });
 
-        // 順番に再生
+        // 順番再生
         let isPlaying = false;
         let currentAudioIndex = 0;
         let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
 
-        // 順番再生ボタン
         playButton.addEventListener('click', () => {
             if (isPlaying) {
-                // 再生中なら停止
                 audioElements.forEach(a => a.pause());
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
             } else {
-                // 最初から再生
                 isPlaying = true;
                 playButton.textContent = '一時停止';
                 currentAudioIndex = 0;
@@ -561,7 +663,6 @@
             }
         });
 
-        // 停止ボタン
         stopButton.addEventListener('click', () => {
             audioElements.forEach(a => {
                 a.pause();
@@ -573,21 +674,16 @@
             playButton.textContent = '順番に再生';
         });
 
-        // 次の音声を再生する関数
         function playNextAudio() {
             if (currentAudioIndex >= audioElements.length || !isPlaying) {
-                // 最後まで再生済or停止指示
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
                 return;
             }
             const audio = audioElements[currentAudioIndex];
             const sentence = sentences[currentAudioIndex];
-
-            // ハイライトを全消し→今回のみに付与
             sentences.forEach(s => s.classList.remove('active'));
             sentence.classList.add('active');
-
             audio.play();
             audio.onended = () => {
                 sentence.classList.remove('active');
