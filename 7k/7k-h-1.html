@@ -137,6 +137,11 @@
       max-width: 400px;
       margin: auto;
     }
+    /* 滚动容器样式 */
+    .scrollable {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
       header { font-size: 1.2rem; padding: 10px; }
@@ -185,49 +190,51 @@
       <button class="next-button" onclick="location.href='7k-h-2.html'">次の画面</button>
     </div>
 
-    <!-- 【文１】 李：今天我请客，你想吃什么? -->
+    <!-- 【文１】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-01.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">今</td>
-          <td class="chinese">天</td>
-          <td class="chinese">我</td>
-          <td class="chinese">请</td>
-          <td class="chinese">客</td>
-          <td class="chinese">，</td>
-          <td class="chinese">你</td>
-          <td class="chinese">想</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">什</td>
-          <td class="chinese">么</td>
-          <td class="chinese">?</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>jīn</td>
-          <td>tiān</td>
-          <td>wǒ</td>
-          <td>qǐng</td>
-          <td>kè</td>
-          <td>，</td>
-          <td>nǐ</td>
-          <td>xiǎng</td>
-          <td>chī</td>
-          <td>shén</td>
-          <td>me</td>
-          <td>?</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">今</td>
+            <td class="chinese">天</td>
+            <td class="chinese">我</td>
+            <td class="chinese">请</td>
+            <td class="chinese">客</td>
+            <td class="chinese">，</td>
+            <td class="chinese">你</td>
+            <td class="chinese">想</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">什</td>
+            <td class="chinese">么</td>
+            <td class="chinese">?</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>jīn</td>
+            <td>tiān</td>
+            <td>wǒ</td>
+            <td>qǐng</td>
+            <td>kè</td>
+            <td>，</td>
+            <td>nǐ</td>
+            <td>xiǎng</td>
+            <td>chī</td>
+            <td>shén</td>
+            <td>me</td>
+            <td>?</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-       李  :今日は私がおごります、何を食べたいですか。
+        李  :今日は私がおごります、何を食べたいですか。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -237,39 +244,41 @@
       </div>
     </div>
 
-    <!-- 【文２】 山本：我想吃担担面。 -->
+    <!-- 【文２】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-02.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">想</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">担</td>
-          <td class="chinese">担</td>
-          <td class="chinese">面</td>
-          <td class="chinese">。</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>xiǎng</td>
-          <td>chī</td>
-          <td>dān</td>
-          <td>dān</td>
-          <td>miàn</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">想</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">担</td>
+            <td class="chinese">担</td>
+            <td class="chinese">面</td>
+            <td class="chinese">。</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>xiǎng</td>
+            <td>chī</td>
+            <td>dān</td>
+            <td>dān</td>
+            <td>miàn</td>
+            <td>。</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         山本:担々麺を食べたいです。
       </div>
@@ -281,63 +290,65 @@
       </div>
     </div>
 
-    <!-- 【文３】 李：我不太喜欢吃担担面。你想不想吃小笼包？ -->
+    <!-- 【文３】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-03.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">不</td>
-          <td class="chinese">太</td>
-          <td class="chinese">喜</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">担</td>
-          <td class="chinese">担</td>
-          <td class="chinese">面</td>
-          <td class="chinese">。</td>
-          <td class="chinese">你</td>
-          <td class="chinese">想</td>
-          <td class="chinese">不</td>
-          <td class="chinese">想</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">小</td>
-          <td class="chinese">笼</td>
-          <td class="chinese">包</td>
-          <td class="chinese">？</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>bù</td>
-          <td>tài</td>
-          <td>xǐ</td>
-          <td>huan</td>
-          <td>chī</td>
-          <td>dān</td>
-          <td>dān</td>
-          <td>miàn</td>
-          <td>。</td>
-          <td>nǐ</td>
-          <td>xiǎng</td>
-          <td>bù</td>
-          <td>xiǎng</td>
-          <td>chī</td>
-          <td>xiǎo</td>
-          <td>lóng</td>
-          <td>bāo</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">不</td>
+            <td class="chinese">太</td>
+            <td class="chinese">喜</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">担</td>
+            <td class="chinese">担</td>
+            <td class="chinese">面</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">想</td>
+            <td class="chinese">不</td>
+            <td class="chinese">想</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">小</td>
+            <td class="chinese">笼</td>
+            <td class="chinese">包</td>
+            <td class="chinese">？</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>bù</td>
+            <td>tài</td>
+            <td>xǐ</td>
+            <td>huan</td>
+            <td>chī</td>
+            <td>dān</td>
+            <td>dān</td>
+            <td>miàn</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>xiǎng</td>
+            <td>bù</td>
+            <td>xiǎng</td>
+            <td>chī</td>
+            <td>xiǎo</td>
+            <td>lóng</td>
+            <td>bāo</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-       李  :私はあまり担々麺が好きではありません。小籠包を食べたいですか。
+        李  :私はあまり担々麺が好きではありません。小籠包を食べたいですか。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -347,59 +358,61 @@
       </div>
     </div>
 
-    <!-- 【文４】 山本：我想吃小笼包。我们去哪儿吃小笼包？ -->
+    <!-- 【文４】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-04.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">想</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">小</td>
-          <td class="chinese">笼</td>
-          <td class="chinese">包</td>
-          <td class="chinese">。</td>
-          <td class="chinese">我</td>
-          <td class="chinese">们</td>
-          <td class="chinese">去</td>
-          <td class="chinese">哪</td>
-          <td class="chinese">儿</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">小</td>
-          <td class="chinese">笼</td>
-          <td class="chinese">包</td>
-          <td class="chinese">？</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>xiǎng</td>
-          <td>chī</td>
-          <td>xiǎo</td>
-          <td>lóng</td>
-          <td>bāo</td>
-          <td>。</td>
-          <td>wǒ</td>
-          <td>men</td>
-          <td>qù</td>
-          <td>nǎ</td>
-          <td>r</td>
-          <td>chī</td>
-          <td>xiǎo</td>
-          <td>lóng</td>
-          <td>bāo</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">想</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">小</td>
+            <td class="chinese">笼</td>
+            <td class="chinese">包</td>
+            <td class="chinese">。</td>
+            <td class="chinese">我</td>
+            <td class="chinese">们</td>
+            <td class="chinese">去</td>
+            <td class="chinese">哪</td>
+            <td class="chinese">儿</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">小</td>
+            <td class="chinese">笼</td>
+            <td class="chinese">包</td>
+            <td class="chinese">？</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>xiǎng</td>
+            <td>chī</td>
+            <td>xiǎo</td>
+            <td>lóng</td>
+            <td>bāo</td>
+            <td>。</td>
+            <td>wǒ</td>
+            <td>men</td>
+            <td>qù</td>
+            <td>nǎ</td>
+            <td>r</td>
+            <td>chī</td>
+            <td>xiǎo</td>
+            <td>lóng</td>
+            <td>bāo</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         山本:小籠包を食べたいです。どこで小籠包を食べますか。
       </div>
@@ -411,65 +424,67 @@
       </div>
     </div>
 
-    <!-- 【文５】 李：车站附近有一家店，那家店的小笼包非常好吃。 -->
+    <!-- 【文５】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-05.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">车</td>
-          <td class="chinese">站</td>
-          <td class="chinese">附</td>
-          <td class="chinese">近</td>
-          <td class="chinese">有</td>
-          <td class="chinese">一</td>
-          <td class="chinese">家</td>
-          <td class="chinese">店</td>
-          <td class="chinese">，</td>
-          <td class="chinese">那</td>
-          <td class="chinese">家</td>
-          <td class="chinese">店</td>
-          <td class="chinese">的</td>
-          <td class="chinese">小</td>
-          <td class="chinese">笼</td>
-          <td class="chinese">包</td>
-          <td class="chinese">非</td>
-          <td class="chinese">常</td>
-          <td class="chinese">好</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">。</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>chē</td>
-          <td>zhàn</td>
-          <td>fù</td>
-          <td>jìn</td>
-          <td>yǒu</td>
-          <td>yī</td>
-          <td>jiā</td>
-          <td>diàn</td>
-          <td>，</td>
-          <td>nà</td>
-          <td>jiā</td>
-          <td>diàn</td>
-          <td>de</td>
-          <td>xiǎo</td>
-          <td>lóng</td>
-          <td>bāo</td>
-          <td>fēi</td>
-          <td>cháng</td>
-          <td>hǎo</td>
-          <td>chī</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">车</td>
+            <td class="chinese">站</td>
+            <td class="chinese">附</td>
+            <td class="chinese">近</td>
+            <td class="chinese">有</td>
+            <td class="chinese">一</td>
+            <td class="chinese">家</td>
+            <td class="chinese">店</td>
+            <td class="chinese">，</td>
+            <td class="chinese">那</td>
+            <td class="chinese">家</td>
+            <td class="chinese">店</td>
+            <td class="chinese">的</td>
+            <td class="chinese">小</td>
+            <td class="chinese">笼</td>
+            <td class="chinese">包</td>
+            <td class="chinese">非</td>
+            <td class="chinese">常</td>
+            <td class="chinese">好</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">。</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>chē</td>
+            <td>zhàn</td>
+            <td>fù</td>
+            <td>jìn</td>
+            <td>yǒu</td>
+            <td>yī</td>
+            <td>jiā</td>
+            <td>diàn</td>
+            <td>，</td>
+            <td>nà</td>
+            <td>jiā</td>
+            <td>diàn</td>
+            <td>de</td>
+            <td>xiǎo</td>
+            <td>lóng</td>
+            <td>bāo</td>
+            <td>fēi</td>
+            <td>cháng</td>
+            <td>hǎo</td>
+            <td>chī</td>
+            <td>。</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         李  :駅の近くに一軒の店があります。その店の小籠包はとても美味しいです。
       </div>
@@ -481,51 +496,53 @@
       </div>
     </div>
 
-    <!-- 【文６】 山本：好的，我们去那儿吃小笼包。 -->
+    <!-- 【文６】 -->
     <div class="sentence" data-audio="sound/7k-h1-056-06.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">好</td>
-          <td class="chinese">的</td>
-          <td class="chinese">，</td>
-          <td class="chinese">我</td>
-          <td class="chinese">们</td>
-          <td class="chinese">去</td>
-          <td class="chinese">那</td>
-          <td class="chinese">儿</td>
-          <td class="chinese">吃</td>
-          <td class="chinese">小</td>
-          <td class="chinese">笼</td>
-          <td class="chinese">包</td>
-          <td class="chinese">。</td>
-          <!-- パディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>hǎo</td>
-          <td>de</td>
-          <td>，</td>
-          <td>wǒ</td>
-          <td>men</td>
-          <td>qù</td>
-          <td>nà</td>
-          <td>r</td>
-          <td>chī</td>
-          <td>xiǎo</td>
-          <td>lóng</td>
-          <td>bāo</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">好</td>
+            <td class="chinese">的</td>
+            <td class="chinese">，</td>
+            <td class="chinese">我</td>
+            <td class="chinese">们</td>
+            <td class="chinese">去</td>
+            <td class="chinese">那</td>
+            <td class="chinese">儿</td>
+            <td class="chinese">吃</td>
+            <td class="chinese">小</td>
+            <td class="chinese">笼</td>
+            <td class="chinese">包</td>
+            <td class="chinese">。</td>
+            <!-- パディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>hǎo</td>
+            <td>de</td>
+            <td>，</td>
+            <td>wǒ</td>
+            <td>men</td>
+            <td>qù</td>
+            <td>nà</td>
+            <td>r</td>
+            <td>chī</td>
+            <td>xiǎo</td>
+            <td>lóng</td>
+            <td>bāo</td>
+            <td>。</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         山本:いいですね。そこで小籠包を食べます。
       </div>
