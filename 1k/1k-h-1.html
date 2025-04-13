@@ -131,17 +131,20 @@
             border-collapse: collapse;
             margin-top: 10px;
         }
+        /* テーブルセルのスタイル更新 */
         table td {
             text-align: left;
             padding: 5px;
             border: none;
-            font-size: calc(0.9em + 0.5vw);
-            max-width: 3ch;
+            /* clamp() を使用してフォントサイズをレスポンシブに */
+            font-size: clamp(0.85em, 2.2vw, 1.1em);
+            max-width: 3ch; /* デスクトップでの最大幅（必要に応じて調整） */
             overflow: hidden;
-            white-space: nowrap;
+            white-space: nowrap; /* デスクトップでは折り返さない */
+            vertical-align: top; /* セル内コンテンツの上揃え */
         }
         .chinese {
-            font-family: "SimHei", "Heiti", sans-serif;
+            font-family: "SimHei", "Heiti", sans-serif; /* 中国語フォント指定 */
             font-weight: bold;
             color: #003366;
         }
@@ -153,6 +156,9 @@
             font-weight: bold;
             color: #333;
             margin-top: 5px;
+            /* 日本語訳は常に折り返すように */
+            white-space: normal;
+            max-width: none; /* 日本語訳の最大幅制限を解除 */
         }
 
         footer {
@@ -208,10 +214,11 @@
                 margin-bottom: 20px;
                 padding: 10px;
             }
+            /* スマートフォンでのテーブルセルスタイル */
             table td {
-                font-size: 1em;
-                max-width: none;
-                white-space: normal;
+                /* font-size は clamp() で制御されるため、ここでは指定不要 */
+                max-width: none; /* スマホではセルの幅制限を解除 */
+                white-space: normal; /* スマホではテキストを折り返す */
             }
             footer {
                 font-size: 0.9em;
@@ -222,13 +229,11 @@
 </head>
 <body>
 
-    <!-- ヘッダー部分 -->
     <header>
         第１課 - 你好！我叫山本优子。
     </header>
 
     <div class="container">
-        <!-- 切り替え表示の部分 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -239,19 +244,14 @@
             </select>
         </div>
 
-        <!-- ボタンエリア -->
         <div style="text-align: center;">
-            <button class="prev-button" onclick="location.href='1k.html'">前の画面</button>
-            <button class="play-button" id="playButton">順番に再生</button>
+            <button class="prev-button" onclick="location.href='1k.html'">前の画面</button> <button class="play-button" id="playButton">順番に再生</button>
             <button class="stop-button" id="stopButton">停止</button>
-            <button class="next-button" onclick="location.href='1k-h-2.html'">次の画面</button>
-        </div>
+            <button class="next-button" onclick="location.href='1k-h-2.html'">次の画面</button> </div>
 
-        <!-- 【文１】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-01.mp3">
             <table>
                 <tr>
-                    <!-- 共計18セル：実際の内容は 9トークン、残りは空 -->
                     <td class="chinese">山</td>
                     <td class="chinese">本</td>
                     <td class="chinese">優</td>
@@ -260,16 +260,9 @@
                     <td class="chinese">你</td>
                     <td class="chinese">好</td>
                     <td class="chinese">！</td>
-                    <td class="chinese">！</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
+                    <td class="chinese"></td><td class="chinese"></td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Shān</td>
@@ -280,16 +273,9 @@
                     <td>Nǐ</td>
                     <td>hǎo</td>
                     <td>！</td>
-                    <td>！</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
+                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -297,35 +283,24 @@
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/1k-h1-001-01.mp3" type="audio/mpeg">
+                    <source src="sound/1k-h1-001-01.mp3" type="audio/mpeg" onerror="this.parentElement.innerHTML = 'オーディオファイルの読み込みに失敗しました。';">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文２】 李明（中国語＋ピンイン） → 日本語訳は「李明：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-02.mp3">
             <table>
                 <tr>
-                    <!-- 本文: "李明:你好！！" 共7トークン＋11空セル -->
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">：</td>
                     <td class="chinese">你</td>
                     <td class="chinese">好</td>
                     <td class="chinese">！</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Lǐ</td>
@@ -334,18 +309,9 @@
                     <td>Nǐ</td>
                     <td>hǎo</td>
                     <td>！</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
+                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td><td></td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -353,17 +319,15 @@
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/1k-h1-001-02.mp3" type="audio/mpeg">
+                    <source src="sound/1k-h1-001-02.mp3" type="audio/mpeg" onerror="this.parentElement.innerHTML = 'オーディオファイルの読み込みに失敗しました。';">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文３】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子:私は山本で、山本優子と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-03.mp3">
             <table>
                 <tr>
-                    <!-- 本文: "山本優子:我姓山本，叫山本優子．" 共16トークン＋2空セル -->
                     <td class="chinese">山</td>
                     <td class="chinese">本</td>
                     <td class="chinese">優</td>
@@ -380,8 +344,7 @@
                     <td class="chinese">優</td>
                     <td class="chinese">子</td>
                     <td class="chinese">。</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
+                    <td class="chinese"></td><td class="chinese"></td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Shān</td>
@@ -399,9 +362,7 @@
                     <td>běn</td>
                     <td>Yōu</td>
                     <td>zǐ</td>
-                    <td>．</td>
-                    <td>　</td>
-                    <td>　</td>
+                    <td>．</td> <td></td><td></td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -409,17 +370,15 @@
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/1k-h1-001-03.mp3" type="audio/mpeg">
+                    <source src="sound/1k-h1-001-03.mp3" type="audio/mpeg" onerror="this.parentElement.innerHTML = 'オーディオファイルの読み込みに失敗しました。';">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文４】 李明（中国語＋ピンイン） → 日本語訳は「李明:私は李で、李明と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-04.mp3">
             <table>
                 <tr>
-                    <!-- 本文: "李明:我姓李，叫李明．" 共11トークン＋7空セル -->
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">：</td>
@@ -431,13 +390,8 @@
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">。</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
-                    <td class="chinese">　</td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
+                    <td class="chinese"></td><td class="chinese"></td><td class="chinese"></td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Lǐ</td>
@@ -450,14 +404,8 @@
                     <td>jiào</td>
                     <td>Lǐ</td>
                     <td>Míng</td>
-                    <td>．</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
-                    <td>　</td>
+                    <td>．</td> <td></td><td></td><td></td><td></td>
+                    <td></td><td></td><td></td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -465,7 +413,7 @@
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/1k-h1-001-04.mp3" type="audio/mpeg">
+                    <source src="sound/1k-h1-001-04.mp3" type="audio/mpeg" onerror="this.parentElement.innerHTML = 'オーディオファイルの読み込みに失敗しました。';">
                     オーディオがサポートされていません。
                 </audio>
             </div>
@@ -488,17 +436,17 @@
                 const pinyinRow = sentence.querySelector('.pinyin');
                 const translation = sentence.querySelector('.translation');
                 // まず全部隠す
-                pinyinRow.classList.add('hidden');
-                translation.classList.add('hidden');
+                if (pinyinRow) pinyinRow.classList.add('hidden'); // 要素が存在するか確認
+                if (translation) translation.classList.add('hidden'); // 要素が存在するか確認
 
                 // 選択された表示モードによって表示をコントロール
-                if (mode === 'chinesePinyin') {
+                if (mode === 'chinesePinyin' && pinyinRow) {
                     pinyinRow.classList.remove('hidden');
-                } else if (mode === 'chineseTranslation') {
+                } else if (mode === 'chineseTranslation' && translation) {
                     translation.classList.remove('hidden');
                 } else if (mode === 'all') {
-                    pinyinRow.classList.remove('hidden');
-                    translation.classList.remove('hidden');
+                    if (pinyinRow) pinyinRow.classList.remove('hidden');
+                    if (translation) translation.classList.remove('hidden');
                 }
             });
         }
@@ -511,20 +459,36 @@
         // クリックで個別再生
         let currentAudio = null;
         let activeSentence = null;
+        let sequencePlayTimeout = null; // 順番再生中のタイムアウトID
 
         sentences.forEach(sentence => {
-            const audio = sentence.querySelector('audio');
-            sentence.addEventListener('click', () => {
+            const audioPlayerDiv = sentence.querySelector('.audio-player');
+            const audio = audioPlayerDiv ? audioPlayerDiv.querySelector('audio') : null; // audio要素を取得
+
+            if (!audio) {
+                console.warn('Audio element not found in sentence:', sentence);
+                return; // audio要素がなければ処理をスキップ
+            }
+
+            sentence.addEventListener('click', (event) => {
+                // ボタンやオーディオコントロール自体をクリックした場合は何もしない
+                if (event.target.tagName === 'BUTTON' || event.target.tagName === 'AUDIO' || event.target.closest('audio')) {
+                    return;
+                }
+                // 順番再生中なら停止
+                stopSequencePlay();
+
                 // 同じ文を連続クリックで停止→リセット
                 if (activeSentence === sentence) {
                     audio.pause();
                     audio.currentTime = 0;
                     sentence.classList.remove('active');
                     activeSentence = null;
+                    currentAudio = null;
                     return;
                 }
                 // 他の再生中を強制停止
-                if (activeSentence) {
+                if (activeSentence && currentAudio) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                     activeSentence.classList.remove('active');
@@ -533,72 +497,139 @@
                 activeSentence = sentence;
                 currentAudio = audio;
                 sentence.classList.add('active');
-                audio.play();
+                audio.play().catch(e => console.error("Audio play failed:", e)); // 再生エラー処理
+
                 // 再生終了後にリセット
                 audio.onended = () => {
                     sentence.classList.remove('active');
                     activeSentence = null;
+                    currentAudio = null;
+                };
+                // 再生エラー時にもリセット
+                audio.onerror = () => {
+                    console.error("Audio error for:", audio.src);
+                    sentence.classList.remove('active');
+                    activeSentence = null;
+                    currentAudio = null;
+                    // エラーメッセージを表示するなどの処理を追加可能
                 };
             });
         });
 
         // 順番に再生
-        let isPlaying = false;
+        let isPlayingSequence = false;
         let currentAudioIndex = 0;
-        let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
+        // audio要素が正しく取得できているか確認してから配列を作成
+        let audioElements = Array.from(sentences)
+                                 .map(s => s.querySelector('audio'))
+                                 .filter(a => a !== null); // nullを除外
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
 
         // 順番再生ボタン
         playButton.addEventListener('click', () => {
-            if (isPlaying) {
-                // 再生中なら停止
-                audioElements.forEach(a => a.pause());
-                isPlaying = false;
-                playButton.textContent = '順番に再生';
+            if (isPlayingSequence) {
+                // 再生中なら一時停止
+                if (currentAudio) {
+                    currentAudio.pause();
+                }
+                isPlayingSequence = false;
+                playButton.textContent = '続きから再生'; // ボタンのテキストを変更
+                if(sequencePlayTimeout) clearTimeout(sequencePlayTimeout); // タイムアウトをクリア
             } else {
-                // 最初から再生
-                isPlaying = true;
+                // 停止中または一時停止中なら再生（または再開）
+                isPlayingSequence = true;
                 playButton.textContent = '一時停止';
-                currentAudioIndex = 0;
+                // 他の個別再生を停止
+                if (activeSentence && currentAudio) {
+                    currentAudio.pause();
+                    currentAudio.currentTime = 0;
+                    activeSentence.classList.remove('active');
+                    activeSentence = null;
+                    currentAudio = null;
+                }
                 playNextAudio();
             }
         });
 
         // 停止ボタン
-        stopButton.addEventListener('click', () => {
+        stopButton.addEventListener('click', stopSequencePlay);
+
+        function stopSequencePlay() {
             audioElements.forEach(a => {
-                a.pause();
-                a.currentTime = 0;
+                if (a) { // 要素が存在するか確認
+                    a.pause();
+                    a.currentTime = 0;
+                }
             });
             sentences.forEach(s => s.classList.remove('active'));
-            isPlaying = false;
-            currentAudioIndex = 0;
+            isPlayingSequence = false;
+            currentAudioIndex = 0; // インデックスをリセット
             playButton.textContent = '順番に再生';
-        });
+            activeSentence = null; // アクティブな文もリセット
+            currentAudio = null; // 現在のオーディオもリセット
+            if(sequencePlayTimeout) clearTimeout(sequencePlayTimeout); // タイムアウトをクリア
+        }
+
 
         // 次の音声を再生する関数
         function playNextAudio() {
-            if (currentAudioIndex >= audioElements.length || !isPlaying) {
-                // 最後まで再生済or停止指示
-                isPlaying = false;
-                playButton.textContent = '順番に再生';
+            // 再生中でない、またはインデックスが範囲外なら終了
+            if (!isPlayingSequence || currentAudioIndex >= audioElements.length) {
+                stopSequencePlay(); // 完全に停止させる
                 return;
             }
-            const audio = audioElements[currentAudioIndex];
-            const sentence = sentences[currentAudioIndex];
 
-            // ハイライトを全消し→今回のみに付与
+            // 前のハイライトを消す（念のため）
             sentences.forEach(s => s.classList.remove('active'));
+
+            const audio = audioElements[currentAudioIndex];
+            const sentence = sentences[currentAudioIndex]; // sentences 配列を使用
+
+            if (!audio || !sentence) {
+                console.warn(`Audio or sentence element not found at index ${currentAudioIndex}. Skipping.`);
+                currentAudioIndex++;
+                // 少し待ってから次へ (連続エラーを防ぐため)
+                sequencePlayTimeout = setTimeout(playNextAudio, 100);
+                return;
+            }
+
+            // 現在の文とオーディオを設定
+            activeSentence = sentence;
+            currentAudio = audio;
+
+            // ハイライトを付与
             sentence.classList.add('active');
 
-            audio.play();
+            // 再生実行
+            audio.currentTime = 0; // 念のため最初から再生
+            audio.play().then(() => {
+                // 再生成功時の処理（特に不要なら空でも良い）
+            }).catch(e => {
+                console.error(`Audio play failed at index ${currentAudioIndex}:`, e);
+                // エラーが発生したらハイライトを消して次へ
+                sentence.classList.remove('active');
+                currentAudioIndex++;
+                sequencePlayTimeout = setTimeout(playNextAudio, 100); // 少し待って次へ
+            });
+
+            // 再生終了時の処理
             audio.onended = () => {
                 sentence.classList.remove('active');
                 currentAudioIndex++;
-                playNextAudio();
+                // 次の再生を少し遅らせる（任意）
+                sequencePlayTimeout = setTimeout(playNextAudio, 500); // 0.5秒待つ
+            };
+
+            // 再生エラー時の処理も設定
+             audio.onerror = () => {
+                console.error("Audio error during sequence play for:", audio.src);
+                sentence.classList.remove('active');
+                currentAudioIndex++;
+                sequencePlayTimeout = setTimeout(playNextAudio, 100); // エラー時も少し待って次へ
             };
         }
+
     </script>
 </body>
 </html>
