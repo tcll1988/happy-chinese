@@ -10,6 +10,7 @@
             font-size: clamp(12px, 2vw, 18px);
         }
 
+        /* ページ全体の配色をAS Universityロゴに合わせて濃い青をメインに */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
@@ -19,14 +20,16 @@
             line-height: 1.6;
         }
 
+        /* ヘッダは濃い青を背景色にし、文字色を白に */
         header {
-            background-color: #003366;
+            background-color: #003366; /* ASロゴの濃青イメージ */
             color: white;
             padding: 20px;
             text-align: center;
             font-size: calc(1.5em + 1vw);
         }
 
+        /* コンテナ */
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -36,6 +39,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
+        /* 表示モード切り替え部分 */
         .controls {
             margin-bottom: 20px;
             text-align: center;
@@ -51,6 +55,7 @@
             border-radius: 4px;
         }
 
+        /* ボタンの共通スタイル */
         button {
             display: inline-block;
             margin: 10px 5px;
@@ -63,13 +68,15 @@
             transition: background-color 0.3s ease;
         }
 
+        /* 前の画面ボタン */
         .prev-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* ロゴの赤をイメージ */
         }
         .prev-button:hover {
-            background-color: #990000;
+            background-color: #990000; /* 少し濃い赤 */
         }
 
+        /* 再生ボタン */
         .play-button {
             background-color: #003366;
         }
@@ -77,29 +84,32 @@
             background-color: #002244;
         }
 
+        /* 停止ボタン */
         .stop-button {
-            background-color: #FF6600;
+            background-color: #FF6600; /* ワンポイントのオレンジなどでもOK */
         }
         .stop-button:hover {
             background-color: #CC5200;
         }
 
+        /* 次の画面ボタン */
         .next-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* 赤 */
         }
         .next-button:hover {
             background-color: #990000;
         }
 
+        /* 例文部分 */
         .sentence {
             margin-bottom: 30px;
             padding: 15px;
-            border-left: 4px solid #003366;
+            border-left: 4px solid #003366; /* 濃青のライン */
             background-color: #f1f1f1;
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            overflow: hidden;
+            overflow: hidden; /* 防止内容溢出 */
         }
         .sentence:hover {
             transform: translateY(-5px);
@@ -111,29 +121,24 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
+        /* 非表示用 */
         .hidden {
             display: none;
         }
 
-        /* 表格样式调整：
-           1. 每个单元格内容居中（水平方向和垂直方向）
-           2. 单元格宽度自适应，字号与单元格大小呼应
-           3. 确保汉字与下面的拼音严格对应 */
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 10px;
         }
         table td {
-            text-align: center;       /* 单元格内容居中（水平方向） */
-            vertical-align: middle;   /* 垂直方向也居中 */
+            text-align: left;
             padding: 5px;
             border: none;
             font-size: calc(0.9em + 0.5vw);
-            max-width: none;          /* 自动调整宽度 */
-            overflow: visible;
-            white-space: normal;
-            word-break: break-all;
+            max-width: 3ch;
+            overflow: hidden;
+            white-space: nowrap;
         }
         .chinese {
             font-family: "SimHei", "Heiti", sans-serif;
@@ -148,7 +153,6 @@
             font-weight: bold;
             color: #333;
             margin-top: 5px;
-            text-align: center;
         }
 
         footer {
@@ -161,7 +165,7 @@
         .audio-player {
             margin-top: 20px;
             text-align: center;
-            display: none;
+            display: none; /* デフォルトは非表示 */
         }
         audio {
             width: 100%;
@@ -169,15 +173,17 @@
             margin: auto;
         }
 
+        /* ロゴ画像をヘッダー内で表示したい場合（任意） */
         .logo {
             max-width: 150px;
             float: left;
             margin-right: 10px;
         }
 
+        /* スマートフォン向けメディアクエリ */
         @media screen and (max-width: 600px) {
             header {
-                font-size: 1.2rem;
+                font-size: 1.2rem; /* ヘッダ文字の縮小 */
                 padding: 10px;
             }
             .container {
@@ -206,7 +212,6 @@
                 font-size: 1em;
                 max-width: none;
                 white-space: normal;
-                word-break: break-all;
             }
             footer {
                 font-size: 0.9em;
@@ -223,7 +228,7 @@
     </header>
 
     <div class="container">
-        <!-- 切换显示模式 -->
+        <!-- 切り替え表示の部分 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -234,7 +239,7 @@
             </select>
         </div>
 
-        <!-- 按钮区域 -->
+        <!-- ボタンエリア -->
         <div style="text-align: center;">
             <button class="prev-button" onclick="location.href='1k.html'">前の画面</button>
             <button class="play-button" id="playButton">順番に再生</button>
@@ -242,10 +247,11 @@
             <button class="next-button" onclick="location.href='1k-h-2.html'">次の画面</button>
         </div>
 
-        <!-- 文例1：山本優子（含拼音）→ 日语译文：山本優子：こんにちは！ -->
+        <!-- 【文１】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-01.mp3">
             <table>
                 <tr>
+                    <!-- 共計18セル：実際の内容は 9トークン、残りは空 -->
                     <td class="chinese">山</td>
                     <td class="chinese">本</td>
                     <td class="chinese">優</td>
@@ -255,15 +261,15 @@
                     <td class="chinese">好</td>
                     <td class="chinese">！</td>
                     <td class="chinese">！</td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Shān</td>
@@ -275,15 +281,15 @@
                     <td>hǎo</td>
                     <td>！</td>
                     <td>！</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -297,28 +303,29 @@
             </div>
         </div>
 
-        <!-- 文例2：李明（含拼音）→ 日语译文：李明：こんにちは！ -->
+        <!-- 【文２】 李明（中国語＋ピンイン） → 日本語訳は「李明：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-02.mp3">
             <table>
                 <tr>
+                    <!-- 本文: "李明:你好！！" 共7トークン＋11空セル -->
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">：</td>
                     <td class="chinese">你</td>
                     <td class="chinese">好</td>
                     <td class="chinese">！</td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Lǐ</td>
@@ -327,18 +334,18 @@
                     <td>Nǐ</td>
                     <td>hǎo</td>
                     <td>！</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -352,10 +359,11 @@
             </div>
         </div>
 
-        <!-- 文例3：山本優子（含拼音）→ 日语译文：山本優子:私は山本で、山本優子と言います。 -->
+        <!-- 【文３】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子:私は山本で、山本優子と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-03.mp3">
             <table>
                 <tr>
+                    <!-- 本文: "山本優子:我姓山本，叫山本優子．" 共16トークン＋2空セル -->
                     <td class="chinese">山</td>
                     <td class="chinese">本</td>
                     <td class="chinese">優</td>
@@ -372,8 +380,8 @@
                     <td class="chinese">優</td>
                     <td class="chinese">子</td>
                     <td class="chinese">。</td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Shān</td>
@@ -392,8 +400,8 @@
                     <td>Yōu</td>
                     <td>zǐ</td>
                     <td>．</td>
-                    <td></td>
-                    <td></td>
+                    <td>　</td>
+                    <td>　</td>
                 </tr>
             </table>
             <div class="translation hidden">
@@ -407,10 +415,11 @@
             </div>
         </div>
 
-        <!-- 文例4：李明（含拼音）→ 日语译文：李明:我是李，李明と言います。 -->
+        <!-- 【文４】 李明（中国語＋ピンイン） → 日本語訳は「李明:私は李で、李明と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-04.mp3">
             <table>
                 <tr>
+                    <!-- 本文: "李明:我姓李，叫李明．" 共11トークン＋7空セル -->
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">：</td>
@@ -422,13 +431,13 @@
                     <td class="chinese">李</td>
                     <td class="chinese">明</td>
                     <td class="chinese">。</td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
-                    <td class="chinese"></td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
+                    <td class="chinese">　</td>
                 </tr>
                 <tr class="pinyin hidden">
                     <td>Lǐ</td>
@@ -442,17 +451,17 @@
                     <td>Lǐ</td>
                     <td>Míng</td>
                     <td>．</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
+                    <td>　</td>
                 </tr>
             </table>
             <div class="translation hidden">
-                李明:我是李，李明と言います。
+                李明:私は李で、李明と言います。
             </div>
             <div class="audio-player">
                 <audio controls>
@@ -467,17 +476,22 @@
     <footer>© 楽しい中国語アプリ</footer>
 
     <script>
+        // すべてのsentence要素とselect要素を取得
         const sentences = document.querySelectorAll('.sentence');
         const displayModeSelect = document.getElementById('displayMode');
 
+        // 表示モードを切り替える関数
         function updateDisplayMode() {
             const mode = displayModeSelect.value;
+
             sentences.forEach(sentence => {
                 const pinyinRow = sentence.querySelector('.pinyin');
                 const translation = sentence.querySelector('.translation');
+                // まず全部隠す
                 pinyinRow.classList.add('hidden');
                 translation.classList.add('hidden');
 
+                // 選択された表示モードによって表示をコントロール
                 if (mode === 'chinesePinyin') {
                     pinyinRow.classList.remove('hidden');
                 } else if (mode === 'chineseTranslation') {
@@ -489,14 +503,19 @@
             });
         }
 
+        // 最初に表示モードを反映
         updateDisplayMode();
+        // セレクトボックス変更で反映
         displayModeSelect.addEventListener('change', updateDisplayMode);
 
+        // クリックで個別再生
         let currentAudio = null;
         let activeSentence = null;
+
         sentences.forEach(sentence => {
             const audio = sentence.querySelector('audio');
             sentence.addEventListener('click', () => {
+                // 同じ文を連続クリックで停止→リセット
                 if (activeSentence === sentence) {
                     audio.pause();
                     audio.currentTime = 0;
@@ -504,15 +523,18 @@
                     activeSentence = null;
                     return;
                 }
+                // 他の再生中を強制停止
                 if (activeSentence) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                     activeSentence.classList.remove('active');
                 }
+                // 現在の文を再生
                 activeSentence = sentence;
                 currentAudio = audio;
                 sentence.classList.add('active');
                 audio.play();
+                // 再生終了後にリセット
                 audio.onended = () => {
                     sentence.classList.remove('active');
                     activeSentence = null;
@@ -520,18 +542,22 @@
             });
         });
 
+        // 順番に再生
         let isPlaying = false;
         let currentAudioIndex = 0;
         let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
 
+        // 順番再生ボタン
         playButton.addEventListener('click', () => {
             if (isPlaying) {
+                // 再生中なら停止
                 audioElements.forEach(a => a.pause());
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
             } else {
+                // 最初から再生
                 isPlaying = true;
                 playButton.textContent = '一時停止';
                 currentAudioIndex = 0;
@@ -539,6 +565,7 @@
             }
         });
 
+        // 停止ボタン
         stopButton.addEventListener('click', () => {
             audioElements.forEach(a => {
                 a.pause();
@@ -550,16 +577,21 @@
             playButton.textContent = '順番に再生';
         });
 
+        // 次の音声を再生する関数
         function playNextAudio() {
             if (currentAudioIndex >= audioElements.length || !isPlaying) {
+                // 最後まで再生済or停止指示
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
                 return;
             }
             const audio = audioElements[currentAudioIndex];
             const sentence = sentences[currentAudioIndex];
+
+            // ハイライトを全消し→今回のみに付与
             sentences.forEach(s => s.classList.remove('active'));
             sentence.classList.add('active');
+
             audio.play();
             audio.onended = () => {
                 sentence.classList.remove('active');
