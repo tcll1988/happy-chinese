@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <!-- 设置视口，确保在手机上显示良好 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽しい中国語</title>
+  <!-- 引入 Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #003366;
+      --secondary-color: #0055aa;
+      --accent-color: #FF6600;
+      --accent-hover: #CC5200;
+      --bg-gradient-start: #e0eafc;
+      --bg-gradient-end: #cfdef3;
+      --container-bg: #ffffff;
+      --text-color: #333;
+    }
+    /* 字体大小自适应：最小14px，最大18px，中间按4vw自适应 */
+    html {
+      font-size: clamp(14px, 4vw, 18px);
+    }
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: #fff;
+      padding: 1em;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    header .logo {
+      max-width: 80px;
+      vertical-align: middle;
+      margin-right: 10px;
+    }
+    header h1 {
+      display: inline;
+      font-size: 2em;
+      vertical-align: middle;
+    }
+    .container {
+      max-width: 100%;
+      width: 90%;
+      margin: 2em auto;
+      padding: 1.5em;
+      background: var(--container-bg);
+      border-radius: 12px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+    /* “使い方”按钮样式 */
+    .nav-links {
+      margin-bottom: 1.5em;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-size: 1.2em;
+      color: var(--primary-color);
+      padding: 0.5em 1em;
+      border: 2px solid var(--primary-color);
+      border-radius: 8px;
+      transition: transform 0.2s ease, background 0.2s ease;
+      display: inline-block;
+    }
+    .nav-links a:hover {
+      transform: scale(1.05);
+      background: var(--primary-color);
+      color: #fff;
+    }
+    /* 课程按钮容器，竖列排列 */
+    .course-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 1em;
+      margin-bottom: 1.5em;
+    }
+    .course-btn {
+      text-decoration: none;
+      font-size: 1.2em;
+      color: white;
+      padding: 0.8em 1em;
+      border: none;
+      cursor: pointer;
+      display: block;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+    .course-btn:hover {
+      transform: scale(1.05);
+    }
+    /* 每个课程按钮尽量不同的样式 */
+    .course-btn1 {
+      background-color: #ff6666;
+      border-radius: 10px;
+    }
+    .course-btn2 {
+      background-color: #66cc66;
+      border-radius: 20px;
+    }
+    .course-btn3 {
+      background-color: #66ccff;
+      border-radius: 50px;
+    }
+    .course-btn4 {
+      background-color: #ffcc66;
+      border-radius: 0;
+    }
+    .course-btn5 {
+      background-color: #cc66ff;
+      border-radius: 15px;
+    }
+    .course-btn6 {
+      background-color: #66ffcc;
+      border-radius: 30px;
+    }
+    .course-btn7 {
+      background-color: #ff66cc;
+      border-radius: 5px;
+    }
+    /* 修改关闭按钮，尺寸较小 */
+    .close-btn {
+      font-size: 1.2em;
+      padding: 0.5em 1em;
+      background-color: var(--accent-color);
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .close-btn:hover {
+      background-color: var(--accent-hover);
+      transform: scale(1.05);
+    }
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.5em;
+      }
+      .nav-links a {
+        font-size: 1em;
+      }
+      .course-btn {
+        font-size: 1em;
+      }
+      .close-btn {
+        font-size: 1.1em;
+        padding: 0.5em 1em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="images/13.png" alt="Logo" class="logo">
+    <h1>楽しい中国語</h1>
+  </header>
+  <div class="container">
+    <!-- “使い方”按钮 -->
+    <div class="nav-links">
+      <a href="pinyin/pinyin.html">発音編</a>
+    </div>
+    <!-- 课程按钮竖列排列 -->
+    <div class="course-buttons">
+      <a class="course-btn course-btn1" href="1k/1k.html">第 １ 課</a>
+      <a class="course-btn course-btn2" href="2k/2k.html">第 ２ 課</a>
+      <a class="course-btn course-btn3" href="3k/3k.html">第 ３ 課</a>
+      <a class="course-btn course-btn4" href="4k/4k.html">第 ４ 課</a>
+      <a class="course-btn course-btn5" href="5k/5k.html">第 ５ 課</a>
+      <a class="course-btn course-btn6" href="6k/6k.html">第 ６ 課</a>
+      <a class="course-btn course-btn7" href="7k/7k.html">第 ７ 課</a>
+    </div>
+    <!-- 关闭按钮 -->
+    <button class="close-btn" onclick="window.close()">閉じる</button>
+  </div>
+</body>
+</html>

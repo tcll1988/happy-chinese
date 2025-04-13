@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ミニ練習 - 並び替え練習</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    h1 {
+      color: #333333;
+      margin-bottom: 20px;
+    }
+    .hint {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .scrambled-words {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .scrambled-words button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .scrambled-words button:hover {
+      background-color: #45a049;
+      transform: scale(1.1);
+    }
+    .scrambled-words button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+      transform: scale(1);
+    }
+    .answer-area {
+      min-height: 50px;
+      padding: 10px;
+      border: 2px dashed #ccc;
+      margin-bottom: 20px;
+      font-size: 18px;
+      background-color: #fafafa;
+      text-align: center;
+      animation: slideUp 0.5s ease-in-out;
+    }
+    .controls {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .controls button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      background-color: #008CBA;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s, background-color 0.2s;
+    }
+    .controls button:hover {
+      background-color: #007bb5;
+      transform: scale(1.1);
+    }
+    .result {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .correct {
+      color: green;
+    }
+    .incorrect {
+      color: red;
+    }
+    .encouragement {
+      font-size: 20px;
+      color: #4CAF50;
+      font-weight: bold;
+      margin-bottom: 20px;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .fireworks {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+    .firework {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background-color: #ff4d4d;
+      border-radius: 50%;
+      animation: explode 1s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes slideUp {
+      from {
+        transform: translateY(20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    @keyframes explode {
+      0% {
+        transform: scale(1);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(5);
+        opacity: 0;
+      }
+    }
+    @media (max-width: 600px) {
+      .scrambled-words button {
+        font-size: 14px;
+        padding: 8px 12px;
+      }
+      .answer-area {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ミニ練習 - 並び替え練習</h1>
+    <div class="exercise" id="currentExercise">
+      <!-- 日语提示 -->
+      <p class="hint" id="hint">「日本語の意味」に従って正しい順番に並べ替えましょう。</p>
+      <!-- 单词按钮 -->
+      <div class="scrambled-words" id="scrambledWords"></div>
+      <!-- 答案区域 -->
+      <div class="answer-area" id="answerArea"></div>
+      <!-- 操作按钮 -->
+      <div class="controls">
+        <button id="checkButton" onclick="checkAnswer()">確認</button>
+        <button id="nextButton" onclick="initExercise()" style="display: none;">次の問題へ</button>
+        <button id="resetButton" onclick="resetExercise()" style="display: none;">再一次</button>
+        <a id="returnButton" href="修改.html" style="display: none;">
+          <button>戻る</button>
+        </a>
+      </div>
+      <!-- 结果显示 -->
+      <div class="result" id="result"></div>
+      <!-- 鼓励语 -->
+      <div class="encouragement" id="encouragement"></div>
+      <!-- 烟花动画 -->
+      <div class="fireworks" id="fireworks"></div>
+    </div>
+  </div>
+  <script>
+    // 练习数据
+    const exercises = [
+      {
+        words: ["留学生", "李优", "是", "我", "叫", "，", "。"],
+        correctAnswer: "我是留学生，叫李优。",
+        hint: "正しい文は「私は留学生で、李優と言います。」"
+      },
+      {
+        words: ["我", "日文", "学习", "学习", "中文", "山本", "，", "。"],
+        correctAnswer: "我学习日文，山本学习中文。",
+        hint: "正しい文は「私は日本語を勉強し、山本さんは中国語を勉強します。」"
+      }
+    ];
+
+    let currentExerciseIndex = -1;
+    let selectedWords = [];
+    let completedExercises = [];
+
+    // 鼓励语列表
+    const encouragementMessages = [
+      "素晴らしい！次の問題に進みましょう！",
+      "よくできました！続けて頑張りましょう！",
+      "完璧です！次の挑戦に備えましょう！"
+    ];
+
+    // 随机生成烟花
+    function createFireworks() {
+      const fireworksContainer = document.getElementById('fireworks');
+      for (let i = 0; i < 20; i++) {
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.left = `${Math.random() * 100}%`;
+        firework.style.top = `${Math.random() * 100}%`;
+        firework.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+        fireworksContainer.appendChild(firework);
+      }
+      setTimeout(() => {
+        fireworksContainer.innerHTML = "";
+      }, 1000);
+    }
+
+    // 初始化练习
+    function initExercise() {
+      // 如果所有题目都已完成
+      if (completedExercises.length === exercises.length) {
+        document.getElementById('encouragement').textContent = "全問正解！おめでとうございます！🎉";
+        createFireworks();
+        document.getElementById('returnButton').style.display = "inline-block";
+        return;
+      }
+
+      // 随机选择一道未完成的题
+      do {
+        currentExerciseIndex = Math.floor(Math.random() * exercises.length);
+      } while (completedExercises.includes(currentExerciseIndex));
+
+      const exercise = exercises[currentExerciseIndex];
+
+      // 清空界面
+      document.getElementById('scrambledWords').innerHTML = "";
+      document.getElementById('answerArea').textContent = "";
+      document.getElementById('result').textContent = "";
+      document.getElementById('encouragement').textContent = "";
+      document.getElementById('checkButton').style.display = "inline-block";
+      document.getElementById('nextButton').style.display = "none";
+      document.getElementById('resetButton').style.display = "none";
+
+      // 显示问题和提示
+      document.getElementById('hint').textContent = exercise.hint;
+
+      // 打乱单词顺序并生成按钮
+      const shuffledWords = shuffleArray(exercise.words.slice());
+      shuffledWords.forEach(word => {
+        const btn = document.createElement('button');
+        btn.textContent = word;
+        btn.setAttribute('data-word', word);
+        btn.onclick = function() {
+          addWord(word, btn);
+        };
+        document.getElementById('scrambledWords').appendChild(btn);
+      });
+
+      selectedWords = [];
+    }
+
+    // 洗牌函数
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // 添加单词到答案区域
+    function addWord(word, btn) {
+      selectedWords.push(word);
+      document.getElementById('answerArea').textContent = selectedWords.join("");
+      btn.disabled = true;
+      btn.style.backgroundColor = "#aaa";
+    }
+
+    // 检查答案
+    function checkAnswer() {
+      const userAnswer = selectedWords.join("").replace(/[，。]/g, ""); // 忽略标点符号
+      const correctAnswer = exercises[currentExerciseIndex].correctAnswer.replace(/[，。]/g, "");
+
+      // 如果用户没有作答
+      if (userAnswer.trim() === "") {
+        document.getElementById('result').textContent = "まだ解答していません。まずは単語を選んでください！";
+        document.getElementById('result').classList.remove('correct');
+        document.getElementById('result').classList.add('incorrect');
+        return;
+      }
+
+      if (userAnswer === correctAnswer) {
+        // 显示随机鼓励语
+        const randomMessage = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+        document.getElementById('encouragement').textContent = randomMessage;
+
+        // 标记当前题目为已完成
+        completedExercises.push(currentExerciseIndex);
+
+        // 如果还有未完成的题目
+        if (completedExercises.length < exercises.length) {
+          document.getElementById('checkButton').style.display = "none";
+          document.getElementById('nextButton').style.display = "inline-block";
+        } else {
+          // 如果所有题目都已完成
+          document.getElementById('encouragement').textContent = "全問正解！おめでとうございます！🎉";
+          createFireworks();
+          document.getElementById('returnButton').style.display = "inline-block";
+        }
+      } else {
+        document.getElementById('result').textContent = `不正解です。正しい答えは「${exercises[currentExerciseIndex].correctAnswer}」です。`;
+        document.getElementById('result').classList.add('incorrect');
+        document.getElementById('checkButton').style.display = "none";
+        document.getElementById('resetButton').style.display = "inline-block";
+      }
+    }
+
+    // 重置练习
+    function resetExercise() {
+      initExercise();
+    }
+
+    // 页面加载时初始化
+    window.onload = function() {
+      initExercise();
+    };
+  </script>
+</body>
+</html>

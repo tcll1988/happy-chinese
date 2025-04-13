@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国語基本挨拶：「你好」と「再见」</title>
+  <style>
+    /* 全体のリセットと基本スタイル */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to right, #f5f7fa, #c3cfe2);
+      color: #333;
+    }
+    a { text-decoration: none; color: inherit; }
+
+    /* ヘッダー（トップナビゲーション） */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.95);
+      border-bottom: 1px solid #eee;
+      z-index: 1000;
+    }
+    header .nav-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 10px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      font-size: 1.5rem;
+      color: #3498db;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 15px;
+    }
+    nav li {
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    nav li:hover {
+      color: #2980b9;
+    }
+
+    /* メインコンテナ */
+    .container {
+      max-width: 800px;
+      margin: 80px auto 40px;
+      background-color: #fff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* セクションヘッダーと折りたたみコンテンツ */
+    .section-header {
+      background-color: #f1f1f1;
+      padding: 12px 15px;
+      cursor: pointer;
+      user-select: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 4px;
+      margin-bottom: 10px;
+    }
+    .section-header h2 {
+      font-size: 1.2rem;
+    }
+    .section-content {
+      padding: 0 15px 15px;
+      display: none;
+      animation: slideDown 0.3s ease-out forwards;
+    }
+    .section-content.open {
+      display: block;
+    }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* emoji アニメーション */
+    .emoji {
+      font-size: 1.5rem;
+      transition: transform 0.3s;
+    }
+    .emoji:hover { transform: rotate(360deg); }
+
+    /* ボタンのスタイル */
+    .btn {
+      padding: 12px 25px;
+      font-size: 1rem;
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.2s, transform 0.2s;
+    }
+    .btn:hover {
+      background-color: #2980b9;
+      transform: scale(1.05);
+    }
+
+    /* ページトップへ戻るボタン */
+    #toTopBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      z-index: 900;
+    }
+    #toTopBtn:hover {
+      background: #2980b9;
+    }
+
+    /* モーダル（インタラクティブクイズ） */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1500;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      background: #fff;
+      border-radius: 8px;
+      padding: 25px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      position: relative;
+      animation: modalIn 0.4s ease-out;
+    }
+    @keyframes modalIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* セクション間の区切り */
+    hr {
+      border: none;
+      border-top: 1px solid #eee;
+      margin: 20px 0;
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 600px) {
+      header .nav-container { flex-direction: column; gap: 10px; }
+      header h1 { font-size: 1.3rem; }
+      .container { margin: 100px 10px 40px; padding: 20px; }
+      .btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- トップナビゲーション -->
+  <header>
+    <div class="nav-container">
+      <h1>中国語入門</h1>
+      <nav>
+        <ul>
+          <li onclick="scrollToSection('section1')">「你好」</li>
+          <li onclick="scrollToSection('section2')">「再见」</li>
+          <li onclick="scrollToSection('section3')">練習のポイント</li>
+          <li onclick="scrollToSection('section4')">まとめ</li>
+          <li onclick="openModal()">インタラクティブクイズ</li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- メインコンテンツ -->
+  <div class="container">
+    <p>みなさん、こんにちは！<br>
+    今回は、中国語ゼロから始める日本人向けに、基本の挨拶「<strong>你好</strong>」と「<strong>再见</strong>」を、意味・使い方・発音のコツを交えながら、ユーモアたっぷりに解説します。シンプルな内容なので、安心してチャレンジしてみてくださいね！</p>
+    <hr>
+
+    <!-- セクション1：「你好」 -->
+    <div id="section1">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2>1. 「你好」～会話の始まりに使う魔法の言葉～ <span class="emoji" title="魔法の帽子">🎩</span></h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p><strong>意味：</strong><br>
+        「你好」は日本語の「こんにちは！」に相当し、誰に対しても使える万能な挨拶です。</p>
+        <p><strong>使い分け：</strong><br>
+          ・<strong>你 (nǐ)：</strong> カジュアルな場面や友達に使用。<br>
+          ・<strong>您 (nín)：</strong> 敬意を表す場合、例えば年上や初対面の相手に使用。
+        </p>
+        <p><strong>発音のポイント：</strong><br>
+          ・<strong>ピンイン表記：</strong> <em>nǐ hǎo</em><br>
+          ・<strong>「你 (nǐ)」：</strong> 第三声（声が一度下がり、その後上がる）。小さな坂を下るイメージで発音してみてください。<br>
+          ・<strong>「好 (hǎo)」：</strong> 同じく第三声。リズムに注意して発音しましょう。
+        </p>
+        <p><strong>ユーモアなヒント：</strong><br>
+          例えば、中国風カフェに初めて入った時、勇気を出して「你好！」と言えば、店主もにっこり笑ってくれるかもしれません！
+        </p>
+      </div>
+    </div>
+    <hr>
+
+    <!-- セクション2：「再见」 -->
+    <div id="section2">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2>2. 「再见」～別れの瞬間もスマートに締めくくる～ <span class="emoji" title="手を振る">👋</span></h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <p><strong>意味：</strong><br>
+          「再见」は日本語の「さようなら！」に相当しますが、「また会いましょう！」という前向きな意味も含まれています。</p>
+        <p><strong>使用シーン：</strong><br>
+          友達との別れや電話の終了時など、どんなシーンでも使える便利なフレーズです。</p>
+        <p><strong>発音のポイント：</strong><br>
+          ・<strong>ピンイン表記：</strong> <em>zài jiàn</em><br>
+          ・<strong>「再 (zài)」：</strong> 第四声（声を一気に下げる）。しっかりと命令口調で発音しましょう。<br>
+          ・<strong>「见 (jiàn)」：</strong> 同じく第四声。力強く、決定的に発音してください。
+        </p>
+        <p><strong>ユーモアなヒント：</strong><br>
+          例えば、賑やかなパーティーの終わりに大声で「再见！」と言えば、次に会う期待感が伝わり、別れも明るくなります！
+        </p>
+      </div>
+    </div>
+    <hr>
+
+    <!-- セクション3：練習のポイントとエール -->
+    <div id="section3">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2>練習のポイントとエール <span class="emoji" title="がんばれ！">💪</span></h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><strong>毎日の練習：</strong> 鏡の前で「你好！」と「再见！」を大きな声で練習しましょう。練習を積むことで自然に身につきます！</li>
+          <li><strong>リズムに注目：</strong> 「你好」は「声を一度下げてから上げる」、そして「再见」は「一気に強く下げる」リズムです。</li>
+          <li><strong>失敗を恐れない：</strong> 挑戦し、間違い、再挑戦する。すべての失敗が成長への一歩です！
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr>
+
+    <!-- セクション4：まとめ -->
+    <div id="section4">
+      <div class="section-header" onclick="toggleSection(this)">
+        <h2>まとめ <span class="emoji" title="輝く">✨</span></h2>
+        <span class="toggle-icon">▼</span>
+      </div>
+      <div class="section-content">
+        <ul>
+          <li><strong>「你好」</strong>：会話の始まりに使う魔法の一言。正しい発音とリズムで、あなたの元気を伝えましょう！</li>
+          <li><strong>「再见」</strong>：別れのシーンを前向きに締めくくるための言葉。しっかりとした発音で自信を持って使ってください！</li>
+        </ul>
+        <p>あなたの一歩一歩の努力が未来の大きな成長に繋がります。中国語の世界は広く、魅力にあふれています。笑顔を忘れず、学びを楽しんでください！</p>
+        <p>あなたなら必ずできる！頑張って！</p>
+      </div>
+    </div>
+
+    <!-- インタラクティブクイズのボタン -->
+    <div style="text-align: center; margin-top: 30px;">
+      <button class="btn" onclick="openModal()">インタラクティブクイズに挑戦</button>
+    </div>
+  </div>
+
+  <!-- ページトップへ戻るボタン -->
+  <button id="toTopBtn" title="ページトップへ">↑</button>
+
+  <!-- モーダル（インタラクティブクイズ） -->
+  <div class="modal" id="quizModal">
+    <div class="modal-content">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <h2>インタラクティブクイズ</h2>
+      <p>「你好」のピンインは何でしょうか？</p>
+      <p><em>ヒント：</em> それは <strong>nǐ hǎo</strong> です！</p>
+      <button class="btn" onclick="alert('正解です！これからも学習を楽しんでください！')">回答を送信</button>
+    </div>
+  </div>
+
+  <script>
+    // スムーズスクロール
+    function scrollToSection(id) {
+      const element = document.getElementById(id);
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+
+    // 折りたたみセクションの表示・非表示切替
+    function toggleSection(header) {
+      const content = header.nextElementSibling;
+      const icon = header.querySelector('.toggle-icon');
+      if (content.classList.contains('open')) {
+        content.classList.remove('open');
+        icon.textContent = "▼";
+      } else {
+        content.classList.add('open');
+        icon.textContent = "▲";
+      }
+    }
+
+    // モーダルの表示・非表示
+    function openModal() {
+      document.getElementById('quizModal').style.display = 'flex';
+    }
+    function closeModal() {
+      document.getElementById('quizModal').style.display = 'none';
+    }
+
+    // 空白部分クリックでモーダルを閉じる
+    window.addEventListener('click', function(e) {
+      const modal = document.getElementById('quizModal');
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // ページトップへ戻るボタンの表示制御
+    const toTopBtn = document.getElementById('toTopBtn');
+    window.addEventListener('scroll', function() {
+      if (window.scrollY > 300) {
+        toTopBtn.style.display = 'flex';
+      } else {
+        toTopBtn.style.display = 'none';
+      }
+    });
+    toTopBtn.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>

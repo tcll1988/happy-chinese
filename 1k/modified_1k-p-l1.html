@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ミニ練習（日本語の意味に従い、選択練習）</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    h1, h2 {
+      color: #333333;
+    }
+    .exercise {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      transition: opacity 0.5s ease-in-out;
+    }
+    .exercise p {
+      font-size: 18px;
+      line-height: 1.5;
+    }
+    select {
+      margin: 10px;
+      padding: 5px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 5px;
+      transition: border-color 0.3s ease-in-out;
+    }
+    select:focus {
+      border-color: #003366;
+      outline: none;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      border: none;
+      border-radius: 5px;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease-in-out, background-color 0.3s ease-in-out;
+    }
+    button:hover {
+      background-color: #45a049;
+      transform: scale(1.05);
+    }
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 0.5s ease-in-out;
+    }
+    .animation {
+      margin-top: 20px;
+      font-size: 24px;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    .back-button {
+      margin-top: 20px;
+      background-color: #003366;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>ミニ練習（日本語の意味に従い、選択練習）</h1>
+    
+    <!-- 练习区域 -->
+    <div class="exercise" id="exercise">
+      <h2 id="question-title">問題</h2>
+      <p id="question-text"></p>
+      
+      <!-- 确认按钮 -->
+      <button id="confirm-button" onclick="checkAnswer()">確認する</button>
+    </div>
+    
+    <!-- 结果反馈 -->
+    <div class="result" id="result"></div>
+    
+    <!-- 动画和返回按钮 -->
+    <div class="animation" id="animation" style="display: none;">🎉</div>
+    <button class="back-button" id="back-button" style="display: none;" onclick="location.href='替换.html'">戻る</button>
+  </div>
+
+  <audio id="correct-sound" src="https://www.soundjay.com/button/beep-07.mp3" preload="auto"></audio>
+  <audio id="wrong-sound" src="https://www.soundjay.com/button/beep-03.mp3" preload="auto"></audio>
+
+  <script>
+    // 题目数据
+    const questions = [
+      {
+        japanese: "私は李で、李優と言います。",
+        chinese: "我（　）李，（　）李优。",
+        options1: ["姓", "名", "好", "明"],
+        options2: ["叫", "姓", "好", "明"],
+        answers: ["姓", "叫"],
+      },
+      {
+        japanese: "私は山本明と言います。こんにちは！",
+        chinese: "我（　）山本明，你（　）！",
+        options1: ["叫", "姓", "好", "明"],
+        options2: ["好", "姓", "叫", "明"],
+        answers: ["叫", "好"],
+      },
+    ];
+
+    // 鼓励话语
+    const encouragementMessages = [
+      "素晴らしい！よくできました！",
+      "完璧です！次のステップに進みましょう！",
+      "すごい！あなたは天才ですね！",
+    ];
+
+    // 初始化变量
+    let currentQuestionIndex = -1;
+    let remainingQuestions = [...questions]; // 剩余题目
+
+    // 显示随机题目
+    function showRandomQuestion() {
+      if (remainingQuestions.length === 0) {
+        // 所有题目完成
+        document.getElementById('exercise').style.display = 'none';
+        document.getElementById('result').innerHTML = `<span style="color: green;">${getRandomEncouragementMessage()}</span>`;
+        document.getElementById('animation').style.display = 'block';
+        document.getElementById('back-button').style.display = 'inline-block';
+        return;
+      }
+
+      // 随机选择一道题
+      const randomIndex = Math.floor(Math.random() * remainingQuestions.length);
+      const question = remainingQuestions[randomIndex];
+      currentQuestionIndex = randomIndex;
+
+      // 更新界面
+      document.getElementById('question-title').innerText = "問題";
+
+      // 构建问题文本和下拉菜单
+      const questionText = question.chinese.replace("（　）", `（<select id="dropdown1">${createOptions(question.options1)}</select>）`)
+                                           .replace("（　）", `（<select id="dropdown2">${createOptions(question.options2)}</select>）`);
+      document.getElementById('question-text').innerHTML = questionText;
+
+      // 渐显效果
+      document.getElementById('exercise').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('exercise').style.opacity = 1;
+      }, 100);
+
+      // 清空结果
+      document.getElementById('result').innerText = '';
+      document.getElementById('result').style.opacity = 0;
+
+      // 显示确认按钮
+      document.getElementById('confirm-button').style.display = 'inline-block';
+    }
+
+    // 创建下拉菜单的选项，默认选项为空白
+    function createOptions(options) {
+      return `<option value="">-- 選択してください --</option>` + 
+             options.map(option => `<option value="${option}">${option}</option>`).join('');
+    }
+
+    // 检查答案
+    function checkAnswer() {
+      const dropdown1 = document.getElementById('dropdown1');
+      const dropdown2 = document.getElementById('dropdown2');
+      const selectedOption1 = dropdown1.value;
+      const selectedOption2 = dropdown2.value;
+
+      // 检查是否选择了空白选项
+      if (!selectedOption1 || !selectedOption2) {
+        document.getElementById('result').innerHTML = `
+          <span style="color: red;">すべての空を選んでください。</span>
+        `;
+        fadeInResult();
+        return;
+      }
+
+      const correctAnswers = remainingQuestions[currentQuestionIndex].answers;
+      const isCorrect1 = selectedOption1 === correctAnswers[0];
+      const isCorrect2 = selectedOption2 === correctAnswers[1];
+
+      // 显示反馈
+      if (isCorrect1 && isCorrect2) {
+        playSound('correct-sound');
+        document.getElementById('result').innerHTML = `
+          <span style="color: green;">正解です！次の問題に進みます。</span>
+        `;
+        fadeInResult();
+        setTimeout(() => {
+          remainingQuestions.splice(currentQuestionIndex, 1); // 移除当前题目
+          showRandomQuestion(); // 显示下一题
+        }, 1000);
+      } else {
+        playSound('wrong-sound');
+        document.getElementById('result').innerHTML = `
+          <span style="color: red;">不正解です。正しい答えは「${correctAnswers[0]}」と「${correctAnswers[1]}」です。</span>
+          <br><button onclick="retryQuestion()">もう一度挑戦する</button>
+        `;
+        fadeInResult();
+        // 隐藏确认按钮
+        document.getElementById('confirm-button').style.display = 'none';
+      }
+    }
+
+    // 再次尝试
+    function retryQuestion() {
+      // 清空结果
+      document.getElementById('result').innerText = '';
+
+      // 复位下拉菜单
+      const dropdown1 = document.getElementById('dropdown1');
+      const dropdown2 = document.getElementById('dropdown2');
+      dropdown1.value = '';
+      dropdown2.value = '';
+
+      // 显示确认按钮
+      document.getElementById('confirm-button').style.display = 'inline-block';
+
+      // 渐显效果
+      document.getElementById('exercise').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('exercise').style.opacity = 1;
+      }, 100);
+    }
+
+    // 获取随机鼓励话语
+    function getRandomEncouragementMessage() {
+      const randomIndex = Math.floor(Math.random() * encouragementMessages.length);
+      return encouragementMessages[randomIndex];
+    }
+
+    // 播放音效
+    function playSound(soundId) {
+      const sound = document.getElementById(soundId);
+      sound.currentTime = 0; // 重置音效
+      sound.play();
+    }
+
+    // 渐显结果
+    function fadeInResult() {
+      document.getElementById('result').style.opacity = 0;
+      setTimeout(() => {
+        document.getElementById('result').style.opacity = 1;
+      }, 100);
+    }
+
+    // 页面加载时显示第一道题
+    window.onload = function() {
+      showRandomQuestion();
+    };
+  </script>
+</body>
+</html>

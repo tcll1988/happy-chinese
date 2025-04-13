@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第1課　文法学習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        /* Custom styles */
+        body {
+            /* Japanese Serif Font Stack (MS Mincho first) */
+            font-family: 'MS Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Style for hidden sections */
+        .grammar-section.hidden {
+            display: none;
+            opacity: 0;
+        }
+        /* Style for visible sections with fade-in */
+        .grammar-section.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Style for clickable sentences */
+        .clickable-sentence {
+            cursor: pointer;
+            color: #2563eb; /* Blue color */
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+        .clickable-sentence:hover {
+            color: #1d4ed8; /* Darker blue on hover */
+        }
+        /* Basic button styling */
+        .quiz-button {
+            padding: 8px 16px;
+            border-radius: 8px;
+            background-color: #3b82f6; /* Blue button */
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: 500;
+            margin-top: 10px;
+            margin-right: 5px;
+            font-family: inherit; /* Inherit body font (Japanese Serif) */
+        }
+        .quiz-button:hover {
+            background-color: #2563eb;
+        }
+        .quiz-button:active {
+             transform: scale(0.98); /* Slight shrink on click */
+        }
+        .quiz-button-secondary {
+            background-color: #6b7280; /* Gray button */
+        }
+        .quiz-button-secondary:hover {
+            background-color: #4b5563;
+        }
+        /* Quiz input styling */
+        .quiz-input { /* Kept for potential future use, but not used in multiple-choice */
+            border: 1px solid #d1d5db;
+            padding: 6px 10px;
+            border-radius: 6px;
+            margin: 0 5px;
+            min-width: 80px;
+            font-family: inherit;
+        }
+        /* Ensure radio/checkbox labels inherit font */
+        label {
+             font-family: inherit;
+             line-height: 1.6; /* Improve spacing for radio buttons */
+             display: inline-block; /* Ensure label aligns with radio */
+             margin-left: 4px; /* Space between radio and label text */
+        }
+        /* Style radio buttons */
+        input[type="radio"] {
+             margin-right: 5px;
+             vertical-align: middle; /* Align radio button with text */
+        }
+        /* Feedback styling */
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            font-family: inherit; /* Ensure feedback uses Japanese Serif */
+        }
+        .feedback-correct {
+            background-color: #dcfce7; /* Light green */
+            color: #166534; /* Dark green */
+            border-color: #86efac;
+        }
+        .feedback-incorrect {
+            background-color: #fee2e2; /* Light red */
+            color: #991b1b; /* Dark red */
+            border-color: #fca5a5;
+        }
+        /* Add some animation to TOC items */
+        #table-of-contents ul li a {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            display: block; /* Make the whole area clickable */
+            padding: 12px 16px; /* Add padding */
+            margin-bottom: 8px; /* Add space between items */
+            background-color: #ffffff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+            font-family: inherit; /* Ensure TOC uses Japanese Serif */
+        }
+        #table-of-contents ul li a:hover {
+            transform: translateX(5px); /* Move slightly on hover */
+            background-color: #eff6ff; /* Light blue background on hover */
+        }
+        /* Container styling */
+        .container {
+            max-width: 800px; /* Limit width on larger screens */
+            margin: 20px auto; /* Center container */
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        /* Header styling */
+        h1, h2, h3 {
+            color: #1e3a8a; /* Dark blue header */
+            font-family: inherit; /* Ensure headers use Japanese Serif */
+        }
+        h2 {
+            border-bottom: 2px solid #93c5fd; /* Light blue underline */
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        /* Explanation box styling */
+        .explanation-box {
+            background-color: #e0f2fe; /* Very light blue */
+            border-left: 4px solid #3b82f6; /* Blue left border */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .explanation-box h3 {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        /* Example styling */
+        .example {
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #f9fafb; /* Very light gray */
+            border-radius: 6px;
+        }
+        .example p {
+            margin-bottom: 4px;
+        }
+        /* Chinese Text Font (SimSun first) */
+        .chinese-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            font-family: 'SimSun', 'Songti SC', 'Noto Serif SC', serif;
+        }
+        /* Pinyin Font (Inter Sans-serif) */
+        .pinyin-text {
+            color: #6b7280; /* Gray for Pinyin */
+            font-style: italic;
+            font-family: 'Inter', sans-serif;
+        }
+        /* Japanese Text Font (Inherits from body - Japanese Serif) */
+        .japanese-text {
+            color: #374151; /* Darker gray for Japanese */
+             /* font-family: inherit; /* Already inherited */
+        }
+        /* Quiz container styling */
+        .quiz-section {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f3f4f6; /* Light gray background */
+            border-radius: 8px;
+        }
+        .quiz-section h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1f2937; /* Dark gray */
+        }
+        .question-container { /* Container for the single question */
+             min-height: 140px; /* Adjust height to prevent layout jumps */
+             margin-bottom: 15px;
+        }
+        .question {
+             padding: 15px;
+             background-color: #ffffff;
+             border-radius: 6px;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        /* Style for question instructions */
+        .question-instruction {
+            font-size: 0.9em;
+            color: #4b5563; /* Slightly darker gray */
+            margin-bottom: 10px;
+            font-style: italic;
+            font-family: inherit; /* Ensure instructions use Japanese Serif */
+        }
+        /* Style for multiple choice options */
+        .choice-option {
+             margin-bottom: 8px; /* Space between options */
+        }
+        /* Success Animation */
+        .success-message {
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            animation: successPop 0.6s ease-out forwards;
+            transform-origin: center;
+            font-family: inherit; /* Ensure success message uses Japanese Serif */
+        }
+        .success-message.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        @keyframes successPop {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="container">
+
+        <button type="button" onclick="window.location.href='1k.html'" class="nav-button mb-6 mr-0 mt-0">&lt; 戻る</button>
+
+        
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center">第１課　文法学習</h1>
+
+        <div id="table-of-contents">
+            <h2 class="text-xl font-semibold mb-4">目次</h2>
+            <ul class="list-none p-0">
+                <li><a href="#" onclick="showSection('grammar-1'); return false;" class="text-blue-700 hover:text-blue-900">1. “你好”と“再见”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-2'); return false;" class="text-blue-700 hover:text-blue-900">2. “姓”と“叫”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-3'); return false;" class="text-blue-700 hover:text-blue-900">3. “是”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-4'); return false;" class="text-blue-700 hover:text-blue-900">4. 中国語の基本語順</a></li>
+            </ul>
+        </div>
+
+        <div id="grammar-content" class="mt-8">
+
+            <div id="grammar-1" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">1. “你好”と“再见”について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“你好”＝「こんにちは！」、“再见”＝「さようなら！」</p>
+                    <p><strong>注：</strong>“你好”と“再见”は非常によく使われる基本的な挨拶の言葉です。</p>
+                    <p><strong>補足：</strong>“您”（nín）は“你”の丁寧な言い方で、目上の人や初対面の人に対して使います。</p>
+                </div>
+
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+               <div class="example">
+                    <p class="chinese-text">
+                        A：<span class="clickable-sentence" data-audio="sound/1k-p-1-1.mp3">你（您）好！</span>
+                        
+                    </p>
+                    <p class="pinyin-text">A: Nǐ(Nín) hǎo! </p>
+                    <p class="japanese-text">A: こんにちは！ </p>
+                </div>   
+<div class="example">
+                    <p class="chinese-text">
+                       
+                        B：<span class="clickable-sentence" data-audio="sound/1k-p-1-2.mp3">你（您）好！</span>
+                    </p>
+                    <p class="pinyin-text">A: Nǐ(Nín) hǎo!</p>
+                    <p class="japanese-text"> B: こんにちは！</p>
+                </div>
+                 <div class="example">
+                    <p class="chinese-text">
+                        A：<span class="clickable-sentence" data-audio="sound/1k-p-1-3.mp3">再见！</span>
+                        
+                    </p>
+                    <p class="pinyin-text">A: Zàijiàn! </p>
+                    <p class="japanese-text">A: さようなら！ </p>
+                </div>
+<div class="example">
+                    <p class="chinese-text">
+                        
+                        B：<span class="clickable-sentence" data-audio="sound/1k-p-1-4.mp3">再见！</span>
+                    </p>
+                    <p class="pinyin-text">B: Zàijiàn!</p>
+                    <p class="japanese-text">B: さようなら！</p>
+                </div>
+
+
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-1" class="question-container"></div>
+                    <div id="feedback-1" class="feedback hidden"></div>
+                    <div id="success-animation-1" class="success-message hidden">素晴らしい！全問正解！🎉</div>
+                    <button id="submit-1" class="quiz-button" onclick="submitQuiz(1)">回答する</button>
+                    <button id="retry-1" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(1)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-2" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">2. “姓”と“叫”について</h2>
+                 <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“姓” (xìng) ＝ 日本語の「姓（せい）」、苗字のこと。“叫” (jiào) ＝ 「～という名前である」。</p>
+                    <p><strong>使い方：</strong>自己紹介などで名前を言う時に使います。</p>
+                    <ul>
+                        <li>苗字だけを言う場合：「主語 + 姓 + 苗字」 (例：我姓山本。)</li>
+                        <li>フルネームを言う場合：「主語 + 叫 + フルネーム」 (例：我叫山本优子。)</li>
+                        <li>「姓」と「叫」を組み合わせて使うこともできます：「主語 + 姓 + 苗字, 叫 + フルネーム」</li>
+                    </ul>
+                </div>
+
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                    <p class="chinese-text">A：<span class="clickable-sentence" data-audio="sound/1k-p-2-1.mp3">我姓山本，叫山本优子。</span></p>
+                    <p class="pinyin-text">A: Wǒ xìng Shānběn, jiào Shānběn Yōuzǐ.</p>
+                    <p class="japanese-text">A: 私は（姓は）山本で、（名前は）山本優子と言います。</p>
+                </div>
+                <div class="example">
+                     <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/1k-p-2-2.mp3">你好！我叫李明。</span></p>
+                     <p class="pinyin-text">B: Nǐhǎo! Wǒ jiào Lǐ Míng.</p>
+                     <p class="japanese-text">B: こんにちは！私は李明と言います。</p>
+                </div>
+
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-2" class="question-container"></div>
+                    <div id="feedback-2" class="feedback hidden"></div>
+                    <div id="success-animation-2" class="success-message hidden">よくできました！全問クリア！👍</div>
+                    <button id="submit-2" class="quiz-button" onclick="submitQuiz(2)">回答する</button>
+                    <button id="retry-2" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(2)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-3" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">3. “是”について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“是” (shì) ＝ 日本語の「～は～です/だ/である」にあたる、肯定の判断を表す動詞。</p>
+                    <p><strong>使い方：</strong></p>
+                    <ul>
+                        <li><strong>肯定文：</strong>主語 + 是 + 目的語。「～は～である。」</li>
+                        <li><strong>否定文：</strong>主語 + 不是 (bú shì) + 目的語。「～は～ではない。」 (“不”は後ろが四声の“是”なので二声の“bú”に変化します)</li>
+                        <li><strong>疑問文 (是不是)：</strong>主語 + 是不是 + 目的語？「～は～であるか。」</li>
+                        <li><strong>疑問文 (吗)：</strong>主語 + 是 + 目的語 + 吗 (ma)？「～は～であるか。」 (“吗”は文末に置いて疑問を表す助詞)</li>
+                    </ul>
+                     <p><strong>注：</strong>日本語の助詞「は」の位置に“是”を置くと考えると分かりやすい場合が多いです。</p>
+                </div>
+
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/1k-p-3-1.mp3">我是留学生。</span></p>
+                    <p class="pinyin-text">Wǒ shì liúxuéshēng.</p>
+                    <p class="japanese-text">私は留学生です。</p>
+                </div>
+                <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/1k-p-3-2.mp3">李明不是留学生。</span></p>
+                    <p class="pinyin-text">Lǐ Míng bú shì liúxuéshēng.</p>
+                    <p class="japanese-text">李明さんは留学生ではありません。</p>
+                </div>
+                <div class="example">
+                    <p class="chinese-text">
+                        <span class="clickable-sentence" data-audio="sound/1k-p-3-3.mp3">山本是不是大学生？</span> 
+                    </p>
+                    <p class="pinyin-text">Shānběn shì bú shì dàxuéshēng? </p>
+                    <p class="japanese-text">山本さんは大学生ですか。</p>
+                    
+                </div>
+<div class="example">
+                    <p class="chinese-text">
+                        <span class="clickable-sentence" data-audio="sound/1k-p-3-4.mp3">山本是大学生吗？</span> 
+                    </p>
+                    <p class="pinyin-text">Shānběn shì dàxuéshēng ma?</p>
+                    <p class="japanese-text">山本さんは大学生ですか。</p>
+                   
+                </div>
+
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                     <div id="question-container-3" class="question-container"></div>
+                    <div id="feedback-3" class="feedback hidden"></div>
+                    <div id="success-animation-3" class="success-message hidden">パーフェクト！お見事！💯</div>
+                    <button id="submit-3" class="quiz-button" onclick="submitQuiz(3)">回答する</button>
+                    <button id="retry-3" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(3)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-4" class="grammar-section hidden">
+                 <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">4. 中国語の基本語順</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p>中国語の基本的な語順は、英語と同じように **SVO (主語 + 述語 + 目的語)** が中心です。</p>
+                    <ul>
+                        <li><strong>肯定文：</strong>主語 + 述語(動詞) + 目的語。</li>
+                        <li><strong>否定文：</strong>主語 + 不 + 述語(動詞) + 目的語。 (否定の副詞“不”を動詞の前に置く)</li>
+                        <li><strong>疑問文 (反復疑問文)：</strong>主語 + 述語(動詞) + 不 + 述語(動詞) + 目的語？ (動詞を肯定形と否定形を繰り返す)</li>
+                        <li><strong>疑問文 (吗疑問文)：</strong>主語 + 述語(動詞) + 目的語 + 吗？ (文末に“吗”を置く)</li>
+                    </ul>
+                     <p><strong>注：</strong>日本語のように助詞を使って語順を自由に変えることはできません。</p>
+                </div>
+
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                 <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/1k-p-4-1.mp3">我学习日文。</span></p>
+                    <p class="pinyin-text">Wǒ xuéxí Rìwén.</p>
+                    <p class="japanese-text">私は日本語を勉強します。</p>
+                </div>
+                 <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/1k-p-4-2.mp3">优子不学习日文。</span></p>
+                    <p class="pinyin-text">Yōuzǐ bù xuéxí Rìwén.</p>
+                    <p class="japanese-text">優子さんは日本語を勉強しません。</p>
+                </div>
+                 <div class="example">
+                     <p class="chinese-text">
+                        <span class="clickable-sentence" data-audio="sound/1k-p-4-3.mp3">你学习不学习中文？</span> 
+                    </p>
+                    <p class="pinyin-text">Nǐ xuéxí bù xuéxí Zhōngwén?</p>
+                    <p class="japanese-text">あなたは中国語を勉強しますか。</p>
+                                    </div>
+
+   <div class="example">
+                     <p class="chinese-text">
+                        <span class="clickable-sentence" data-audio="sound/1k-p-4-4.mp3">你学习中文吗？</span> 
+                    </p>
+                    <p class="pinyin-text">Nǐ xuéxí Zhōngwén ma?</p>
+                    <p class="japanese-text">あなたは中国語を勉強しますか。</p>
+                    
+                </div>
+
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-4" class="question-container"></div>
+                    <div id="feedback-4" class="feedback hidden"></div>
+                    <div id="success-animation-4" class="success-message hidden">やったね！マスターした！✨</div>
+                    <button id="submit-4" class="quiz-button" onclick="submitQuiz(4)">回答する</button>
+                    <button id="retry-4" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(4)">もう一度挑戦</button>
+                </div>
+            </div>
+
+        </div>
+
+        <audio id="audio-player" style="display: none;"></audio>
+
+    </div>
+
+    <script>
+        // --- State Variables ---
+        let currentQuizState = {}; // Stores state for each quiz section
+
+        // --- Quiz Data (UPDATED TO MULTIPLE CHOICE) ---
+        const quizData = {
+            1: [ // “你好”と“再见”
+                { type: 'multiple-choice', question: 'A: (______)！ B: 你好！<br>括弧に適切な挨拶を入れてください：', options: ['你好', '再见', '您'], answer: '你好' },
+                { type: 'multiple-choice', question: 'A: 再见！ B: (______)！<br>括弧に適切な挨拶を入れてください：', options: ['再见', '你好', '您'], answer: '再见' },
+                { type: 'multiple-choice', question: '挨拶「こんにちは！」は中国語で？', options: ['你好', '再见', '好您'], answer: '你好' }, // 您好 is also correct but 你好 is the base
+                { type: 'multiple-choice', question: '挨拶「さようなら！」は中国語で？', options: ['再见', '你好', '您'], answer: '再见' },
+            ],
+            2: [ // “姓”と“叫”
+                { type: 'multiple-choice', question: '我 (______) 山本，叫山本优子。<br>括弧に適切な単語を入れてください：', options: ['姓', '叫', '是'], answer: '姓' },
+                { type: 'multiple-choice', question: '你好！我 (______) 李明。<br>括弧に適切な単語を入れてください：', options: ['叫', '姓', '是不'], answer: '叫' },
+                { type: 'multiple-choice', question: '「私は（名前は）李明と言います。」の正しい中国語は？', options: ['我叫李明', '我姓李明', '我是李明'], answer: '我叫李明' },
+                { type: 'multiple-choice', question: '「私は（姓は）山本です。」の正しい中国語は？', options: ['我姓山本', '我叫山本', '我是山本'], answer: '我姓山本' }
+            ],
+            3: [ // “是”
+                { type: 'multiple-choice', question: '我 (______) 留学生。<br>括弧に適切な単語を入れてください：', options: ['是', '是不', '吗'], answer: '是' },
+                { type: 'multiple-choice', question: '李明 (______) 留学生。<br>括弧に適切な単語を入れてください：', options: ['不是', '是不', '是不是'], answer: '不是' },
+                { type: 'multiple-choice', question: '「山本さんは大学生ですか。」正しい疑問文は？', options: ['山本是不是大学生？', '山本是大学生不？', '山本是吗大学生？'], answer: '山本是不是大学生？' },
+                { type: 'multiple-choice', question: '「私は留学生ではありません。」の正しい中国語は？', options: ['我不是留学生。', '我是不留学生。', '我不留学生。'], answer: '我不是留学生。' }
+            ],
+             4: [ // 基本語順
+                { type: 'multiple-choice', question: '我 (______) 日文。<br>括弧に適切な動詞を入れてください：', options: ['学习', '是', '叫'], answer: '学习' },
+                { type: 'multiple-choice', question: '优子 (______) 学习日文。<br>括弧に適切な否定詞を入れてください：', options: ['不', '不是', '吗'], answer: '不' },
+                 // Replaced scramble with meaning choice based on examples
+                { type: 'multiple-choice', question: '「私は日本語を勉強します。」の正しい中国語は？', options: ['我学习日文。', '优子不学习日文。', '你学习中文吗？'], answer: '我学习日文。' },
+                { type: 'multiple-choice', question: '「あなたは中国語を勉強しますか。」の正しい中国語は？', options: ['你学习中文吗？', '我学习日文。', '优子不学习日文。'], answer: '你学习中文吗？' } // Using the '吗' version from example
+            ]
+        };
+
+        // --- DOM Elements ---
+        const toc = document.getElementById('table-of-contents');
+        const grammarSections = document.querySelectorAll('.grammar-section');
+        const audioPlayer = document.getElementById('audio-player');
+
+        // --- Functions ---
+
+        // Function to show a specific section and hide others
+        function showSection(sectionId) {
+            if (sectionId !== 'table-of-contents') {
+                toc.style.display = 'none';
+            } else {
+                 toc.style.display = 'block';
+            }
+
+            grammarSections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.remove('hidden');
+                    section.classList.add('visible');
+                    const grammarIndex = parseInt(sectionId.split('-')[1]);
+                    if (!isNaN(grammarIndex) && grammarIndex > 0) {
+                         loadQuiz(grammarIndex); // Load quiz when section becomes visible
+                    }
+                } else {
+                    section.classList.add('hidden');
+                    section.classList.remove('visible');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to play audio
+        function playAudio(audioSrc) {
+            if (!audioSrc) return;
+            audioPlayer.src = audioSrc;
+            audioPlayer.play().catch(error => {
+                console.error("音声ファイルの再生に失敗しました:", error);
+                alert(`音声ファイル (${audioSrc}) が見つからないか、再生できませんでした。`);
+            });
+        }
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to load/reset a quiz section
+        function loadQuiz(grammarIndex) {
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            const submitButton = document.getElementById(`submit-${grammarIndex}`);
+            const retryButton = document.getElementById(`retry-${grammarIndex}`);
+            const successAnimation = document.getElementById(`success-animation-${grammarIndex}`);
+
+            if (!quizData[grammarIndex]) return;
+
+            // Get all questions, shuffle, and select 2
+            const allQuestions = shuffleArray([...quizData[grammarIndex]]);
+            const selectedQuestions = allQuestions.slice(0, 2);
+
+            // Initialize state for this quiz section
+            currentQuizState[grammarIndex] = {
+                questions: selectedQuestions,
+                correctAnswers: selectedQuestions.map(q => q.answer),
+                currentQuestionIndex: 0, // Start with the first question
+                totalQuestions: selectedQuestions.length,
+                completed: false
+            };
+
+            // Hide feedback, success message, and retry button; show submit button
+            feedbackContainer.innerHTML = '';
+            feedbackContainer.classList.add('hidden');
+            successAnimation.classList.add('hidden'); // Hide success animation
+            submitButton.classList.remove('hidden');
+            retryButton.classList.add('hidden');
+
+            // Display the first question
+            displayQuestion(grammarIndex, 0);
+        }
+
+        // Function to display a specific question (Now only handles multiple-choice)
+        function displayQuestion(grammarIndex, questionIndex) {
+            const questionContainer = document.getElementById(`question-container-${grammarIndex}`);
+            const state = currentQuizState[grammarIndex];
+
+            if (!questionContainer || !state || questionIndex >= state.totalQuestions) {
+                console.error("Error displaying question for index:", grammarIndex, questionIndex);
+                return;
+            }
+
+            const q = state.questions[questionIndex];
+            // Ensure the question is multiple-choice type
+            if (q.type !== 'multiple-choice') {
+                 console.error("Error: Question type is not multiple-choice.", q);
+                 questionContainer.innerHTML = '<p class="text-red-600">エラー：問題形式が正しくありません。</p>';
+                 return;
+            }
+
+            let quizHtml = `<div class="question">`;
+            quizHtml += `<p class="font-medium mb-1">質問 ${questionIndex + 1} / ${state.totalQuestions}:</p>`;
+
+            // Instruction text for multiple choice
+            const instructionText = '正しい選択肢を選んでください。';
+            quizHtml += `<p class="question-instruction">${instructionText}</p>`;
+
+            // Display the question prompt
+            quizHtml += `<p class="mb-3">${q.question}</p>`; // Use mb-3 for spacing before options
+
+            // Display options (shuffled)
+            const shuffledOptions = shuffleArray([...q.options]);
+            shuffledOptions.forEach((option, optionIndex) => {
+                // Apply Chinese font to options if they contain Chinese characters
+                const isChineseOption = /[\u4e00-\u9faf]/.test(option); // Basic check for CJK characters
+                const optionClass = isChineseOption ? 'chinese-text' : '';
+                quizHtml += `<div class="choice-option ml-2">
+                                <input type="radio" id="q-${grammarIndex}-${questionIndex}-${optionIndex}" name="q-${grammarIndex}-${questionIndex}" value="${option}" data-question-index="${questionIndex}">
+                                <label for="q-${grammarIndex}-${questionIndex}-${optionIndex}" class="${optionClass}">${option}</label>
+                             </div>`;
+            });
+
+            quizHtml += `</div>`; // Close question div
+            questionContainer.innerHTML = quizHtml;
+
+            // Clear feedback when displaying a new question
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            feedbackContainer.innerHTML = '';
+            feedbackContainer.classList.add('hidden');
+        }
+
+
+        // Function to submit the answer for the current question
+        function submitQuiz(grammarIndex) {
+            const state = currentQuizState[grammarIndex];
+            if (!state || state.completed) return; // Don't process if already completed
+
+            const currentQuestionIndex = state.currentQuestionIndex;
+            const q = state.questions[currentQuestionIndex];
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            const submitButton = document.getElementById(`submit-${grammarIndex}`);
+            const retryButton = document.getElementById(`retry-${grammarIndex}`);
+            const successAnimation = document.getElementById(`success-animation-${grammarIndex}`);
+
+            // Get user's answer (Only multiple choice now)
+            const checkedRadio = document.querySelector(`input[name="q-${grammarIndex}-${currentQuestionIndex}"]:checked`);
+            const userAnswer = checkedRadio ? checkedRadio.value : '';
+
+
+             // Check if an answer was provided
+            if (!userAnswer) {
+                 feedbackContainer.innerHTML = `<span class="font-semibold">選択肢を選んでください。</span>`;
+                 feedbackContainer.classList.remove('hidden', 'feedback-correct');
+                 feedbackContainer.classList.add('feedback-incorrect');
+                 return; // Stop processing if no choice made
+            }
+
+            // Check answer (case-insensitive comparison just in case, though less relevant for MC)
+            const isCorrect = userAnswer.toLowerCase() === q.answer.toLowerCase();
+
+            // Provide feedback
+            feedbackContainer.classList.remove('hidden', 'feedback-correct', 'feedback-incorrect');
+            if (isCorrect) {
+                feedbackContainer.innerHTML = `<span class="font-semibold">正解！</span> 👍`;
+                feedbackContainer.classList.add('feedback-correct');
+
+                // Move to the next question or finish
+                state.currentQuestionIndex++;
+                if (state.currentQuestionIndex < state.totalQuestions) {
+                     // Display next question after a short delay
+                     setTimeout(() => {
+                        displayQuestion(grammarIndex, state.currentQuestionIndex);
+                        feedbackContainer.classList.add('hidden'); // Hide feedback for next question
+                     }, 1000); // 1 second delay
+                } else {
+                    // All questions answered correctly
+                    state.completed = true;
+                    feedbackContainer.innerHTML = ''; // Clear last correct feedback
+                    feedbackContainer.classList.add('hidden');
+                    successAnimation.classList.remove('hidden'); // Show success animation
+                    submitButton.classList.add('hidden'); // Hide submit button
+                    retryButton.classList.remove('hidden'); // Show retry button
+                }
+            } else {
+                // Incorrect answer
+                 // Apply Chinese font to correct answer if needed
+                const correctAnswerClass = /[\u4e00-\u9faf]/.test(q.answer) ? 'chinese-text' : '';
+                feedbackContainer.innerHTML = `<span class="font-semibold">不正解...</span> 正解は: <strong class="${correctAnswerClass}">${q.answer}</strong><br>もう一度選択して「回答する」を押してください。`;
+                feedbackContainer.classList.add('feedback-incorrect');
+                // Keep the same question displayed, user can try again by clicking submit
+            }
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('clickable-sentence')) {
+                const audioSrc = event.target.getAttribute('data-audio');
+                playAudio(audioSrc);
+            }
+        });
+
+        // --- Initial Setup ---
+        document.addEventListener('DOMContentLoaded', () => {
+           showSection('table-of-contents');
+        });
+
+    </script>
+
+</body>
+</html>
+```

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ミニ練習（選択式ゲーム）</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            color: #333333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .answer {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .answer span {
+            display: inline-block;
+            min-width: 50px;
+            text-align: center;
+            border-bottom: 2px dashed #4CAF50;
+            margin: 0 5px;
+        }
+        .options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+        .option {
+            padding: 10px 15px;
+            background-color: #e0e0e0;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+        }
+        .option:hover {
+            background-color: #d0d0d0;
+        }
+        .option.selected {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        .option.correct {
+            background-color: #4CAF50;
+            color: white;
+            border-color: #4CAF50;
+        }
+        .option.incorrect {
+            background-color: #FF5722;
+            color: white;
+            border-color: #FF5722;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        @media (max-width: 600px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>ミニ練習（選択式ゲーム）</h1>
+    <div class="container">
+        <div class="question">
+            <p>私は李で、李優と言います。</p>
+            <div class="answer">
+                我（<span id="q1_1"></span>）李，（<span id="q1_2"></span>）李优。
+            </div>
+            <div class="options" id="options1_1">
+                <div class="option" data-target="q1_1" data-value="姓">姓</div>
+                <div class="option" data-target="q1_1" data-value="名">名</div>
+            </div>
+            <div class="options" id="options1_2">
+                <div class="option" data-target="q1_2" data-value="叫">叫</div>
+                <div class="option" data-target="q1_2" data-value="是">是</div>
+            </div>
+        </div>
+        <div class="question">
+            <p>私は山本明と言います。こんにちは！</p>
+            <div class="answer">
+                我（<span id="q2_1"></span>）山本明，你（<span id="q2_2"></span>）！
+            </div>
+            <div class="options" id="options2_1">
+                <div class="option" data-target="q2_1" data-value="叫">叫</div>
+                <div class="option" data-target="q2_1" data-value="是">是</div>
+            </div>
+            <div class="options" id="options2_2">
+                <div class="option" data-target="q2_2" data-value="好">好</div>
+                <div class="option" data-target="q2_2" data-value="棒">棒</div>
+            </div>
+        </div>
+        <button onclick="checkAnswers()">答えを確認</button>
+    </div>
+
+    <script>
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function () {
+                const targetId = this.getAttribute('data-target');
+                const value = this.getAttribute('data-value');
+
+                // Remove selected class from all options in the same group
+                document.querySelectorAll(`[data-target="${targetId}"]`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+
+                // Add selected class to the clicked option
+                this.classList.add('selected');
+
+                // Update the answer span
+                document.getElementById(targetId).textContent = value;
+            });
+        });
+
+        function checkAnswers() {
+            const answers = [
+                { id: "q1_1", correct: "姓" },
+                { id: "q1_2", correct: "叫" },
+                { id: "q2_1", correct: "叫" },
+                { id: "q2_2", correct: "好" }
+            ];
+
+            let allCorrect = true;
+
+            answers.forEach(answer => {
+                const selectedOption = document.querySelector(`[data-target="${answer.id}"].selected`);
+                if (selectedOption && selectedOption.getAttribute('data-value') === answer.correct) {
+                    selectedOption.classList.add('correct');
+                    selectedOption.classList.remove('incorrect');
+                } else {
+                    allCorrect = false;
+                    document.querySelectorAll(`[data-target="${answer.id}"]`).forEach(opt => {
+                        if (opt.getAttribute('data-value') === answer.correct) {
+                            opt.classList.add('correct');
+                        } else {
+                            opt.classList.add('incorrect');
+                        }
+                    });
+                }
+            });
+
+            if (allCorrect) {
+                alert("おめでとうございます！すべて正解です！");
+            } else {
+                alert("不正解の部分があります。正しい答えを確認してください！");
+            }
+        }
+    </script>
+</body>
+</html>
