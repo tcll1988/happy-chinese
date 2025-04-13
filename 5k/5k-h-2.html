@@ -137,6 +137,11 @@
       max-width: 400px;
       margin: auto;
     }
+    /* 新增：滚动容器，超出部分可横向滚动 */
+    .scrollable {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
       header { font-size: 1.2rem; padding: 10px; }
@@ -187,64 +192,66 @@
 
     <!-- 【文１】 李：这是谁的照片？是你男朋友的照片吗？ -->
     <div class="sentence" data-audio="sound/5k-h2-045-07.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">这</td>
-          <td class="chinese">是</td>
-          <td class="chinese">谁</td>
-          <td class="chinese">的</td>
-          <td class="chinese">照</td>
-          <td class="chinese">片</td>
-          <td class="chinese">？</td>
-          <td class="chinese">是</td>
-          <td class="chinese">你</td>
-          <td class="chinese">男</td>
-          <td class="chinese">朋</td>
-          <td class="chinese">友</td>
-          <td class="chinese">的</td>
-          <td class="chinese">照</td>
-          <td class="chinese">片</td>
-          <td class="chinese">吗</td>
-          <td class="chinese">？</td>
-          <!-- パディング (5セル) -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>zhè</td>
-          <td>shì</td>
-          <td>shéi</td>
-          <td>de</td>
-          <td>zhào</td>
-          <td>piàn</td>
-          <td>?</td>
-          <td>shì</td>
-          <td>nǐ</td>
-          <td>nán</td>
-          <td>péng</td>
-          <td>yǒu</td>
-          <td>de</td>
-          <td>zhào</td>
-          <td>piàn</td>
-          <td>ma</td>
-          <td>?</td>
-          <!-- パディング (5セル) -->
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">这</td>
+            <td class="chinese">是</td>
+            <td class="chinese">谁</td>
+            <td class="chinese">的</td>
+            <td class="chinese">照</td>
+            <td class="chinese">片</td>
+            <td class="chinese">？</td>
+            <td class="chinese">是</td>
+            <td class="chinese">你</td>
+            <td class="chinese">男</td>
+            <td class="chinese">朋</td>
+            <td class="chinese">友</td>
+            <td class="chinese">的</td>
+            <td class="chinese">照</td>
+            <td class="chinese">片</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+            <!-- パディング (5セル) -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>zhè</td>
+            <td>shì</td>
+            <td>shéi</td>
+            <td>de</td>
+            <td>zhào</td>
+            <td>piàn</td>
+            <td>?</td>
+            <td>shì</td>
+            <td>nǐ</td>
+            <td>nán</td>
+            <td>péng</td>
+            <td>yǒu</td>
+            <td>de</td>
+            <td>zhào</td>
+            <td>piàn</td>
+            <td>ma</td>
+            <td>?</td>
+            <!-- パディング (5セル) -->
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :これは誰の写真ですか。（これは）あなたの彼氏の写真ですか。
+        李  :这是谁的照片？是你男朋友的照片吗？
       </div>
       <div class="audio-player">
         <audio controls>
@@ -256,62 +263,64 @@
 
     <!-- 【文２】 山本：不是，这是我哥哥的照片。他在大学工作。 -->
     <div class="sentence" data-audio="sound/5k-h2-045-08.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">不</td>
-          <td class="chinese">是</td>
-          <td class="chinese">，</td>
-          <td class="chinese">这</td>
-          <td class="chinese">是</td>
-          <td class="chinese">我</td>
-          <td class="chinese">哥</td>
-          <td class="chinese">哥</td>
-          <td class="chinese">的</td>
-          <td class="chinese">照</td>
-          <td class="chinese">片</td>
-          <td class="chinese">。</td>
-          <td class="chinese">他</td>
-          <td class="chinese">在</td>
-          <td class="chinese">大</td>
-          <td class="chinese">学</td>
-          <td class="chinese">工</td>
-          <td class="chinese">作</td>
-          <td class="chinese">。</td>
-          <!-- パディング (1セル) -->
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>bù</td>
-          <td>shì</td>
-          <td>，</td>
-          <td>zhè</td>
-          <td>shì</td>
-          <td>wǒ</td>
-          <td>gē</td>
-          <td>gē</td>
-          <td>de</td>
-          <td>zhào</td>
-          <td>piàn</td>
-          <td>。</td>
-          <td>tā</td>
-          <td>zài</td>
-          <td>dà</td>
-          <td>xué</td>
-          <td>gōng</td>
-          <td>zuò</td>
-          <td>。</td>
-          <!-- パディング (1セル) -->
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">不</td>
+            <td class="chinese">是</td>
+            <td class="chinese">，</td>
+            <td class="chinese">这</td>
+            <td class="chinese">是</td>
+            <td class="chinese">我</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">的</td>
+            <td class="chinese">照</td>
+            <td class="chinese">片</td>
+            <td class="chinese">。</td>
+            <td class="chinese">他</td>
+            <td class="chinese">在</td>
+            <td class="chinese">大</td>
+            <td class="chinese">学</td>
+            <td class="chinese">工</td>
+            <td class="chinese">作</td>
+            <td class="chinese">。</td>
+            <!-- パディング (1セル) -->
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>bù</td>
+            <td>shì</td>
+            <td>，</td>
+            <td>zhè</td>
+            <td>shì</td>
+            <td>wǒ</td>
+            <td>gē</td>
+            <td>gē</td>
+            <td>de</td>
+            <td>zhào</td>
+            <td>piàn</td>
+            <td>。</td>
+            <td>tā</td>
+            <td>zài</td>
+            <td>dà</td>
+            <td>xué</td>
+            <td>gōng</td>
+            <td>zuò</td>
+            <td>。</td>
+            <!-- パディング (1セル) -->
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:いいえ、これは私の兄の写真です。彼は大学で仕事します。
+        山本:不是，这是我哥哥的照片。他在大学工作。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -323,64 +332,66 @@
 
     <!-- 【文３】 李：那是你男朋友的照片吗？ -->
     <div class="sentence" data-audio="sound/5k-h2-045-09.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">那</td>
-          <td class="chinese">是</td>
-          <td class="chinese">你</td>
-          <td class="chinese">男</td>
-          <td class="chinese">朋</td>
-          <td class="chinese">友</td>
-          <td class="chinese">的</td>
-          <td class="chinese">照</td>
-          <td class="chinese">片</td>
-          <td class="chinese">吗</td>
-          <td class="chinese">？</td>
-          <!-- パディング (11セル) -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>nà</td>
-          <td>shì</td>
-          <td>nǐ</td>
-          <td>nán</td>
-          <td>péng</td>
-          <td>yǒu</td>
-          <td>de</td>
-          <td>zhào</td>
-          <td>piàn</td>
-          <td>ma</td>
-          <td>?</td>
-          <!-- パディング (11セル) -->
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">那</td>
+            <td class="chinese">是</td>
+            <td class="chinese">你</td>
+            <td class="chinese">男</td>
+            <td class="chinese">朋</td>
+            <td class="chinese">友</td>
+            <td class="chinese">的</td>
+            <td class="chinese">照</td>
+            <td class="chinese">片</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+            <!-- パディング (11セル) -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>nà</td>
+            <td>shì</td>
+            <td>nǐ</td>
+            <td>nán</td>
+            <td>péng</td>
+            <td>yǒu</td>
+            <td>de</td>
+            <td>zhào</td>
+            <td>piàn</td>
+            <td>ma</td>
+            <td>?</td>
+            <!-- パディング (11セル) -->
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-        李  :それはあなたの彼氏の写真ですか。
+        李  :那是你男朋友的照片吗？
       </div>
       <div class="audio-player">
         <audio controls>
@@ -392,62 +403,64 @@
 
     <!-- 【文４】 山本：是，那是我男朋友的照片。现在他在北京留学。 -->
     <div class="sentence" data-audio="sound/5k-h2-045-10.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">是</td>
-          <td class="chinese">，</td>
-          <td class="chinese">那</td>
-          <td class="chinese">是</td>
-          <td class="chinese">我</td>
-          <td class="chinese">男</td>
-          <td class="chinese">朋</td>
-          <td class="chinese">友</td>
-          <td class="chinese">的</td>
-          <td class="chinese">照</td>
-          <td class="chinese">片</td>
-          <td class="chinese">。</td>
-          <td class="chinese">现</td>
-          <td class="chinese">在</td>
-          <td class="chinese">他</td>
-          <td class="chinese">在</td>
-          <td class="chinese">北</td>
-          <td class="chinese">京</td>
-          <td class="chinese">留</td>
-          <td class="chinese">学</td>
-          <td class="chinese">。</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>shì</td>
-          <td>，</td>
-          <td>nà</td>
-          <td>shì</td>
-          <td>wǒ</td>
-          <td>nán</td>
-          <td>péng</td>
-          <td>yǒu</td>
-          <td>de</td>
-          <td>zhào</td>
-          <td>piàn</td>
-          <td>。</td>
-          <td>xiàn</td>
-          <td>zài</td>
-          <td>tā</td>
-          <td>zài</td>
-          <td>běi</td>
-          <td>jīng</td>
-          <td>liú</td>
-          <td>xué</td>
-          <td>。</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">是</td>
+            <td class="chinese">，</td>
+            <td class="chinese">那</td>
+            <td class="chinese">是</td>
+            <td class="chinese">我</td>
+            <td class="chinese">男</td>
+            <td class="chinese">朋</td>
+            <td class="chinese">友</td>
+            <td class="chinese">的</td>
+            <td class="chinese">照</td>
+            <td class="chinese">片</td>
+            <td class="chinese">。</td>
+            <td class="chinese">现</td>
+            <td class="chinese">在</td>
+            <td class="chinese">他</td>
+            <td class="chinese">在</td>
+            <td class="chinese">北</td>
+            <td class="chinese">京</td>
+            <td class="chinese">留</td>
+            <td class="chinese">学</td>
+            <td class="chinese">。</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>shì</td>
+            <td>，</td>
+            <td>nà</td>
+            <td>shì</td>
+            <td>wǒ</td>
+            <td>nán</td>
+            <td>péng</td>
+            <td>yǒu</td>
+            <td>de</td>
+            <td>zhào</td>
+            <td>piàn</td>
+            <td>。</td>
+            <td>xiàn</td>
+            <td>zài</td>
+            <td>tā</td>
+            <td>zài</td>
+            <td>běi</td>
+            <td>jīng</td>
+            <td>liú</td>
+            <td>xué</td>
+            <td>。</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:はい、それは私の彼氏の写真です。彼は今北京で留学しています。
+        山本:是，那是我男朋友的照片。现在他在北京留学。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -459,64 +472,66 @@
 
     <!-- 【文５】 李：他在北京，你在名古屋。你们每天打电话吗？ -->
     <div class="sentence" data-audio="sound/5k-h2-045-11.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">他</td>
-          <td class="chinese">在</td>
-          <td class="chinese">北</td>
-          <td class="chinese">京</td>
-          <td class="chinese">，</td>
-          <td class="chinese">你</td>
-          <td class="chinese">在</td>
-          <td class="chinese">名</td>
-          <td class="chinese">古</td>
-          <td class="chinese">屋</td>
-          <td class="chinese">。</td>
-          <td class="chinese">你</td>
-          <td class="chinese">们</td>
-          <td class="chinese">每</td>
-          <td class="chinese">天</td>
-          <td class="chinese">打</td>
-          <td class="chinese">电</td>
-          <td class="chinese">话</td>
-          <td class="chinese">吗</td>
-          <td class="chinese">？</td>
-          <!-- パディング (2セル) -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>tā</td>
-          <td>zài</td>
-          <td>běi</td>
-          <td>jīng</td>
-          <td>，</td>
-          <td>nǐ</td>
-          <td>zài</td>
-          <td>míng</td>
-          <td>gǔ</td>
-          <td>wū</td>
-          <td>。</td>
-          <td>nǐ</td>
-          <td>men</td>
-          <td>měi</td>
-          <td>tiān</td>
-          <td>dǎ</td>
-          <td>diàn</td>
-          <td>huà</td>
-          <td>ma</td>
-          <td>?</td>
-          <!-- パディング (2セル) -->
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">他</td>
+            <td class="chinese">在</td>
+            <td class="chinese">北</td>
+            <td class="chinese">京</td>
+            <td class="chinese">，</td>
+            <td class="chinese">你</td>
+            <td class="chinese">在</td>
+            <td class="chinese">名</td>
+            <td class="chinese">古</td>
+            <td class="chinese">屋</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">们</td>
+            <td class="chinese">每</td>
+            <td class="chinese">天</td>
+            <td class="chinese">打</td>
+            <td class="chinese">电</td>
+            <td class="chinese">话</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+            <!-- パディング (2セル) -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>tā</td>
+            <td>zài</td>
+            <td>běi</td>
+            <td>jīng</td>
+            <td>，</td>
+            <td>nǐ</td>
+            <td>zài</td>
+            <td>míng</td>
+            <td>gǔ</td>
+            <td>wū</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>men</td>
+            <td>měi</td>
+            <td>tiān</td>
+            <td>dǎ</td>
+            <td>diàn</td>
+            <td>huà</td>
+            <td>ma</td>
+            <td>?</td>
+            <!-- パディング (2セル) -->
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :彼は北京にいて、あなたは名古屋にいます。あなたたちは毎日電話しますか。
+        李  :他在北京，你在名古屋。你们每天打电话吗？
       </div>
       <div class="audio-player">
         <audio controls>
@@ -528,64 +543,66 @@
 
     <!-- 【文６】 山本：我们每天打电话。 -->
     <div class="sentence" data-audio="sound/5k-h2-045-12.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">们</td>
-          <td class="chinese">每</td>
-          <td class="chinese">天</td>
-          <td class="chinese">打</td>
-          <td class="chinese">电</td>
-          <td class="chinese">话</td>
-          <td class="chinese">。</td>
-          <!-- パディング (13セル) -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>men</td>
-          <td>měi</td>
-          <td>tiān</td>
-          <td>dǎ</td>
-          <td>diàn</td>
-          <td>huà</td>
-          <td>。</td>
-          <!-- パディング (13セル) -->
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">们</td>
+            <td class="chinese">每</td>
+            <td class="chinese">天</td>
+            <td class="chinese">打</td>
+            <td class="chinese">电</td>
+            <td class="chinese">话</td>
+            <td class="chinese">。</td>
+            <!-- パディング (13セル) -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>men</td>
+            <td>měi</td>
+            <td>tiān</td>
+            <td>dǎ</td>
+            <td>diàn</td>
+            <td>huà</td>
+            <td>。</td>
+            <!-- パディング (13セル) -->
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私たちは毎日電話します。
+        山本:我们每天打电话。
       </div>
       <div class="audio-player">
         <audio controls>
