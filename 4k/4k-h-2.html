@@ -130,6 +130,11 @@
       max-width: 400px;
       margin: auto;
     }
+    /* 新增：滚动容器，超出部分可横向滚动 */
+    .scrollable {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
       header { font-size: 1.2rem; padding: 10px; }
@@ -156,7 +161,6 @@
   <!-- ヘッダー -->
   <header>
     第4課 - 我家有三口人
-
   </header>
 
   <div class="container">
@@ -179,337 +183,360 @@
       <button class="next-button" onclick="location.href='4k.html'">次の画面</button>
     </div>
 
-    <!-- 【文１】 李：你今年多大了？ -->
-    <div class="sentence" data-audio="sound/4k-h2-039-07.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">你</td>
-          <td class="chinese">今</td>
-          <td class="chinese">年</td>
-          <td class="chinese">多</td>
-          <td class="chinese">大</td>
-          <td class="chinese">了</td>
-          <td class="chinese">？</td>
-          <!-- 空セルで埋める -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>nǐ</td>
-          <td>jīn</td>
-          <td>nián</td>
-          <td>duō</td>
-          <td>dà</td>
-          <td>le</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文１】 李：你家有几口人？ -->
+    <div class="sentence" data-audio="sound/4k-h1-038-01.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">几</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">？</td>
+            <!-- 空セルでパディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>jǐ</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :あなたは今年何歳ですか。
+        山本:あなたの家は何人家族ですか。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-07.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-01.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
     </div>
 
-    <!-- 【文２】 山本：我今年20岁，属马。你呢？ -->
-    <div class="sentence" data-audio="sound/4k-h2-039-08.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">今</td>
-          <td class="chinese">年</td>
-          <td class="chinese">20</td>
-          <td class="chinese">岁</td>
-          <td class="chinese">，</td>
-          <td class="chinese">属</td>
-          <td class="chinese">马</td>
-          <td class="chinese">。</td>
-          <td class="chinese">你</td>
-          <td class="chinese">呢</td>
-          <td class="chinese">？</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jīn</td>
-          <td>nián</td>
-          <td>20</td>
-          <td>suì</td>
-          <td>，</td>
-          <td>shǔ</td>
-          <td>mǎ</td>
-          <td>。</td>
-          <td>nǐ</td>
-          <td>ne</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文２】 李：我家有三口人：爸爸、妈妈和我。你家呢？ -->
+    <div class="sentence" data-audio="sound/4k-h1-038-02.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">三</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">：</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">、</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">和</td>
+            <td class="chinese">我</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">呢</td>
+            <td class="chinese">？</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>sān</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>：</td>
+            <td>bà</td>
+            <td>bà</td>
+            <td>、</td>
+            <td>mā</td>
+            <td>mā</td>
+            <td>hé</td>
+            <td>wǒ</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>ne</td>
+            <td>？</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私は今年20歳です。私は馬年です。あなたはどうですか。
+        李  :私の家は3人家族です。父、母と私です。あなたの家はどうですか。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-08.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-02.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
     </div>
 
-    <!-- 【文３】 李：我今年22岁，属龙。 -->
-    <div class="sentence" data-audio="sound/4k-h2-039-09.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">今</td>
-          <td class="chinese">年</td>
-          <td class="chinese">22</td>
-          <td class="chinese">岁</td>
-          <td class="chinese">，</td>
-          <td class="chinese">属</td>
-          <td class="chinese">龙</td>
-          <td class="chinese">。</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>jīn</td>
-          <td>nián</td>
-          <td>22</td>
-          <td>suì</td>
-          <td>，</td>
-          <td>shǔ</td>
-          <td>lóng</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文３】 山本：我家有四口人：爸爸、妈妈、哥哥和我。 -->
+    <div class="sentence" data-audio="sound/4k-h1-038-03.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">四</td>
+            <td class="chinese">口</td>
+            <td class="chinese">人</td>
+            <td class="chinese">：</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">爸</td>
+            <td class="chinese">、</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">妈</td>
+            <td class="chinese">、</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">哥</td>
+            <td class="chinese">和</td>
+            <td class="chinese">我</td>
+            <td class="chinese">。</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>sì</td>
+            <td>kǒu</td>
+            <td>rén</td>
+            <td>：</td>
+            <td>bà</td>
+            <td>bà</td>
+            <td>、</td>
+            <td>mā</td>
+            <td>mā</td>
+            <td>、</td>
+            <td>gē</td>
+            <td>gē</td>
+            <td>hé</td>
+            <td>wǒ</td>
+            <td>。</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :私は今年22歳です。私の辰年です。
+        山本:私の家は4人家族です。父、母、兄と私です。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-09.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-03.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
     </div>
 
-    <!-- 【文４】 山本：我爸爸也属龙。他今年58岁。 -->
-    <div class="sentence" data-audio="sound/4k-h2-039-10.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">爸</td>
-          <td class="chinese">也</td>
-          <td class="chinese">属</td>
-          <td class="chinese">龙</td>
-          <td class="chinese">。</td>
-          <td class="chinese">他</td>
-          <td class="chinese">今</td>
-          <td class="chinese">年</td>
-          <td class="chinese">58</td>
-          <td class="chinese">岁</td>
-          <td class="chinese">。</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>bà</td>
-          <td>bà</td>
-          <td>yě</td>
-          <td>shǔ</td>
-          <td>lóng</td>
-          <td>。</td>
-          <td>tā</td>
-          <td>jīn</td>
-          <td>nián</td>
-          <td>58</td>
-          <td>suì</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文４】 李：你家有宠物吗？ -->
+    <div class="sentence" data-audio="sound/4k-h1-038-04.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">宠</td>
+            <td class="chinese">物</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>chǒng</td>
+            <td>wù</td>
+            <td>ma</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私の父も辰年です。彼は今年58歳です。
+        李  :あなたの家にはペットがいますか。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-10.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-04.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
     </div>
 
-    <!-- 【文５】 李：他在哪儿工作？ -->
-    <div class="sentence" data-audio="sound/4k-h2-039-11.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">他</td>
-          <td class="chinese">在</td>
-          <td class="chinese">哪</td>
-          <td class="chinese">儿</td>
-          <td class="chinese">工</td>
-          <td class="chinese">作</td>
-          <td class="chinese">？</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>tā</td>
-          <td>zài</td>
-          <td>nǎ</td>
-          <td>r</td>
-          <td>gōng</td>
-          <td>zuò</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文５】 山本：我家没有宠物。你家呢？ -->
+    <div class="sentence" data-audio="sound/4k-h1-038-05.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">没</td>
+            <td class="chinese">有</td>
+            <td class="chinese">宠</td>
+            <td class="chinese">物</td>
+            <td class="chinese">。</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">呢</td>
+            <td class="chinese">？</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>méi</td>
+            <td>yǒu</td>
+            <td>chǒng</td>
+            <td>wù</td>
+            <td>。</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>ne</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :彼はどこで仕事しますか。
+        山本:私の家にはペットがいません。あなたの家はどうですか。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-11.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-05.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
     </div>
 
-    <!-- 【文６】 山本：他在大学工作。他是大学老师。 -->
-    <div class="sentence" data-audio="sound/4k-h2-039-12.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">他</td>
-          <td class="chinese">在</td>
-          <td class="chinese">大</td>
-          <td class="chinese">学</td>
-          <td class="chinese">工</td>
-          <td class="chinese">作</td>
-          <td class="chinese">。</td>
-          <td class="chinese">他</td>
-          <td class="chinese">是</td>
-          <td class="chinese">大</td>
-          <td class="chinese">学</td>
-          <td class="chinese">老</td>
-          <td class="chinese">师</td>
-          <td class="chinese">。</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>tā</td>
-          <td>zài</td>
-          <td>dà</td>
-          <td>xué</td>
-          <td>gōng</td>
-          <td>zuò</td>
-          <td>。</td>
-          <td>tā</td>
-          <td>shì</td>
-          <td>dà</td>
-          <td>xué</td>
-          <td>lǎo</td>
-          <td>shī</td>
-          <td>。</td>
-          <td>　</td>
-        </tr>
-      </table>
+    <!-- 【文６】 山本：我家有一只狗和两只猫，都非常可爱！ -->
+    <div class="sentence" data-audio="sound/4k-h1-038-06.mp3">
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">一</td>
+            <td class="chinese">只</td>
+            <td class="chinese">狗</td>
+            <td class="chinese">和</td>
+            <td class="chinese">两</td>
+            <td class="chinese">只</td>
+            <td class="chinese">猫</td>
+            <td class="chinese">，</td>
+            <td class="chinese">都</td>
+            <td class="chinese">非常</td>
+            <td class="chinese">可</td>
+            <td class="chinese">爱</td>
+            <td class="chinese">！</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>yī</td>
+            <td>zhī</td>
+            <td>gǒu</td>
+            <td>hé</td>
+            <td>liǎng</td>
+            <td>zhī</td>
+            <td>māo</td>
+            <td>，</td>
+            <td>dōu</td>
+            <td>fēi</td>
+            <td>cháng</td>
+            <td>kě</td>
+            <td>ài</td>
+            <td>！</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:彼は大学で仕事します。彼は大学の先生です。
+        李  :私の家には1匹の犬と2匹の猫がいます。みながとても可愛いです。
       </div>
       <div class="audio-player">
         <audio controls>
-          <source src="sound/4k-h2-039-12.mp3" type="audio/mpeg">
+          <source src="sound/4k-h1-038-06.mp3" type="audio/mpeg">
           オーディオがサポートされていません。
         </audio>
       </div>
@@ -524,7 +551,7 @@
     const sentences = document.querySelectorAll('.sentence');
     const displayModeSelect = document.getElementById('displayMode');
     
-    // 表示モードを切り替える関数
+    // 表示モード切替関数
     function updateDisplayMode() {
       const mode = displayModeSelect.value;
       sentences.forEach(sentence => {
