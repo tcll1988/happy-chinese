@@ -20,9 +20,9 @@
             line-height: 1.6;
         }
 
-        /* ヘッダは濃い青を背景色にし、文字色を白に */
+        /* ヘッダー */
         header {
-            background-color: #003366;
+            background-color: #003366; /* ASロゴの濃青イメージ */
             color: white;
             padding: 20px;
             text-align: center;
@@ -39,7 +39,7 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        /* 表示モード切替え部分 */
+        /* 表示モード切り替え部分 */
         .controls {
             margin-bottom: 20px;
             text-align: center;
@@ -55,7 +55,7 @@
             border-radius: 4px;
         }
 
-        /* ボタンの共通スタイル */
+        /* ボタン共通 */
         button {
             display: inline-block;
             margin: 10px 5px;
@@ -101,16 +101,16 @@
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            overflow: hidden;
+            overflow: hidden;  /* 内容溢出时隐藏 */
         }
         .sentence:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
         }
         .sentence.active {
             background-color: #c8e6c9;
             border-left-color: #2e7d32;
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
         /* 非表示用 */
@@ -146,14 +146,12 @@
             color: #333;
             margin-top: 5px;
         }
-
         footer {
             text-align: center;
             margin-top: 30px;
             font-size: calc(0.8em + 0.5vw);
             color: #777;
         }
-
         .audio-player {
             margin-top: 20px;
             text-align: center;
@@ -164,8 +162,7 @@
             max-width: 400px;
             margin: auto;
         }
-
-        /* 横スクロール用のコンテナを追加 */
+        /* 横スクロール用コンテナ */
         .scrollable {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -215,11 +212,11 @@
 
     <!-- ヘッダー -->
     <header>
-        第3課 - 你下午打工吗
+        第2課 - 今天是我的生日
     </header>
 
     <div class="container">
-        <!-- 表示モード切替 -->
+        <!-- 表示モード切り替え部分 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -229,359 +226,243 @@
                 <option value="all">中国語＋ピンイン＋日本語訳</option>
             </select>
         </div>
-
+ 
         <!-- ボタンエリア -->
         <div style="text-align: center;">
-            <button class="prev-button" onclick="location.href='3k-h-1.html'">前の画面</button>
+            <button class="prev-button" onclick="location.href='2k.html'">前の画面</button>
             <button class="play-button" id="playButton">順番に再生</button>
             <button class="stop-button" id="stopButton">停止</button>
-            <button class="next-button" onclick="location.href='3k.html'">次の画面</button>
+            <button class="next-button" onclick="location.href='2k-h-2.html'">次の画面</button>
         </div>
 
-        <!-- 【文１】 李：优子，你在哪儿打工？ -->
-        <div class="sentence" data-audio="sound/3k-h2-029-07.mp3">
+        <!-- 【文１】 -->
+        <div class="sentence" data-audio="sound/2k-h1-014-01.mp3">
             <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">李</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">优</td>
-                      <td class="chinese">子</td>
-                      <td class="chinese">，</td>
-                      <td class="chinese">你</td>
-                      <td class="chinese">在</td>
-                      <td class="chinese">哪</td>
-                      <td class="chinese">儿</td>
-                      <td class="chinese">打</td>
-                      <td class="chinese">工</td>
-                      <td class="chinese">？</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Lǐ</td>
-                      <td>:</td>
-                      <td>Yōu</td>
-                      <td>zǐ</td>
-                      <td>，</td>
-                      <td>nǐ</td>
-                      <td>zài</td>
-                      <td>nǎ</td>
-                      <td>r</td>
-                      <td>dǎ</td>
-                      <td>gōng</td>
-                      <td>？</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                  </tr>
-              </table>
+                <table>
+                    <tr>
+                        <td class="chinese">李</td>
+                        <td class="chinese">:</td>
+                        <td class="chinese">优</td>
+                        <td class="chinese">子</td>
+                        <td class="chinese">，</td>
+                        <td class="chinese">今</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">是</td>
+                        <td class="chinese">星</td>
+                        <td class="chinese">期</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">吗</td>
+                        <td class="chinese">？</td>
+                        <td class="chinese"></td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                    </tr>
+                    <tr class="pinyin hidden">
+                        <td>Lǐ</td>
+                        <td>:</td>
+                        <td>Yōu</td>
+                        <td>zǐ，</td>
+                        <td>，</td>
+                        <td>jīntiān</td>
+                        <td>shì</td>
+                        <td>xīngqītiān</td>
+                        <td>ma</td>
+                        <td>？</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                </table>
             </div>
             <div class="translation hidden">
-                李  :优子，你在哪儿打工？
+                李  :優子さん、今日は日曜日ですか。
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/3k-h2-029-07.mp3" type="audio/mpeg">
+                    <source src="sound/2k-h1-014-01.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文２】 山本：我在车站附近的药妆店打工，你呢？ -->
-        <div class="sentence" data-audio="sound/3k-h2-029-08.mp3">
+        <!-- 【文２】 -->
+        <div class="sentence" data-audio="sound/k-h1-014-02.mp3">
             <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">山</td>
-                      <td class="chinese">本</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">我</td>
-                      <td class="chinese">在</td>
-                      <td class="chinese">车站</td>
-                      <td class="chinese">附近</td>
-                      <td class="chinese">的</td>
-                      <td class="chinese">药</td>
-                      <td class="chinese">妆</td>
-                      <td class="chinese">店</td>
-                      <td class="chinese">打</td>
-                      <td class="chinese">工</td>
-                      <td class="chinese">，</td>
-                      <td class="chinese">你</td>
-                      <td class="chinese">呢</td>
-                      <td class="chinese">？</td>
-                      <td class="chinese">　</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Shān</td>
-                      <td>běn</td>
-                      <td>:</td>
-                      <td>wǒ</td>
-                      <td>zài</td>
-                      <td>chēzhàn</td>
-                      <td>fùjìn</td>
-                      <td>de</td>
-                      <td>yào</td>
-                      <td>zhuāng</td>
-                      <td>diàn</td>
-                      <td>dǎ</td>
-                      <td>gōng</td>
-                      <td>，</td>
-                      <td>nǐ</td>
-                      <td>ne</td>
-                      <td>？</td>
-                      <td>　</td>
-                  </tr>
-              </table>
+                <table>
+                    <tr>
+                        <td class="chinese">山</td>
+                        <td class="chinese">本</td>
+                        <td class="chinese">:</td>
+                        <td class="chinese">不</td>
+                        <td class="chinese">是</td>
+                        <td class="chinese">，</td>
+                        <td class="chinese">今</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">不</td>
+                        <td class="chinese">是</td>
+                        <td class="chinese">星</td>
+                        <td class="chinese">期</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">。</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                    </tr>
+                    <tr class="pinyin hidden">
+                        <td>Shān</td>
+                        <td>běn</td>
+                        <td>:</td>
+                        <td>Bú</td>
+                        <td>shì，</td>
+                        <td>，</td>
+                        <td>jīn</td>
+                        <td>tiān</td>
+                        <td>bú</td>
+                        <td>shì</td>
+                        <td>xīng</td>
+                        <td>qī</td>
+                        <td>tiān</td>
+                        <td>。</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                </table>
             </div>
             <div class="translation hidden">
-                山本:我在车站附近的药妆店打工，你呢？
+                山本:いいえ、今日は日曜日ではありません。
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/3k-h2-029-08.mp3" type="audio/mpeg">
+                    <source src="sound/k-h1-014-02.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文３】 李：我在大学附近的便利店打工。 -->
-        <div class="sentence" data-audio="sound/3k-h2-029-09.mp3">
+        <!-- 【文３】 -->
+        <div class="sentence" data-audio="sound/2k-h1-014-03.mp3">
             <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">李</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">我</td>
-                      <td class="chinese">在</td>
-                      <td class="chinese">大学</td>
-                      <td class="chinese">附近</td>
-                      <td class="chinese">的</td>
-                      <td class="chinese">便利店</td>
-                      <td class="chinese">打</td>
-                      <td class="chinese">工</td>
-                      <td class="chinese">。</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Lǐ</td>
-                      <td>:</td>
-                      <td>wǒ</td>
-                      <td>zài</td>
-                      <td>dàxué</td>
-                      <td>fùjìn</td>
-                      <td>de</td>
-                      <td>biànlìdiàn</td>
-                      <td>dǎ</td>
-                      <td>gōng</td>
-                      <td>。</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                  </tr>
-              </table>
+                <table>
+                    <tr>
+                        <td class="chinese">李</td>
+                        <td class="chinese">:</td>
+                        <td class="chinese">今</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">星</td>
+                        <td class="chinese">期</td>
+                        <td class="chinese">几</td>
+                        <td class="chinese">？</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                    </tr>
+                    <tr class="pinyin hidden">
+                        <td>Lǐ</td>
+                        <td>:</td>
+                        <td>Jīn</td>
+                        <td>tiān</td>
+                        <td>xīng</td>
+                        <td>qī</td>
+                        <td>jǐ</td>
+                        <td>？</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                </table>
             </div>
             <div class="translation hidden">
-                李  :我在大学附近的便利店打工。
+                李  :今日は何曜日ですか。
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/3k-h2-029-09.mp3" type="audio/mpeg">
+                    <source src="sound/2k-h1-014-03.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文４】 李：便利店的客人多吗？ -->
-        <div class="sentence" data-audio="sound/3k-h2-029-10.mp3">
+        <!-- 【文４】 -->
+        <div class="sentence" data-audio="sound/2k-h1-014-04.mp3">
             <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">山</td>
-                      <td class="chinese">本</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">便利店</td>
-                      <td class="chinese">的</td>
-                      <td class="chinese">客人</td>
-                      <td class="chinese">多</td>
-                      <td class="chinese">吗</td>
-                      <td class="chinese">？</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                      <td class="chinese">　</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Shān</td>
-                      <td>běn</td>
-                      <td>:</td>
-                      <td>biànlìdiàn</td>
-                      <td>de</td>
-                      <td>kèrén</td>
-                      <td>duō</td>
-                      <td>ma</td>
-                      <td>？</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                      <td>　</td>
-                  </tr>
-              </table>
+                <table>
+                    <tr>
+                        <td class="chinese">山</td>
+                        <td class="chinese">本</td>
+                        <td class="chinese">:</td>
+                        <td class="chinese">今</td>
+                        <td class="chinese">天</td>
+                        <td class="chinese">星</td>
+                        <td class="chinese">期</td>
+                        <td class="chinese">一</td>
+                        <td class="chinese">。</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                        <td class="chinese">　</td>
+                    </tr>
+                    <tr class="pinyin hidden">
+                        <td>Shān</td>
+                        <td>běn</td>
+                        <td>:</td>
+                        <td>Jīn</td>
+                        <td>tiān</td>
+                        <td>xīng</td>
+                        <td>qī</td>
+                        <td>yī</td>
+                        <td>。</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                        <td>　</td>
+                    </tr>
+                </table>
             </div>
             <div class="translation hidden">
-                李  :便利店的客人多吗？
+               山本:今日は月曜日です。
             </div>
             <div class="audio-player">
                 <audio controls>
-                    <source src="sound/3k-h2-029-10.mp3" type="audio/mpeg">
+                    <source src="sound/2k-h1-014-04.mp3" type="audio/mpeg">
                     オーディオがサポートされていません。
                 </audio>
             </div>
         </div>
 
-        <!-- 【文５】 山本：我从下午3点到晚上9点打工。 -->
-        <div class="sentence" data-audio="sound/3k-h1-028-05.mp3">
-            <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">山</td>
-                      <td class="chinese">本</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">我</td>
-                      <td class="chinese">从</td>
-                      <td class="chinese">下</td>
-                      <td class="chinese">午</td>
-                      <td class="chinese">3</td>
-                      <td class="chinese">点</td>
-                      <td class="chinese">到</td>
-                      <td class="chinese">晚</td>
-                      <td class="chinese">上</td>
-                      <td class="chinese">9</td>
-                      <td class="chinese">点</td>
-                      <td class="chinese">打</td>
-                      <td class="chinese">工</td>
-                      <td class="chinese">。</td>
-                      <td class="chinese">　</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Shān</td>
-                      <td>běn</td>
-                      <td>:</td>
-                      <td>wǒ</td>
-                      <td>cóng</td>
-                      <td>xià</td>
-                      <td>wǔ</td>
-                      <td>3</td>
-                      <td>diǎn</td>
-                      <td>dào</td>
-                      <td>wǎn</td>
-                      <td>shàng</td>
-                      <td>9</td>
-                      <td>diǎn</td>
-                      <td>dǎ</td>
-                      <td>gōng</td>
-                      <td>。</td>
-                      <td>　</td>
-                  </tr>
-              </table>
-            </div>
-            <div class="translation hidden">
-                山本:我从下午3点到晚上9点打工。
-            </div>
-            <div class="audio-player">
-                <audio controls>
-                    <source src="sound/3k-h1-028-05.mp3" type="audio/mpeg">
-                    オーディオがサポートされていません。
-                </audio>
-            </div>
-        </div>
-
-        <!-- 【文６】 李：从下午3点到晚上9点？辛苦！辛苦！ -->
-        <div class="sentence" data-audio="sound/3k-h1-028-06.mp3">
-            <div class="scrollable">
-              <table>
-                  <tr>
-                      <td class="chinese">李</td>
-                      <td class="chinese">:</td>
-                      <td class="chinese">从</td>
-                      <td class="chinese">下</td>
-                      <td class="chinese">午</td>
-                      <td class="chinese">3</td>
-                      <td class="chinese">点</td>
-                      <td class="chinese">到</td>
-                      <td class="chinese">晚</td>
-                      <td class="chinese">上</td>
-                      <td class="chinese">9</td>
-                      <td class="chinese">点</td>
-                      <td class="chinese">？</td>
-                      <td class="chinese">辛</td>
-                      <td class="chinese">苦</td>
-                      <td class="chinese">！</td>
-                      <td class="chinese">辛</td>
-                      <td class="chinese">苦</td>
-                      <td class="chinese">！</td>
-                  </tr>
-                  <tr class="pinyin hidden">
-                      <td>Shān</td>
-                      <td>běn</td>
-                      <td>:</td>
-                      <td>cóng</td>
-                      <td>xià</td>
-                      <td>wǔ</td>
-                      <td>3</td>
-                      <td>diǎn</td>
-                      <td>dào</td>
-                      <td>wǎn</td>
-                      <td>shàng</td>
-                      <td>9</td>
-                      <td>diǎn</td>
-                      <td>?</td>
-                      <td>xīn</td>
-                      <td>kǔ</td>
-                      <td>!</td>
-                      <td>xīn</td>
-                      <td>kǔ</td>
-                      <td>!</td>
-                  </tr>
-              </table>
-            </div>
-            <div class="translation hidden">
-                李  :从下午3点到晚上9点？辛苦！辛苦！
-            </div>
-            <div class="audio-player">
-                <audio controls>
-                    <source src="sound/3k-h1-028-06.mp3" type="audio/mpeg">
-                    オーディオがサポートされていません。
-                </audio>
-            </div>
-        </div>
     </div>
 
     <footer>© 楽しい中国語アプリ</footer>
@@ -591,7 +472,7 @@
         const sentences = document.querySelectorAll('.sentence');
         const displayModeSelect = document.getElementById('displayMode');
 
-        // 表示モードを切り替える関数
+        // 表示モード切り替え関数
         function updateDisplayMode() {
             const mode = displayModeSelect.value;
             sentences.forEach(sentence => {
@@ -600,7 +481,7 @@
                 // まず全部隠す
                 pinyinRow.classList.add('hidden');
                 translation.classList.add('hidden');
-                // 選択された表示モードによって表示
+                // 選択された表示モードに応じて表示する
                 if (mode === 'chinesePinyin') {
                     pinyinRow.classList.remove('hidden');
                 } else if (mode === 'chineseTranslation') {
