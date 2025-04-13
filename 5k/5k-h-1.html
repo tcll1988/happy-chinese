@@ -137,6 +137,11 @@
       max-width: 400px;
       margin: auto;
     }
+    /* 新增：滚动容器，超出部分可横向滚动 */
+    .scrollable {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
       header { font-size: 1.2rem; padding: 10px; }
@@ -187,49 +192,51 @@
 
     <!-- 【文１】 山本:欢迎你来我家。请进！ -->
     <div class="sentence" data-audio="sound/5k-h1-044-01.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">迎</td>
-          <td class="chinese">你</td>
-          <td class="chinese">来</td>
-          <td class="chinese">我</td>
-          <td class="chinese">家</td>
-          <td class="chinese">。</td>
-          <td class="chinese">请</td>
-          <td class="chinese">进</td>
-          <td class="chinese">！</td>
-          <!-- 空セルでパディング -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>
-          <td>huān</td>
-          <td>yíng</td>
-          <td>nǐ</td>
-          <td>lái</td>
-          <td>wǒ</td>
-          <td>jiā</td>
-          <td>。</td>
-          <td>qǐng</td>
-          <td>jìn</td>
-          <td>！</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">迎</td>
+            <td class="chinese">你</td>
+            <td class="chinese">来</td>
+            <td class="chinese">我</td>
+            <td class="chinese">家</td>
+            <td class="chinese">。</td>
+            <td class="chinese">请</td>
+            <td class="chinese">进</td>
+            <td class="chinese">！</td>
+            <!-- 空セルでパディング -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>huān</td>
+            <td>yíng</td>
+            <td>nǐ</td>
+            <td>lái</td>
+            <td>wǒ</td>
+            <td>jiā</td>
+            <td>。</td>
+            <td>qǐng</td>
+            <td>jìn</td>
+            <td>！</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         山本:ようこそ私の家へ。どうぞ入ってください。
       </div>
@@ -243,50 +250,51 @@
 
     <!-- 【文２】 李：你家真大！真漂亮啊！ -->
     <div class="sentence" data-audio="sound/5k-h1-044-02.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">真</td>
-          <td class="chinese">大</td>
-          <td class="chinese">！</td>
-          <td class="chinese">真</td>
-          <td class="chinese">漂</td>
-          <td class="chinese">亮</td>
-          <td class="chinese">啊</td>
-          <td class="chinese">！</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-         <td>Lǐ</td>
-          <td>:</td>
- <td>nǐ</td>
-          <td>jiā</td>
-          <td>zhēn</td>
-          <td>dà</td>
-          <td>！</td>
-          <td>zhēn</td>
-          <td>piào</td>
-          <td>liàng</td>
-          <td>ā</td>
-          <td>！</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">真</td>
+            <td class="chinese">大</td>
+            <td class="chinese">！</td>
+            <td class="chinese">真</td>
+            <td class="chinese">漂</td>
+            <td class="chinese">亮</td>
+            <td class="chinese">啊</td>
+            <td class="chinese">！</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>zhēn</td>
+            <td>dà</td>
+            <td>！</td>
+            <td>zhēn</td>
+            <td>piào</td>
+            <td>liàng</td>
+            <td>ā</td>
+            <td>！</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
         李  :あなたの家は本当に大きいです。本当にきれいですね。
       </div>
@@ -300,52 +308,53 @@
 
     <!-- 【文３】 山本：谢谢！请坐！请喝茶！ -->
     <div class="sentence" data-audio="sound/5k-h1-044-03.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">谢</td>
-          <td class="chinese">谢</td>
-          <td class="chinese">！</td>
-          <td class="chinese">请</td>
-          <td class="chinese">坐</td>
-          <td class="chinese">！</td>
-          <td class="chinese">请</td>
-          <td class="chinese">喝</td>
-          <td class="chinese">茶</td>
-          <td class="chinese">！</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
- <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>          
-<td>xiè</td>
-          <td>xiè</td>
-          <td>!</td>
-          <td>qǐng</td>
-          <td>zuò</td>
-          <td>!</td>
-          <td>qǐng</td>
-          <td>hē</td>
-          <td>chá</td>
-          <td>!</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">谢</td>
+            <td class="chinese">谢</td>
+            <td class="chinese">！</td>
+            <td class="chinese">请</td>
+            <td class="chinese">坐</td>
+            <td class="chinese">！</td>
+            <td class="chinese">请</td>
+            <td class="chinese">喝</td>
+            <td class="chinese">茶</td>
+            <td class="chinese">！</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>xiè</td>
+            <td>xiè</td>
+            <td>!</td>
+            <td>qǐng</td>
+            <td>zuò</td>
+            <td>!</td>
+            <td>qǐng</td>
+            <td>hē</td>
+            <td>chá</td>
+            <td>!</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:ありがとう。どうぞ座ってください、どうぞお茶を飲んでください。
+        山本:ありがとう。どうぞ座ってください、どうぞお茶を飲んでください。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -357,57 +366,59 @@
 
     <!-- 【文４】 李：谢谢！你家有很多书啊！你喜欢看书吗？ -->
     <div class="sentence" data-audio="sound/5k-h1-044-04.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">谢</td>
-          <td class="chinese">谢</td>
-          <td class="chinese">！</td>
-          <td class="chinese">你</td>
-          <td class="chinese">家</td>
-          <td class="chinese">有</td>
-          <td class="chinese">很</td>
-          <td class="chinese">多</td>
-          <td class="chinese">书</td>
-          <td class="chinese">啊</td>
-          <td class="chinese">！</td>
-          <td class="chinese">你</td>
-          <td class="chinese">喜</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">看</td>
-          <td class="chinese">书</td>
-          <td class="chinese">吗</td>
-          <td class="chinese">？</td>
-        </tr>
-        <tr class="pinyin hidden">
-  <td>Lǐ</td>
-          <td>:</td>         
- <td>xiè</td>
-          <td>xiè</td>
-          <td>!</td>
-          <td>nǐ</td>
-          <td>jiā</td>
-          <td>yǒu</td>
-          <td>hěn</td>
-          <td>duō</td>
-          <td>shū</td>
-          <td>ā</td>
-          <td>!</td>
-          <td>nǐ</td>
-          <td>xǐ</td>
-          <td>huan</td>
-          <td>kàn</td>
-          <td>shū</td>
-          <td>ma</td>
-          <td>？</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">谢</td>
+            <td class="chinese">谢</td>
+            <td class="chinese">！</td>
+            <td class="chinese">你</td>
+            <td class="chinese">家</td>
+            <td class="chinese">有</td>
+            <td class="chinese">很</td>
+            <td class="chinese">多</td>
+            <td class="chinese">书</td>
+            <td class="chinese">啊</td>
+            <td class="chinese">！</td>
+            <td class="chinese">你</td>
+            <td class="chinese">喜</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">看</td>
+            <td class="chinese">书</td>
+            <td class="chinese">吗</td>
+            <td class="chinese">？</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>xiè</td>
+            <td>xiè</td>
+            <td>!</td>
+            <td>nǐ</td>
+            <td>jiā</td>
+            <td>yǒu</td>
+            <td>hěn</td>
+            <td>duō</td>
+            <td>shū</td>
+            <td>ā</td>
+            <td>!</td>
+            <td>nǐ</td>
+            <td>xǐ</td>
+            <td>huan</td>
+            <td>kàn</td>
+            <td>shū</td>
+            <td>ma</td>
+            <td>？</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :ありがとう。あなたの家には本がたくさんありますね。本を読むのが好きですか。  
-    </div>
+        李  :ありがとう。あなたの家には本がたくさんありますね。本を読むのが好きですか。
+      </div>
       <div class="audio-player">
         <audio controls>
           <source src="sound/5k-h1-044-04.mp3" type="audio/mpeg">
@@ -418,55 +429,57 @@
 
     <!-- 【文５】 山本：我非常喜欢看书，最喜欢看小说。 -->
     <div class="sentence" data-audio="sound/5k-h1-044-05.mp3">
-      <table>
-        <tr>
-          <td class="chinese">山</td>
-          <td class="chinese">本</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">非</td>
-          <td class="chinese">常</td>
-          <td class="chinese">喜</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">看</td>
-          <td class="chinese">书</td>
-          <td class="chinese">，</td>
-          <td class="chinese">最</td>
-          <td class="chinese">喜</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">看</td>
-          <td class="chinese">小</td>
-          <td class="chinese">说</td>
-          <td class="chinese">。</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
- <td>Shān</td>
-          <td>běn</td>
-          <td>:</td>          
-<td>wǒ</td>
-          <td>fēi</td>
-          <td>cháng</td>
-          <td>xǐ</td>
-          <td>huan</td>
-          <td>kàn</td>
-          <td>shū</td>
-          <td>，</td>
-          <td>zuì</td>
-          <td>xǐ</td>
-          <td>huan</td>
-          <td>kàn</td>
-          <td>xiǎo</td>
-          <td>shuō</td>
-          <td>。</td>
-          <td>　</td>
-          
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">山</td>
+            <td class="chinese">本</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">非</td>
+            <td class="chinese">常</td>
+            <td class="chinese">喜</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">看</td>
+            <td class="chinese">书</td>
+            <td class="chinese">，</td>
+            <td class="chinese">最</td>
+            <td class="chinese">喜</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">看</td>
+            <td class="chinese">小</td>
+            <td class="chinese">说</td>
+            <td class="chinese">。</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Shān</td>
+            <td>běn</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>fēi</td>
+            <td>cháng</td>
+            <td>xǐ</td>
+            <td>huan</td>
+            <td>kàn</td>
+            <td>shū</td>
+            <td>，</td>
+            <td>zuì</td>
+            <td>xǐ</td>
+            <td>huan</td>
+            <td>kàn</td>
+            <td>xiǎo</td>
+            <td>shuō</td>
+            <td>。</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-山本:私は本を読むのが非常に好きです。小説を読むのが一番好きです。
+        山本:私は本を読むのが非常に好きです。小説を読むのが一番好きです。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -478,51 +491,53 @@
 
     <!-- 【文６】 李：我最喜欢看漫画。 -->
     <div class="sentence" data-audio="sound/5k-h1-044-06.mp3">
-      <table>
-        <tr>
-          <td class="chinese">李</td>
-          <td class="chinese">:</td>
-          <td class="chinese">我</td>
-          <td class="chinese">最</td>
-          <td class="chinese">喜</td>
-          <td class="chinese">欢</td>
-          <td class="chinese">看</td>
-          <td class="chinese">漫</td>
-          <td class="chinese">画</td>
-          <td class="chinese">。</td>
-          <!-- 空セル -->
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-          <td class="chinese">　</td>
-        </tr>
-        <tr class="pinyin hidden">
-          <td>Lǐ</td>
-          <td>:</td>
-          <td>wǒ</td>
-          <td>zuì</td>
-          <td>xǐ</td>
-          <td>huan</td>
-          <td>kàn</td>
-          <td>màn</td>
-          <td>huà</td>
-          <td>。</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-          <td>　</td>
-        </tr>
-      </table>
+      <div class="scrollable">
+        <table>
+          <tr>
+            <td class="chinese">李</td>
+            <td class="chinese">:</td>
+            <td class="chinese">我</td>
+            <td class="chinese">最</td>
+            <td class="chinese">喜</td>
+            <td class="chinese">欢</td>
+            <td class="chinese">看</td>
+            <td class="chinese">漫</td>
+            <td class="chinese">画</td>
+            <td class="chinese">。</td>
+            <!-- 空セル -->
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+            <td class="chinese">　</td>
+          </tr>
+          <tr class="pinyin hidden">
+            <td>Lǐ</td>
+            <td>:</td>
+            <td>wǒ</td>
+            <td>zuì</td>
+            <td>xǐ</td>
+            <td>huan</td>
+            <td>kàn</td>
+            <td>màn</td>
+            <td>huà</td>
+            <td>。</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+            <td>　</td>
+          </tr>
+        </table>
+      </div>
       <div class="translation hidden">
-李  :私は漫画を読むのが一番好きです。
+        李  :私は漫画を読むのが一番好きです。
       </div>
       <div class="audio-player">
         <audio controls>
@@ -541,7 +556,7 @@
     const sentences = document.querySelectorAll('.sentence');
     const displayModeSelect = document.getElementById('displayMode');
     
-    // 表示モード切替の関数
+    // 表示モードを切り替える関数
     function updateDisplayMode() {
       const mode = displayModeSelect.value;
       sentences.forEach(sentence => {
