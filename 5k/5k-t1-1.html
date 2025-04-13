@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楽しい中国語 第5課単語表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            text-align: center;
+            font-size: clamp(14px, 3vw, 18px);
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .word-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 120px; /* 固定高度，防止尺寸变化 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .chinese {
+            font-size: clamp(16px, 4vw, 20px);
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .details {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .pinyin {
+            font-size: clamp(12px, 3vw, 16px);
+            color: #3498db;
+        }
+        .japanese {
+            font-size: clamp(12px, 3vw, 16px);
+            color: #2ecc71;
+        }
+        .card.active .chinese {
+            display: none;
+        }
+        .card.active .details {
+            display: flex;
+        }
+        .audio-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #3498db;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: #777;
+        }
+        .practice-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .practice-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: clamp(14px, 3vw, 18px);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .practice-button:hover {
+            background-color: #2980b9;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            .word-table {
+                gap: 10px;
+            }
+            .card {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>単語を覚えよう！</h1>
+    <!-- 添加返回按钮 -->
+    <a href="5k.html" style="position: absolute; top: 20px; right: 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; padding: 10px 20px; font-size: 16px; text-decoration: none;">戻る</a>
+    <div class="instructions">
+        カードをクリックして意味を確認し、スピーカーアイコンを押して音声を再生しましょう！
+    </div>
+    <div class="word-table">
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">欢迎</div>
+            <div class="details">
+                <div class="pinyin">huānyíng</div>
+                <div class="japanese">ようこそ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-01.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">来</div>
+            <div class="details">
+                <div class="pinyin">lái</div>
+                <div class="japanese">来る</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-02.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">请</div>
+            <div class="details">
+                <div class="pinyin">qǐng</div>
+                <div class="japanese">どうぞ～してください</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-03.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">进</div>
+            <div class="details">
+                <div class="pinyin">jìn</div>
+                <div class="japanese">入る</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-04.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">真</div>
+            <div class="details">
+                <div class="pinyin">zhēn</div>
+                <div class="japanese">本当に</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-05.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">大</div>
+            <div class="details">
+                <div class="pinyin">dà</div>
+                <div class="japanese">大きい</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-06.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">漂亮</div>
+            <div class="details">
+                <div class="pinyin">piàoliang</div>
+                <div class="japanese">きれい</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-07.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">啊</div>
+            <div class="details">
+                <div class="pinyin">a</div>
+                <div class="japanese">ね</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-08.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">坐</div>
+            <div class="details">
+                <div class="pinyin">zuò</div>
+                <div class="japanese">座る</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-09.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">喝茶</div>
+            <div class="details">
+                <div class="pinyin">hē chá</div>
+                <div class="japanese">お茶を飲む</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-10.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">书</div>
+            <div class="details">
+                <div class="pinyin">shū</div>
+                <div class="japanese">本</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-11.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">喜欢</div>
+            <div class="details">
+                <div class="pinyin">xǐhuān</div>
+                <div class="japanese">好きだ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-12.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">看</div>
+            <div class="details">
+                <div class="pinyin">kàn</div>
+                <div class="japanese">読む;見る</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-13.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">最</div>
+            <div class="details">
+                <div class="pinyin">zuì</div>
+                <div class="japanese">最も</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-14.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">小说</div>
+            <div class="details">
+                <div class="pinyin">xiǎoshuō</div>
+                <div class="japanese">小説</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-15.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">漫画</div>
+            <div class="details">
+                <div class="pinyin">mànhuà</div>
+                <div class="japanese">漫画</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-16.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">这</div>
+            <div class="details">
+                <div class="pinyin">zhè</div>
+                <div class="japanese">これ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-17.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">谁</div>
+            <div class="details">
+                <div class="pinyin">shéi</div>
+                <div class="japanese">誰</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-18.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">照片</div>
+            <div class="details">
+                <div class="pinyin">zhàopiàn</div>
+                <div class="japanese">写真</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-19.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">男朋友</div>
+            <div class="details">
+                <div class="pinyin">nán péngyou</div>
+                <div class="japanese">彼氏</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-20.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">那</div>
+            <div class="details">
+                <div class="pinyin">nà</div>
+                <div class="japanese">それ;あれ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-21.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">在</div>
+            <div class="details">
+                <div class="pinyin">zài</div>
+                <div class="japanese">～にいる;～にある</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-22.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">北京</div>
+            <div class="details">
+                <div class="pinyin">Běijīng</div>
+                <div class="japanese">北京</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-23.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">留学</div>
+            <div class="details">
+                <div class="pinyin">liúxué</div>
+                <div class="japanese">留学する</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-24.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">名古屋</div>
+            <div class="details">
+                <div class="pinyin">Mínggǔwū</div>
+                <div class="japanese">名古屋</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-25.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">们</div>
+            <div class="details">
+                <div class="pinyin">men</div>
+                <div class="japanese">～たち（複数を表す）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-26.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">每天</div>
+            <div class="details">
+                <div class="pinyin">měitiān</div>
+                <div class="japanese">毎日</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-27.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">打电话</div>
+            <div class="details">
+                <div class="pinyin">dǎ diànhuà</div>
+                <div class="japanese">電話をかける</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/5k-t-046-28.mp3')">&#128266;</div>
+        </div>
+    </div>
+    <footer>
+        楽しく学びましょう！
+    </footer>
+    <div class="practice-link">
+        <button class="practice-button" onclick="window.location.href='5k-t1-g.html'">単語練習を始める</button>
+    </div>
+    <script>
+        // 修改后的 toggleCard 函数：点击新卡片时先关闭所有其他卡片
+        function toggleCard(card) {
+            // 如果当前卡片已激活，则切换为关闭状态
+            if(card.classList.contains('active')) {
+                card.classList.remove('active');
+                return;
+            }
+            // 关闭所有卡片的激活状态
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(c => c.classList.remove('active'));
+            // 激活当前卡片
+            card.classList.add('active');
+        }
+
+        // 全局对象，用于存储各个音频元素
+        const audioElements = {};
+
+        function playAudio(audioPath) {
+            // 如果该音频已存在，则判断是否正在播放
+            if (audioElements[audioPath]) {
+                const audio = audioElements[audioPath];
+                // 如果正在播放，则停止并重置
+                if (!audio.paused) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    return;
+                } else {
+                    // 如果处于暂停状态，则重新播放
+                    audio.play().catch(error => console.error("音声の再生に失敗しました:", error));
+                    return;
+                }
+            }
+            // 不存在则创建新的音频元素并播放
+            const audio = new Audio(audioPath);
+            audioElements[audioPath] = audio;
+            audio.play().catch(error => console.error("音声の再生に失敗しました:", error));
+            // 当音频播放完毕后，从对象中移除该音频元素
+            audio.addEventListener('ended', function() {
+                delete audioElements[audioPath];
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>楽しい中国語 第7課単語表</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .instructions {
+            text-align: center;
+            font-size: clamp(14px, 3vw, 18px);
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .word-table {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            height: 120px; /* 固定高度，防止尺寸变化 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .chinese {
+            font-size: clamp(16px, 4vw, 20px);
+            font-weight: bold;
+            color: #e67e22;
+        }
+        .details {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+        }
+        .pinyin {
+            font-size: clamp(12px, 3vw, 16px);
+            color: #3498db;
+        }
+        .japanese {
+            font-size: clamp(12px, 3vw, 16px);
+            color: #2ecc71;
+        }
+        .card.active .chinese {
+            display: none;
+        }
+        .card.active .details {
+            display: flex;
+        }
+        .audio-icon {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 18px;
+            color: #3498db;
+            cursor: pointer;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: clamp(12px, 2.5vw, 16px);
+            color: #777;
+        }
+        .practice-link {
+            margin-top: 30px;
+            text-align: center;
+        }
+        .practice-button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 20px;
+            font-size: clamp(14px, 3vw, 18px);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .practice-button:hover {
+            background-color: #2980b9;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 20px;
+            }
+            .word-table {
+                gap: 10px;
+            }
+            .card {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>単語を覚えよう！</h1>
+    <!-- 添加返回按钮 -->
+    <a href="7k.html" style="position: absolute; top: 20px; right: 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; padding: 10px 20px; font-size: 16px; text-decoration: none;">戻る</a>
+    <div class="instructions">
+        カードをクリックして意味を確認し、スピーカーアイコンを押して音声を再生しましょう！
+    </div>
+    <div class="word-table">
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">请客</div>
+            <div class="details">
+                <div class="pinyin">qǐngkè</div>
+                <div class="japanese">おごる;ご馳走する</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-01.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">想</div>
+            <div class="details">
+                <div class="pinyin">xiǎng</div>
+                <div class="japanese">～したいと思う</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-02.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">吃</div>
+            <div class="details">
+                <div class="pinyin">chī</div>
+                <div class="japanese">食べる</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-03.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">担担面</div>
+            <div class="details">
+                <div class="pinyin">dàndanmiàn</div>
+                <div class="japanese">担々麵</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-04.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">不太</div>
+            <div class="details">
+                <div class="pinyin">bú tài</div>
+                <div class="japanese">あまり〜ない</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-05.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">小笼包</div>
+            <div class="details">
+                <div class="pinyin">xiǎolóngbāo</div>
+                <div class="japanese">小籠包</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-06.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">家</div>
+            <div class="details">
+                <div class="pinyin">jiā</div>
+                <div class="japanese">軒（店の単位）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-07.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">店</div>
+            <div class="details">
+                <div class="pinyin">diàn</div>
+                <div class="japanese">店</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-08.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">好吃</div>
+            <div class="details">
+                <div class="pinyin">hǎochī</div>
+                <div class="japanese">美味しい（食べ物）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-09.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">好的</div>
+            <div class="details">
+                <div class="pinyin">hǎo de</div>
+                <div class="japanese">いいですね</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-10.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">那儿</div>
+            <div class="details">
+                <div class="pinyin">nàr</div>
+                <div class="japanese">そこ;あそこ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-11.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">欢迎光临</div>
+            <div class="details">
+                <div class="pinyin">Huānyíng guānglín</div>
+                <div class="japanese">いらっしゃいませ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-12.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">您几位</div>
+            <div class="details">
+                <div class="pinyin">nín jǐ wèi</div>
+                <div class="japanese">何名様</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-13.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">来</div>
+            <div class="details">
+                <div class="pinyin">lái</div>
+                <div class="japanese">～をください</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-14.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">份</div>
+            <div class="details">
+                <div class="pinyin">fèn</div>
+                <div class="japanese">〜人前</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-15.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">个</div>
+            <div class="details">
+                <div class="pinyin">gè</div>
+                <div class="japanese">個（人と物の単位）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-16.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">回锅肉</div>
+            <div class="details">
+                <div class="pinyin">huíguōròu</div>
+                <div class="japanese">ホイコーロー</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-17.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">再</div>
+            <div class="details">
+                <div class="pinyin">zài</div>
+                <div class="japanese">また;それから</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-18.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">杯</div>
+            <div class="details">
+                <div class="pinyin">bēi</div>
+                <div class="japanese">杯（飲み物の単位）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-19.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">乌龙茶</div>
+            <div class="details">
+                <div class="pinyin">wūlóngchá</div>
+                <div class="japanese">ウーロン茶</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-20.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">干杯</div>
+            <div class="details">
+                <div class="pinyin">gān bēi</div>
+                <div class="japanese">乾杯</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-21.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">太……了</div>
+            <div class="details">
+                <div class="pinyin">tài……le</div>
+                <div class="japanese">とても;非常に</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-22.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">这儿</div>
+            <div class="details">
+                <div class="pinyin">zhèr</div>
+                <div class="japanese">ここ</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-23.mp3')">&#128266;</div>
+        </div>
+        <div class="card" onclick="toggleCard(this)">
+            <div class="chinese">好喝</div>
+            <div class="details">
+                <div class="pinyin">hǎohē</div>
+                <div class="japanese">美味しい（飲み物）</div>
+            </div>
+            <div class="audio-icon" onclick="event.stopPropagation(); playAudio('sound/7k-t-058-24.mp3')">&#128266;</div>
+        </div>
+    </div>
+    <footer>
+        楽しく学びましょう！
+    </footer>
+    <div class="practice-link">
+        <button class="practice-button" onclick="window.location.href='7k-t1-g.html'">単語練習を始める</button>
+    </div>
+    <script>
+        // 修改后的 toggleCard 函数：点击新卡片时先关闭所有其他卡片
+        function toggleCard(card) {
+            // 如果当前卡片已激活，则切换为关闭状态
+            if(card.classList.contains('active')) {
+                card.classList.remove('active');
+                return;
+            }
+            // 关闭所有卡片的激活状态
+            const allCards = document.querySelectorAll('.card');
+            allCards.forEach(c => c.classList.remove('active'));
+            // 激活当前卡片
+            card.classList.add('active');
+        }
+
+        // 全局对象，用于存储各个音频元素
+        const audioElements = {};
+
+        function playAudio(audioPath) {
+            // 如果该音频已存在，则判断是否正在播放
+            if (audioElements[audioPath]) {
+                const audio = audioElements[audioPath];
+                // 如果正在播放，则停止并重置
+                if (!audio.paused) {
+                    audio.pause();
+                    audio.currentTime = 0;
+                    return;
+                } else {
+                    // 如果处于暂停状态，则重新播放
+                    audio.play().catch(error => console.error("音声の再生に失敗しました:", error));
+                    return;
+                }
+            }
+            // 不存在则创建新的音频元素并播放
+            const audio = new Audio(audioPath);
+            audioElements[audioPath] = audio;
+            audio.play().catch(error => console.error("音声の再生に失敗しました:", error));
+            // 当音频播放完毕后，从对象中移除该音频元素
+            audio.addEventListener('ended', function() {
+                delete audioElements[audioPath];
+            });
+        }
+    </script>
+</body>
+</html>

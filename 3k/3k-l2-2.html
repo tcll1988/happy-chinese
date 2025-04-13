@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>翻訳ゲーム</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      text-align: center;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      width: 90%;
+      max-width: 400px;
+    }
+    h1 {
+      font-size: 24px;
+      color: #333333;
+    }
+    .instructions {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .question {
+      font-size: 18px;
+      margin: 20px 0;
+    }
+    button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+      background-color: #003366;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    button:hover {
+      background-color: #002244;
+    }
+    .feedback {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #28a745;
+    }
+    .feedback.error {
+      color: #dc3545;
+    }
+    .animation {
+      margin-top: 20px;
+      font-size: 24px;
+      color: #28a745;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    .back-button {
+      margin-top: 20px;
+      background-color: #6c757d;
+    }
+    /* 初期表示用の非表示クラス */
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <!-- 使用説明と開始ボタン -->
+  <div class="container" id="intro-container">
+    <h1>翻訳ゲームへようこそ！</h1>
+    <div class="instructions">
+      <ul>
+        <li>中国語を日本語に、日本語を中国語に翻訳してください。</li>
+      </ul>
+    </div>
+    <button id="start-btn">開始</button>
+  </div>
+
+  <!-- クイズコンテナ -->
+  <div class="container hidden" id="quiz-container">
+    <h1>翻訳に挑戦しよう！</h1>
+    <div id="quiz-content">
+      <div class="question" id="question"></div>
+      <div id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      <button id="next-btn" style="display: none;">次の問題へ</button>
+      <button id="retry-btn" style="display: none;">もう一度</button>
+    </div>
+  </div>
+
+  <script>
+    // --- ここから新しい翻訳問題に差し替えた questions 配列 ---
+    const questions = [
+      {
+        question: "李明さんは８時から大学で日本語を勉強します。",
+        options: [
+          "李明从八点在大学学习日文。",
+          "优子在药妆店打工，药妆店的客人不多。",
+          "李明也在便利店打工，你呢？"
+        ],
+        answer: "李明从八点在大学学习日文。"
+      },
+      {
+        question: "優子さんは薬局でアルバイトをします。薬局の客は多くないです。",
+        options: [
+          "李明从八点在大学学习日文。",
+          "优子在药妆店打工，药妆店的客人不多。",
+          "李明也在便利店打工，你呢？"
+        ],
+        answer: "优子在药妆店打工，药妆店的客人不多。"
+      },
+      {
+        question: "李明さんもコンビニでアルバイトをします。あなたは。",
+        options: [
+          "李明从八点在大学学习日文。",
+          "优子在药妆店打工，药妆店的客人不多。",
+          "李明也在便利店打工，你呢？"
+        ],
+        answer: "李明也在便利店打工，你呢？"
+      }
+    ];
+    // --- ここまで ---
+
+    const encouragementMessages = [
+      "素晴らしい！",
+      "すごいね！",
+      "正解だよ！",
+      "よくできました！",
+      "パーフェクト！"
+    ];
+
+    let answeredQuestions = [];
+    let currentQuestionIndex;
+
+    // Fisher-Yates Shuffle
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    function getRandomQuestion() {
+      const unansweredQuestions = questions.filter((_, index) => !answeredQuestions.includes(index));
+      if (unansweredQuestions.length === 0) return null;
+      const randomIndex = Math.floor(Math.random() * unansweredQuestions.length);
+      return questions.indexOf(unansweredQuestions[randomIndex]);
+    }
+
+    function loadQuestion() {
+      const index = getRandomQuestion();
+      if (index === null) {
+        showCompletionAnimation();
+        return;
+      }
+      currentQuestionIndex = index;
+
+      const questionElement = document.getElementById("question");
+      const optionsElement = document.getElementById("options");
+      const feedbackElement = document.getElementById("feedback");
+
+      questionElement.textContent = questions[currentQuestionIndex].question;
+
+      // シャッフルした選択肢を生成
+      const shuffledOptions = shuffleArray([...questions[currentQuestionIndex].options]);
+
+      optionsElement.innerHTML = "";
+      feedbackElement.textContent = "";
+
+      shuffledOptions.forEach(option => {
+        const button = document.createElement("button");
+        button.textContent = option;
+        button.onclick = () => checkAnswer(option);
+        optionsElement.appendChild(button);
+      });
+
+      document.getElementById("next-btn").style.display = "none";
+      document.getElementById("retry-btn").style.display = "none";
+    }
+
+    function checkAnswer(selectedOption) {
+      const feedbackElement = document.getElementById("feedback");
+      const nextBtn = document.getElementById("next-btn");
+      const retryBtn = document.getElementById("retry-btn");
+
+      if (selectedOption === questions[currentQuestionIndex].answer) {
+        feedbackElement.textContent = encouragementMessages[Math.floor(Math.random() * encouragementMessages.length)];
+        feedbackElement.className = "feedback";
+        nextBtn.style.display = "block";
+        retryBtn.style.display = "none";
+        answeredQuestions.push(currentQuestionIndex);  // 正解時のみ問題を完了済みに
+      } else {
+        feedbackElement.textContent = `正解は「${questions[currentQuestionIndex].answer}」です。`;
+        feedbackElement.className = "feedback error";
+        retryBtn.style.display = "block";
+        nextBtn.style.display = "none";
+      }
+    }
+
+    function showCompletionAnimation() {
+      const quizContainer = document.getElementById("quiz-container");
+      quizContainer.innerHTML = `
+        <div class="animation">🎉✨おめでとう！全問正解です！✨🎉</div>
+        <button id="back-btn" class="back-button">次へ</button>
+      `;
+      document.getElementById("back-btn").onclick = () => window.location.href = "3k-l2-3.html";
+    }
+
+    document.getElementById("next-btn").onclick = loadQuestion;
+    document.getElementById("retry-btn").onclick = loadQuestion;
+
+    // 開始ボタン押下でクイズに入る
+    document.getElementById("start-btn").onclick = function() {
+      // 使用説明コンテナを非表示にし、クイズコンテナを表示
+      document.getElementById("intro-container").classList.add("hidden");
+      document.getElementById("quiz-container").classList.remove("hidden");
+      loadQuestion();
+    };
+  </script>
+</body>
+</html>

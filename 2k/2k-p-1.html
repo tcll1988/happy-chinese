@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国語の数字の言い方（1～99）</title>
+    <style>
+        /* 全く同じスタイルを使用 */
+        body {
+            font-family: 'MS Gothic', 'Meiryo', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            animation: fadeIn 1s ease-in;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 2s infinite;
+            background-size: 200% auto;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px);
+        }
+        .example-row {
+            display: flex;
+            flex-wrap: wrap; /* 画面幅が狭い場合に折り返す */
+            align-items: center;
+            margin: 10px 0; /* 少し間隔を狭める */
+            padding: 10px 15px; /* 少しパディングを調整 */
+            background: linear-gradient(135deg, #ffffff, #f0f9ff);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .example-row:hover {
+            background: linear-gradient(135deg, #f0f9ff, #ffffff);
+        }
+        .chinese {
+            font-family: 'SimHei', 'MS Gothic', sans-serif;
+            margin-right: 10px;
+            font-size: 1.1em; /* 数字なので少し大きく */
+        }
+        .pinyin {
+            color: #555;
+            font-size: 0.9em;
+            margin-right: 15px;
+            font-family: sans-serif; /* ピンインはゴシック系で見やすく */
+        }
+        .meaning {
+            flex-grow: 1; /* 残りのスペースを埋める */
+            text-align: right; /* 数字は右寄せ */
+            font-weight: bold;
+        }
+        .speaker {
+            margin-left: 15px;
+            cursor: pointer;
+            color: #3498db;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .speaker:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
+        }
+        .question {
+            margin: 25px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+            box-shadow: none;
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .correct {
+            background: linear-gradient(135deg, #d4edda, #b6e3c1);
+            color: #155724;
+            animation: float 2s ease-in-out infinite;
+        }
+        .incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f3b6b0);
+            color: #721c24;
+            animation: shake 0.5s;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes shine { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        @keyframes shake { 0% { transform: translateX(0); } 25% { transform: translateX(-5px); } 50% { transform: translateX(5px); } 75% { transform: translateX(-5px); } 100% { transform: translateX(0); } }
+        .hidden { display: none; }
+        .back-btn { background: linear-gradient(135deg, #e74c3c, #c0392b); width: 100%; margin-top: 20px; }
+        .back-btn:hover { background: linear-gradient(135deg, #c0392b, #e74c3c); }
+        .point-list { list-style: none; padding-left: 20px; margin-bottom: 20px; }
+        .point-list li { position: relative; padding-left: 25px; margin: 10px 0; }
+        .point-list li::before { content: '★'; position: absolute; left: 0; color: #f1c40f; }
+        .column-box { background: #fef9e7; padding: 15px; border-radius: 10px; border-left: 4px solid #f39c12; margin-top: 15px; }
+        .point-list li.column-box { padding-left: 15px; margin-left: -20px; }
+        .point-list li.column-box::before { display: none; }
+        .answer-section { background: #f8f9fa; padding: 15px; border-radius: 10px; margin: 20px 0; }
+        .answer-section h3 { margin-top: 0; color: #333; }
+        .answer-section .hint { color: #666; font-size: 0.9em; }
+        .confetti-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; overflow: hidden; z-index: 9999; }
+        .confetti { position: absolute; width: 10px; height: 10px; opacity: 0.7; animation: confetti-fall 3s linear infinite; }
+        @keyframes confetti-fall { 0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0; } }
+        .ripple { position: absolute; border-radius: 50%; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; background: rgba(52, 152, 219, 0.3); width: 1px; height: 1px; opacity: 1; animation: ripple-animation 0.6s linear; }
+        @keyframes ripple-animation { to { width: 60px; height: 60px; opacity: 0; } }
+        /* 数字のテーブル表示用 */
+        .number-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); /* 列数を自動調整 */
+            gap: 10px; /* グリッド間の隙間 */
+        }
+    </style>
+</head>
+<body>
+    <h1>中国語の数字の言い方（1～99）</h1>
+
+    <section>
+        <h2>基本の数字 (1～10)</h2>
+        <p>まずは基本となる1から10までの数字を覚えましょう。</p>
+        <div class="number-grid">
+            <div class="example-row">
+                <span class="chinese">一</span> <span class="pinyin">yī</span> <span class="meaning">1</span>
+                <span class="speaker" onclick="playSound('sound/yi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">二</span> <span class="pinyin">èr</span> <span class="meaning">2</span>
+                <span class="speaker" onclick="playSound('sound/er4.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">三</span> <span class="pinyin">sān</span> <span class="meaning">3</span>
+                <span class="speaker" onclick="playSound('sound/san1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">四</span> <span class="pinyin">sì</span> <span class="meaning">4</span>
+                <span class="speaker" onclick="playSound('sound/si4.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">五</span> <span class="pinyin">wǔ</span> <span class="meaning">5</span>
+                <span class="speaker" onclick="playSound('sound/wu3.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">六</span> <span class="pinyin">liù</span> <span class="meaning">6</span>
+                <span class="speaker" onclick="playSound('sound/liu4.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">七</span> <span class="pinyin">qī</span> <span class="meaning">7</span>
+                <span class="speaker" onclick="playSound('sound/qi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">八</span> <span class="pinyin">bā</span> <span class="meaning">8</span>
+                <span class="speaker" onclick="playSound('sound/ba1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">九</span> <span class="pinyin">jiǔ</span> <span class="meaning">9</span>
+                <span class="speaker" onclick="playSound('sound/jiu3.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">十</span> <span class="pinyin">shí</span> <span class="meaning">10</span>
+                <span class="speaker" onclick="playSound('sound/shi2.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>11～99の言い方</h2>
+        <ul class="point-list">
+            <li><strong>11～19:</strong> 「十 (shí)」 + 「一～九」で表します。<br>
+                例: 11 = 十一 (shíyī), 12 = 十二 (shí'èr), 19 = 十九 (shíjiǔ)</li>
+            <li><strong>20, 30, ..., 90:</strong> 「二～九」 + 「十 (shí)」で表します。<br>
+                例: 20 = 二十 (èrshí), 30 = 三十 (sānshí), 90 = 九十 (jiǔshí)</li>
+            <li><strong>21～99 (十の位以外):</strong> 「[十の位]十」 + 「[一の位]」で表します。<br>
+                例: 21 = 二十一 (èrshíyī), 35 = 三十五 (sānshíwǔ), 99 = 九十九 (jiǔshíjiǔ)</li>
+        </ul>
+        <p><strong>例:</strong></p>
+        <div class="number-grid">
+            <div class="example-row">
+                <span class="chinese">十一</span> <span class="pinyin">shíyī</span> <span class="meaning">11</span>
+                <span class="speaker" onclick="playSound('sound/shi2yi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">十七</span> <span class="pinyin">shíqī</span> <span class="meaning">17</span>
+                <span class="speaker" onclick="playSound('sound/shi2qi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">二十</span> <span class="pinyin">èrshí</span> <span class="meaning">20</span>
+                <span class="speaker" onclick="playSound('sound/er4shi2.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">二十一</span> <span class="pinyin">èrshíyī</span> <span class="meaning">21</span>
+                <span class="speaker" onclick="playSound('sound/er4shi2yi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">三十</span> <span class="pinyin">sānshí</span> <span class="meaning">30</span>
+                <span class="speaker" onclick="playSound('sound/san1shi2.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">四十九</span> <span class="pinyin">sìshíjiǔ</span> <span class="meaning">49</span>
+                <span class="speaker" onclick="playSound('sound/si4shi2jiu3.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">五十八</span> <span class="pinyin">wǔshíbā</span> <span class="meaning">58</span>
+                <span class="speaker" onclick="playSound('sound/wu3shi2ba1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">六十三</span> <span class="pinyin">liùshísān</span> <span class="meaning">63</span>
+                <span class="speaker" onclick="playSound('sound/liu4shi2san1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+             <div class="example-row">
+                <span class="chinese">七十七</span> <span class="pinyin">qīshíqī</span> <span class="meaning">77</span>
+                <span class="speaker" onclick="playSound('sound/qi1shi2qi1.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">八十二</span> <span class="pinyin">bāshí'èr</span> <span class="meaning">82</span>
+                <span class="speaker" onclick="playSound('sound/ba1shi2er4.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+            <div class="example-row">
+                <span class="chinese">九十九</span> <span class="pinyin">jiǔshíjiǔ</span> <span class="meaning">99</span>
+                <span class="speaker" onclick="playSound('sound/jiu3shi2jiu3.mp3', event)" aria-label="発音を聞く"></span>
+            </div>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>練習問題</h2>
+        <div class="question" id="q1">
+            <p><strong>問題1：</strong>「58」の正しい中国語の言い方は？</p>
+            <button onclick="checkAnswer(1, '五十八')">五十八</button>
+            <button onclick="checkAnswer(1, '五十と八')">五十と八</button>
+            <button onclick="checkAnswer(1, '八十五')">八十五</button>
+            <div class="answer-section hidden" id="answer1">
+                <h3>解答と解説</h3>
+                <p>正解： <strong>五十八 (wǔshíbā)</strong></p>
+                <p class="hint">解説：「[十の位]十」 + 「[一の位]」のルールに従い、「五十 (wǔshí)」+「八 (bā)」となります。</p>
+            </div>
+        </div>
+        <div class="feedback hidden" id="f1"></div>
+
+        <div class="question hidden" id="q2">
+            <p><strong>問題2：</strong>「九十九」はアラビア数字でいくつ？</p>
+            <button onclick="checkAnswer(2, '99')">99</button>
+            <button onclick="checkAnswer(2, '90')">90</button>
+            <button onclick="checkAnswer(2, '19')">19</button>
+             <div class="answer-section hidden" id="answer2">
+                <h3>解答と解説</h3>
+                <p>正解： <strong>99</strong></p>
+                <p class="hint">解説：「九十 (jiǔshí)」は90、「九 (jiǔ)」は9なので、「九十九 (jiǔshíjiǔ)」は90 + 9 = 99です。</p>
+            </div>
+        </div>
+        <div class="feedback hidden" id="f2"></div>
+
+        <div class="question hidden" id="q3">
+            <p><strong>問題3：</strong>「20」の正しい中国語の言い方は？</p>
+            <button onclick="checkAnswer(3, '十二')">十二</button>
+            <button onclick="checkAnswer(3, '二十')">二十</button>
+            <button onclick="checkAnswer(3, '两十')">两十</button>
+             <div class="answer-section hidden" id="answer3">
+                <h3>解答と解説</h3>
+                <p>正解： <strong>二十 (èrshí)</strong></p>
+                <p class="hint">解説：「[二～九]」 + 「十 (shí)」のルールに従い、「二 (èr)」+「十 (shí)」で「二十 (èrshí)」となります。「十二 (shí'èr)」は12です。「两十」という言い方は通常しません（コラム参照）。</p>
+            </div>
+        </div>
+        <div class="feedback hidden" id="f3"></div>
+
+        <!-- 全問正解時メッセージ -->
+        <div class="hidden" id="congrats">
+            <p class="feedback correct" style="text-align: center;">
+                <strong id="message"></strong><br>
+                <small>素晴らしい！1～99までの数字はマスターしましたね！</small>
+            </p>
+        </div>
+    </section>
+
+    <section class="column-box">
+        <h3>コラム：「二 (èr)」と「两 (liǎng)」の使い分け</h3>
+        <p>中国語には「2」を表す言葉が二つあります。</p>
+        <ul>
+            <li><strong>二 (èr):</strong> 序数（～番目）、番号、小数、分数、そして通常は「十」や「百」の位で使います。（例：二楼(èrlóu) - 2階、二十(èrshí) - 20、十二(shí'èr) - 12）</li>
+            <li><strong>两 (liǎng):</strong> 量詞（～個、～つなど）の前で数量を表す場合に使います。（例：两个人(liǎng ge rén) - 二人、两本书(liǎng běn shū) - 2冊の本）</li>
+        </ul>
+        <p>※基本的に量を数えるときは「两」、それ以外（番号や位）は「二」と覚えると便利ですが、例外もあります。</p>
+    </section>
+
+    <!-- 戻るボタン -->
+    <button class="back-btn" onclick="goBack()">戻る</button>
+    <!-- 紙吹雪用コンテナ -->
+    <div id="confetti-container" class="confetti-container"></div>
+
+    <script>
+        // 正解データを更新
+        const correctAnswers = {
+            1: '五十八',
+            2: '99',
+            3: '二十'
+        };
+        const messages = [
+            "素晴らしい！",
+            "よくできました！",
+            "パーフェクト！",
+            "大正解！",
+            "完璧な出来です！"
+        ];
+        let currentQuestion = 1;
+        let answeredCount = 0;
+        const totalQuestions = Object.keys(correctAnswers).length; // 問題数を更新
+
+        // 音声再生関数 (変更なし)
+        function playSound(url, event) {
+            try {
+                const audio = new Audio(url);
+                audio.play();
+                if (event && event.target.classList.contains('speaker')) {
+                    const speaker = event.target;
+                    const ripple = document.createElement('span');
+                    ripple.className = 'ripple';
+                    const existingRipple = speaker.querySelector('.ripple');
+                    if(existingRipple) existingRipple.remove();
+                    speaker.appendChild(ripple);
+                    ripple.addEventListener('animationend', () => {
+                        ripple.remove();
+                    });
+                }
+            } catch (error) {
+                console.error("音声ファイルの再生に失敗しました:", url, error);
+            }
+        }
+
+        // 解答チェック関数 (問題3まで対応するように調整)
+        function checkAnswer(question, selectedAnswer) {
+            const feedback = document.getElementById(`f${question}`);
+            const answerSection = document.getElementById(`answer${question}`);
+            const questionDiv = document.getElementById(`q${question}`);
+            const buttons = questionDiv.querySelectorAll('button');
+
+            buttons.forEach(btn => btn.disabled = true);
+
+            if (selectedAnswer === correctAnswers[question]) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = '正解！';
+                feedback.classList.remove('hidden');
+                answeredCount++;
+
+                setTimeout(() => {
+                    questionDiv.classList.add('hidden');
+                    feedback.classList.add('hidden');
+
+                    const nextQuestion = question + 1; // 次の問題番号
+                    const nextQuestionDiv = document.getElementById(`q${nextQuestion}`);
+
+                    if (nextQuestionDiv) {
+                        nextQuestionDiv.classList.remove('hidden');
+                    } else if (answeredCount === totalQuestions) {
+                        showCongrats();
+                    }
+                }, 1500);
+
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `不正解！ 正解は「${correctAnswers[question]}」です。`;
+                feedback.classList.remove('hidden');
+                answerSection.classList.remove('hidden');
+
+                 setTimeout(() => {
+                     feedback.classList.add('hidden');
+                     answerSection.classList.add('hidden');
+                     buttons.forEach(btn => btn.disabled = false);
+                 }, 3000);
+            }
+        }
+
+        // 全問正解時の表示関数 (変更なし)
+        function showCongrats() {
+            const message = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('message').textContent = message;
+            document.getElementById('congrats').classList.remove('hidden');
+            const confettiContainer = document.getElementById('confetti-container');
+            confettiContainer.innerHTML = '';
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.animationDuration = 2 + Math.random() * 1.5 + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 75%)`;
+                if (Math.random() > 0.5) {
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.width = '8px';
+                    confetti.style.height = '8px';
+                } else {
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                }
+                confetti.style.transform = `rotate(${Math.random() * 360}deg)`;
+                confettiContainer.appendChild(confetti);
+            }
+            setTimeout(() => {
+                confettiContainer.innerHTML = '';
+            }, 4000);
+        }
+
+        // 戻る機能 (変更なし)
+        function goBack() {
+            if (history.length > 1) {
+                history.back();
+            } else {
+                // 戻る履歴がない場合のデフォルトURL (必要に応じて変更)
+                location.href = 'index.html'; // 仮のindex.html
+            }
+        }
+
+        // 初期表示設定：最初の問題のみ表示 (変更なし)
+         document.addEventListener('DOMContentLoaded', () => {
+             document.getElementById('q1').classList.remove('hidden');
+         });
+
+    </script>
+</body>
+</html>

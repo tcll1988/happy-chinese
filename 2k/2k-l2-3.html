@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>自習問題</title>
+  <style>
+    /* Google Fonts (Noto Sans JP) を使用 */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+    
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      animation: backgroundAnimation 10s ease infinite;
+    }
+    
+    @keyframes backgroundAnimation {
+      0% { filter: hue-rotate(0deg); }
+      50% { filter: hue-rotate(180deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+    
+    .container {
+      background-color: rgba(255,255,255,0.95);
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 800px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+    
+    h1, h2 {
+      text-align: center;
+      color: #00796b;
+      margin-bottom: 20px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      font-size: 26px;
+    }
+    
+    h2 {
+      font-size: 22px;
+    }
+    
+    .instructions {
+      font-size: 16px;
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    
+    .options {
+      font-size: 14px;
+      text-align: center;
+      color: #555;
+      margin-bottom: 15px;
+    }
+    
+    .text-box {
+      background-color: #f9fbe7;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 15px;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+      position: relative;
+      transition: background-color 0.3s ease;
+    }
+    
+    .text-box:hover {
+      background-color: #f1f8e9;
+    }
+    
+    .select-container {
+      display: inline-block;
+      margin: 0 5px;
+      position: relative;
+    }
+    
+    /* 优化下拉菜单样式，提升手机触控体验 */
+    .select-box {
+      font-size: 18px;             /* 增大字体 */
+      padding: 12px 16px;          /* 增加点击区域 */
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background: #fff url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMCIgaGVpZ2h0PSIxMCIgdmlld0JveD0iMCAwIDEwIDEwIj48cG9seWdvbiBwb2ludHM9IjAsMCAxMCwwIDUsNSIgZmlsbD0iIzk5OSI+PC9wb2x5Z29uPjwvc3ZnPg==') no-repeat right 10px center;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+    
+    .select-box:focus {
+      border-color: #00796b;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0,121,107,0.5);
+    }
+    
+    button {
+      display: block;
+      margin: 0 auto;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background: linear-gradient(135deg, #00796b, #004d40);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+    
+    button:hover {
+      background: linear-gradient(135deg, #004d40, #00796b);
+      transform: scale(1.05);
+    }
+    
+    .feedback {
+      font-size: 18px;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    
+    .feedback.success {
+      color: #2e7d32;
+    }
+    
+    .feedback.error {
+      color: #d32f2f;
+    }
+    
+    .answer-list {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #555;
+      text-align: left;
+      display: none;
+    }
+    
+    .answer-list li {
+      margin: 8px 0;
+    }
+    
+    .retry-button,
+    .back-button {
+      display: none;
+      margin: 20px auto 0;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #ff5722;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    
+    .retry-button:hover,
+    .back-button:hover {
+      background-color: #e64a19;
+      transform: scale(1.05);
+    }
+    
+    .section {
+      margin-bottom: 25px;
+    }
+    
+    /* 初始隐藏翻译部分 */
+    #translationSection {
+      display: none;
+    }
+    
+    /* 初始隐藏 Quiz 内容 */
+    #quizContent {
+      display: none;
+    }
+    
+    /* Intro 部分样式 */
+    #intro {
+      background-color: rgba(255,255,255,0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      max-width: 800px;
+      width: 100%;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    #intro:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 35px rgba(0,0,0,0.2);
+    }
+    
+    @media (max-width: 600px) {
+      body {
+        padding: 10px;
+      }
+      h1 {
+        font-size: 22px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+      .instructions, .options {
+        font-size: 14px;
+      }
+      .text-box {
+        font-size: 14px;
+        padding: 10px;
+      }
+      button, .retry-button, .back-button {
+        font-size: 14px;
+        padding: 8px 16px;
+      }
+      .container, #intro {
+        padding: 20px;
+      }
+      .select-box {
+        font-size: 18px;
+        padding: 12px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Intro 页面 -->
+  <div id="intro">
+    <h1>自習問題</h1>
+    <p class="instructions">
+      この練習では、空欄に適切な語句を選んで文章を完成させます。<br>
+      
+    </p>
+    <button id="startButton">開始</button>
+  </div>
+  
+  <!-- 练习题内容 -->
+  <div id="quizContent" class="container">
+    <div class="section">
+      <h2>問題</h2>
+      <p class="instructions">
+        以下の文を完成させるために、各空欄に適切な語句を選んでください。<br>
+        （選択肢は画面上部では表示されません）
+      </p>
+      <p class="options">
+        選択肢：① 星期　② 月　③ 号　④ 的　⑤ 几　⑥ 祝
+      </p>
+      <div class="text-box">
+        你好！今天1
+        <div class="select-container">
+          <select id="blank1" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+        1
+        <div class="select-container">
+          <select id="blank2" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+        ，
+        <div class="select-container">
+          <select id="blank3" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+        三，
+        <div class="select-container">
+          <select id="blank4" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+        你新年快乐！今天是我妈妈
+        <div class="select-container">
+          <select id="blank5" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+        生日。你的生日是
+        <div class="select-container">
+          <select id="blank6" class="select-box">
+            <option value="">選択</option>
+            <option value="星期">① 星期</option>
+            <option value="月">② 月</option>
+            <option value="号">③ 号</option>
+            <option value="的">④ 的</option>
+            <option value="几">⑤ 几</option>
+            <option value="祝">⑥ 祝</option>
+          </select>
+        </div>
+         月几号？
+      </div>
+    </div>
+    
+    <button id="checkButton">回答を確認</button>
+    <div id="result" class="feedback"></div>
+    <ul id="answerList" class="answer-list"></ul>
+    <button id="retryButton" class="retry-button">もう一度挑戦</button>
+    <button id="backButton" class="back-button">返回</button>
+    
+    <!-- 日本語訳部分 -->
+    <div id="translationSection" class="section">
+      <h2>日本語訳</h2>
+      <div id="translationBox" class="text-box translation">
+        こんにちは！今日は1月1日で、水曜日です。<br>
+        あけましておめでとうございます！今日は私の母の誕生日です。<br>
+        あなたの誕生日は何月何日ですか。
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // 「開始」按钮处理：隐藏 Intro 并显示 Quiz 内容，同时隐藏题目部分的说明与选项
+    document.getElementById("startButton").addEventListener("click", function() {
+      document.getElementById("intro").style.display = "none";
+      document.getElementById("quizContent").style.display = "block";
+      var quizSection = document.querySelector("#quizContent .section");
+      if (quizSection) {
+        var instr = quizSection.querySelector(".instructions");
+        var opts = quizSection.querySelector(".options");
+        if (instr) { instr.style.display = "none"; }
+        if (opts) { opts.style.display = "none"; }
+      }
+    });
+    
+    // 回答确认按钮事件
+    document.getElementById("checkButton").addEventListener("click", checkAnswers);
+    // 重试按钮事件
+    document.getElementById("retryButton").addEventListener("click", resetQuiz);
+    // 返回按钮事件
+    document.getElementById("backButton").addEventListener("click", function() {
+      window.location.href = "2k-l.html";
+    });
+    
+    function checkAnswers() {
+      const correctAnswers = {
+        blank1: "月",
+        blank2: "号",
+        blank3: "星期",
+        blank4: "祝",
+        blank5: "的",
+        blank6: "几"
+      };
+      let score = 0;
+      const total = 6;
+      
+      const userAnswers = {
+        blank1: document.getElementById("blank1").value,
+        blank2: document.getElementById("blank2").value,
+        blank3: document.getElementById("blank3").value,
+        blank4: document.getElementById("blank4").value,
+        blank5: document.getElementById("blank5").value,
+        blank6: document.getElementById("blank6").value
+      };
+      
+      for (let key in userAnswers) {
+        if (userAnswers[key] === "") {
+          alert("全ての空欄に選択してください。");
+          return;
+        }
+      }
+      
+      const incorrectAnswers = [];
+      for (let key in correctAnswers) {
+        if (userAnswers[key] === correctAnswers[key]) {
+          score++;
+        } else {
+          incorrectAnswers.push(`${key.replace("blank", "第")}番目の空：正解は「${correctAnswers[key]}」`);
+        }
+      }
+      
+      const resultDiv = document.getElementById("result");
+      const answerList = document.getElementById("answerList");
+      const retryButton = document.getElementById("retryButton");
+      const backButton = document.getElementById("backButton");
+      const translationSection = document.getElementById("translationSection");
+      
+      answerList.innerHTML = "";
+      resultDiv.className = "feedback";
+      
+      if (score === total) {
+        resultDiv.textContent = "全問正解です！素晴らしいですね！";
+        resultDiv.classList.add("success");
+        answerList.style.display = "none";
+        retryButton.style.display = "none";
+        backButton.style.display = "block";
+        translationSection.style.display = "block";
+      } else {
+        resultDiv.textContent = `${score}問正解です。もう一度挑戦しましょう！`;
+        resultDiv.classList.add("error");
+        incorrectAnswers.forEach(function(item) {
+          const li = document.createElement("li");
+          li.textContent = item;
+          answerList.appendChild(li);
+        });
+        answerList.style.display = "block";
+        retryButton.style.display = "block";
+        backButton.style.display = "none";
+        translationSection.style.display = "none";
+      }
+    }
+    
+    function resetQuiz() {
+      document.getElementById("blank1").value = "";
+      document.getElementById("blank2").value = "";
+      document.getElementById("blank3").value = "";
+      document.getElementById("blank4").value = "";
+      document.getElementById("blank5").value = "";
+      document.getElementById("blank6").value = "";
+      
+      const resultDiv = document.getElementById("result");
+      const answerList = document.getElementById("answerList");
+      const retryButton = document.getElementById("retryButton");
+      const backButton = document.getElementById("backButton");
+      const translationSection = document.getElementById("translationSection");
+      
+      resultDiv.textContent = "";
+      resultDiv.className = "feedback";
+      answerList.innerHTML = "";
+      answerList.style.display = "none";
+      retryButton.style.display = "none";
+      backButton.style.display = "none";
+      translationSection.style.display = "none";
+    }
+  </script>
+</body>
+</html>

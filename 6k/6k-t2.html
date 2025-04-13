@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国語で大学の施設を読んでみましょう</title>
+  <style>
+    body {
+      font-family: "メイリオ", Arial, sans-serif;
+      background-color: #f0f8ff;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+    h1, h2 {
+      text-align: center;
+      color: #0056b3;
+    }
+    p {
+      text-align: center;
+      font-size: 1.1em;
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    th, td {
+      padding: 12px 15px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    th {
+      background-color: #e0f7fa;
+    }
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+    tr:hover {
+      background-color: #f1f1f1;
+    }
+    /* 音声再生ボタン：背景色なし */
+    .sound-btn {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 18px;
+      margin-left: 8px;
+    }
+    /* オプションボタン：大きめでタップしやすく、押下時にアニメーション */
+    .option-btn {
+      background: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 15px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px;
+      flex: 1 1 calc(45% - 20px);
+      transition: transform 0.2s ease;
+    }
+    .option-btn:active {
+      transform: scale(0.95);
+    }
+    .option-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .feedback {
+      text-align: center;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    .back-btn {
+      text-align: center;
+      margin-top: 40px;
+    }
+    .back-btn button {
+      background: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    /* 音声再生ボタン（下部） */
+    #playAudio {
+      background: #0056b3;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1em;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>中国語で大学の施設を読んでみましょう</h1>
+    <p>ピンインの隣の🔊ボタンをクリックして正しい発音を確認してください。</p>
+    <table>
+      <thead>
+        <tr>
+          <th>中国語</th>
+          <th>ピンイン</th>
+          <th>日本語</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>学校</td>
+          <td>
+            xuéxiào
+            <button class="sound-btn" onclick="document.getElementById('audio-学校').play()">🔊</button>
+            <audio id="audio-学校" src="sound/6k-t2-xuexiao.mp3"></audio>
+          </td>
+          <td>学校</td>
+        </tr>
+        <tr>
+          <td>图书馆</td>
+          <td>
+            túshūguǎn
+            <button class="sound-btn" onclick="document.getElementById('audio-图书馆').play()">🔊</button>
+            <audio id="audio-图书馆" src="sound/6k-t2-tushuguan.mp3"></audio>
+          </td>
+          <td>図書館</td>
+        </tr>
+        <tr>
+          <td>体育馆</td>
+          <td>
+            tǐyùguǎn
+            <button class="sound-btn" onclick="document.getElementById('audio-体育馆').play()">🔊</button>
+            <audio id="audio-体育馆" src="sound/6k-t2-tiyuguan.mp3"></audio>
+          </td>
+          <td>体育館</td>
+        </tr>
+        <tr>
+          <td>操场</td>
+          <td>
+            cāochǎng
+            <button class="sound-btn" onclick="document.getElementById('audio-操场').play()">🔊</button>
+            <audio id="audio-操场" src="sound/6k-t2-caochang.mp3"></audio>
+          </td>
+          <td>運動場</td>
+        </tr>
+        <tr>
+          <td>游泳池</td>
+          <td>
+            yóuyǒngchí
+            <button class="sound-btn" onclick="document.getElementById('audio-游泳池').play()">🔊</button>
+            <audio id="audio-游泳池" src="sound/6k-t2-youyongchi.mp3"></audio>
+          </td>
+          <td>プール</td>
+        </tr>
+        <tr>
+          <td>篮球场</td>
+          <td>
+            lánqiúchǎng
+            <button class="sound-btn" onclick="document.getElementById('audio-篮球场').play()">🔊</button>
+            <audio id="audio-篮球场" src="sound/6k-t2-lanqiuchang.mp3"></audio>
+          </td>
+          <td>バスケットボールコート</td>
+        </tr>
+        <tr>
+          <td>食堂</td>
+          <td>
+            shítáng
+            <button class="sound-btn" onclick="document.getElementById('audio-食堂').play()">🔊</button>
+            <audio id="audio-食堂" src="sound/6k-t2-shitang.mp3"></audio>
+          </td>
+          <td>食堂</td>
+        </tr>
+        <tr>
+          <td>教室</td>
+          <td>
+            jiàoshì
+            <button class="sound-btn" onclick="document.getElementById('audio-教室').play()">🔊</button>
+            <audio id="audio-教室" src="sound/6k-t2-jiaoshi.mp3"></audio>
+          </td>
+          <td>教室</td>
+        </tr>
+        <tr>
+          <td>宿舍</td>
+          <td>
+            sùshè
+            <button class="sound-btn" onclick="document.getElementById('audio-宿舍').play()">🔊</button>
+            <audio id="audio-宿舍" src="sound/6k-t2-sushe.mp3"></audio>
+          </td>
+          <td>寮</td>
+        </tr>
+        <tr>
+          <td>医务室</td>
+          <td>
+            yīwùshì
+            <button class="sound-btn" onclick="document.getElementById('audio-医务室').play()">🔊</button>
+            <audio id="audio-医务室" src="sound/6k-t2-yiwushi.mp3"></audio>
+          </td>
+          <td>保健室</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- タップで選択するシンプルな音声問題セクション -->
+    <div class="exercise">
+      <h2>音声を聞いて正しい答えを選ぶ</h2>
+      <p>再生ボタンをクリックして音声を聞き、表示された4つのボタンから答えを選んでください。</p>
+      <div style="text-align: center; margin-bottom: 20px;">
+        <button id="playAudio" onclick="document.getElementById('audio-exercise').play()">🔊 音声再生</button>
+        <audio id="audio-exercise"></audio>
+      </div>
+      <div class="option-container" id="option-container">
+        <!-- ここに4つのオプションボタンが生成されます -->
+      </div>
+      <div class="feedback" id="feedback"></div>
+    </div>
+
+    <!-- 戻るボタン -->
+    <div class="back-btn">
+      <a href="6k.html"><button type="button">戻る</button></a>
+    </div>
+  </div>
+
+  <script>
+    // 施設データの配列
+    const dishes = [
+      { name: "学校", audio: "sound/6k-t2-xuexiao.mp3" },
+      { name: "图书馆", audio: "sound/6k-t2-tushuguan.mp3" },
+      { name: "体育馆", audio: "sound/6k-t2-tiyuguan.mp3" },
+      { name: "操场", audio: "sound/6k-t2-caochang.mp3" },
+      { name: "游泳池", audio: "sound/6k-t2-youyongchi.mp3" },
+      { name: "篮球场", audio: "sound/6k-t2-lanqiuchang.mp3" },
+      { name: "食堂", audio: "sound/6k-t2-shitang.mp3" },
+      { name: "教室", audio: "sound/6k-t2-jiaoshi.mp3" },
+      { name: "宿舍", audio: "sound/6k-t2-sushe.mp3" },
+      { name: "医务室", audio: "sound/6k-t2-yiwushi.mp3" }
+    ];
+    
+    // ランダムな励ましの言葉リスト
+    const encouragements = [
+      "素晴らしい！",
+      "正解です！その調子です！",
+      "いいですね！続けてください！",
+      "やるじゃないですか！"
+    ];
+    
+    let currentQuestion = null;
+    
+    // 配列をシャッフルする関数（Fisher-Yatesアルゴリズム）
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+    
+    // 問題を読み込む（ランダムに1問選択し、正解を含む4つのオプションを生成）
+    function loadQuestion() {
+      currentQuestion = dishes[Math.floor(Math.random() * dishes.length)];
+      document.getElementById("audio-exercise").src = currentQuestion.audio;
+      document.getElementById("feedback").textContent = "";
+      generateOptionButtons();
+    }
+    
+    // 4つのオプションボタンを生成（正解＋3つの不正解をランダム選出）
+    function generateOptionButtons() {
+      const container = document.getElementById("option-container");
+      container.innerHTML = "";
+      // 正解を含むオプション候補
+      let options = [currentQuestion];
+      // 正解以外の施設を抽出
+      let others = dishes.filter(dish => dish.name !== currentQuestion.name);
+      // シャッフルして3つ選択
+      others = shuffle(others).slice(0, 3);
+      options = options.concat(others);
+      // 再度シャッフルして4択の順番をランダム化
+      options = shuffle(options);
+      
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.className = "option-btn";
+        btn.textContent = option.name;
+        btn.onclick = () => checkAnswer(option.name, btn);
+        container.appendChild(btn);
+      });
+    }
+    
+    // 答えをチェックし、アニメーション付きでフィードバックを表示
+    function checkAnswer(selectedName, btn) {
+      // ボタンを一旦無効化して重複クリック防止
+      const buttons = document.querySelectorAll(".option-btn");
+      buttons.forEach(b => b.disabled = true);
+      
+      const feedback = document.getElementById("feedback");
+      if (selectedName === currentQuestion.name) {
+        // 正解の場合：選択ボタンに成功のアニメーションを付与
+        btn.style.transform = "scale(1.1)";
+        const msg = encouragements[Math.floor(Math.random() * encouragements.length)];
+        feedback.textContent = msg;
+        setTimeout(() => {
+          // 元に戻して新たな問題を読み込む
+          buttons.forEach(b => { 
+            b.style.transform = "scale(1)"; 
+            b.disabled = false;
+          });
+          loadQuestion();
+        }, 2000);
+      } else {
+        // 不正解の場合：選択ボタンに失敗のアニメーションを付与
+        btn.style.transform = "rotate(5deg)";
+        feedback.textContent = `不正解です。正解は「${currentQuestion.name}」です。再挑戦してください。`;
+        setTimeout(() => {
+          btn.style.transform = "rotate(0deg)";
+          buttons.forEach(b => b.disabled = false);
+        }, 2000);
+      }
+    }
+    
+    // 初期化
+    loadQuestion();
+  </script>
+</body>
+</html>

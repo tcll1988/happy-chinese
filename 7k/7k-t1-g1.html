@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タイムチャレンジフラッシュカード記憶ゲーム</title>
+  <style>
+    /* 基本スタイル */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      color: #333333;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    /* ゲーム説明のスタイル */
+    #instructions {
+      font-size: 16px;
+      color: #555;
+      text-align: center;
+      margin-bottom: 20px;
+      max-width: 300px;
+      line-height: 1.5;
+    }
+    /* フラッシュカードのスタイル */
+    #flashcard {
+      width: 80%;
+      max-width: 250px;
+      height: 120px;
+      margin: 20px auto;
+      background: #3498db;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 36px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: background 0.3s, transform 0.3s;
+    }
+    #flashcard.hidden {
+      display: none;
+    }
+    /* 選択肢ボタンのスタイル */
+    #options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      width: 80%;
+      max-width: 300px;
+      margin: auto;
+    }
+    #options button {
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ecf0f1;
+      color: #333333;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #options button:hover {
+      transform: scale(1.05);
+    }
+    #options button.disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    /* フィードバックのスタイル */
+    #feedback {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .correct {
+      color: #2ecc71;
+    }
+    .incorrect {
+      color: #e74c3c;
+    }
+    /* 次の問題/再挑戦ボタン */
+    #next-button,
+    #retry-button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #next-button:hover,
+    #retry-button:hover {
+      background: #2980b9;
+      transform: scale(1.05);
+    }
+    /* 完了アニメーション */
+    #completion-animation {
+      display: none;
+      font-size: 24px;
+      color: #2ecc71;
+      text-align: center;
+      margin-top: 20px;
+      animation: bounce 1s infinite;
+    }
+    @keyframes bounce {
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+    /* 戻るボタン */
+    #back-button {
+      display: none;
+      margin-top: 20px;
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #e74c3c;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #back-button:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
+    /* スタートボタンのスタイル */
+    #start-button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #ff7e5f, #feb47b);
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+    #start-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.3);
+      transition: left 0.5s ease;
+    }
+    #start-button:hover::before {
+      left: 100%;
+    }
+    #start-button:hover {
+      transform: scale(1.05);
+    }
+    /* スマートフォン対応 */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      #flashcard {
+        font-size: 30px;
+        height: 100px;
+      }
+      #options button {
+        font-size: 16px;
+        padding: 10px;
+      }
+      #feedback {
+        font-size: 18px;
+      }
+      #next-button,
+      #retry-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>タイムチャレンジフラッシュカード記憶ゲーム</h1>
+  <!-- ゲーム説明 -->
+  <div id="instructions">
+    ゲームの遊び方：<br>
+    1. 「チャレンジ開始」をクリックすると、中国語の単語が表示されます。<br>
+    2. 単語を覚えて、正しい日本語訳を選んでください。<br>
+    3. 正解なら次の問題へ進みます。不正解ならもう一度挑戦できます。<br>
+
+    <br>
+    さあ、準備はいいですか？😊
+  </div>
+  <!-- スタートボタン -->
+  <button id="start-button" onclick="startChallenge()">チャレンジ開始</button>
+  <div id="flashcard" class="hidden"></div>
+  <div id="options"></div>
+  <div id="feedback"></div>
+  <button id="next-button" onclick="nextQuestion()" style="display: none;">次の問題へ</button>
+  <button id="retry-button" onclick="retryQuestion()" style="display: none;">もう一度</button>
+  <div id="completion-animation">🎉 やったね！全問クリア！ 🎉</div>
+  <button id="back-button" onclick="goBack()">戻る</button>
+  <script>
+    // 24個の候補単語リスト
+    const allWords = [
+      { chinese: "请客", pinyin: "qǐngkè", japanese: "おごる;ご馳走する" },
+      { chinese: "想", pinyin: "xiǎng", japanese: "～したいと思う" },
+      { chinese: "吃", pinyin: "chī", japanese: "食べる" },
+      { chinese: "担担面", pinyin: "dàndanmiàn", japanese: "担々麵" },
+      { chinese: "不太", pinyin: "bú tài", japanese: "あまり〜ない" },
+      { chinese: "小笼包", pinyin: "xiǎolóngbāo", japanese: "小籠包" },
+      { chinese: "家", pinyin: "jiā", japanese: "軒（店の単位）" },
+      { chinese: "店", pinyin: "diàn", japanese: "店" },
+      { chinese: "好吃", pinyin: "hǎochī", japanese: "美味しい（食べ物）" },
+      { chinese: "好的", pinyin: "hǎo de", japanese: "いいですね" },
+      { chinese: "那儿", pinyin: "nàr", japanese: "そこ;あそこ" },
+      { chinese: "欢迎光临", pinyin: "Huānyíng guānglín", japanese: "いらっしゃいませ" },
+      { chinese: "您几位", pinyin: "nín jǐ wèi", japanese: "何名様" },
+      { chinese: "来", pinyin: "lái", japanese: "～をください" },
+      { chinese: "份", pinyin: "fèn", japanese: "〜人前" },
+      { chinese: "个", pinyin: "gè", japanese: "個（人と物の単位）" },
+      { chinese: "回锅肉", pinyin: "huíguōròu", japanese: "ホイコーロー" },
+      { chinese: "再", pinyin: "zài", japanese: "また;それから" },
+      { chinese: "杯", pinyin: "bēi", japanese: "杯（飲み物の単位）" },
+      { chinese: "乌龙茶", pinyin: "wūlóngchá", japanese: "ウーロン茶" },
+      { chinese: "干杯", pinyin: "gān bēi", japanese: "乾杯" },
+      { chinese: "太……了", pinyin: "tài……le", japanese: "とても;非常に" },
+      { chinese: "这儿", pinyin: "zhèr", japanese: "ここ" },
+      { chinese: "好喝", pinyin: "hǎohē", japanese: "美味しい（飲み物）" }
+    ];
+
+    // 14個のランダム単語を選出する関数
+    function chooseRandomWords(sourceArray, count) {
+      // シャッフル
+      const shuffled = [...sourceArray].sort(() => Math.random() - 0.5);
+      // 先頭から14個だけ返す
+      return shuffled.slice(0, count);
+    }
+
+    // 実際にゲームに使用する単語リスト（14個）
+    const words = chooseRandomWords(allWords, 14);
+
+    let currentWord = null;
+    let remainingWords = [...words]; // 残りの単語リスト
+    let lastIncorrectWord = null; // 最後に間違えた単語
+
+    // チャレンジ開始
+    function startChallenge() {
+      // 説明とスタートボタンを非表示にする
+      document.getElementById("instructions").style.display = "none";
+      document.getElementById("start-button").style.display = "none";
+
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("feedback").className = "";
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("next-button").style.display = "none";
+      document.getElementById("retry-button").style.display = "none";
+      document.getElementById("completion-animation").style.display = "none";
+      document.getElementById("back-button").style.display = "none";
+
+      if (remainingWords.length === 0) {
+        showCompletionAnimation();
+        return;
+      }
+
+      const randomIndex = Math.floor(Math.random() * remainingWords.length);
+      currentWord = remainingWords[randomIndex];
+      remainingWords.splice(randomIndex, 1);
+
+      const flashcard = document.getElementById("flashcard");
+      flashcard.innerText = `${currentWord.chinese}\n(${currentWord.pinyin})`;
+      flashcard.style.background = "#3498db";
+      flashcard.classList.remove("hidden");
+
+      setTimeout(() => {
+        flashcard.classList.add("hidden");
+        generateOptions();
+      }, 3000);
+    }
+
+    // 選択肢を生成
+    function generateOptions() {
+      let options = [currentWord];
+      while (options.length < 4) {
+        const candidate = words[Math.floor(Math.random() * words.length)];
+        if (!options.includes(candidate)) {
+          options.push(candidate);
+        }
+      }
+      options.sort(() => 0.5 - Math.random());
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option.japanese;
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    // 回答をチェック
+    function checkAnswer(selected) {
+      const feedbackDiv = document.getElementById("feedback");
+      const optionsDiv = document.getElementById("options");
+
+      if (selected === currentWord) {
+        feedbackDiv.innerText = "正解！";
+        feedbackDiv.className = "correct";
+        document.getElementById("next-button").style.display = "block";
+      } else {
+        feedbackDiv.innerText = `不正解！正解は「${currentWord.japanese}」です。`;
+        feedbackDiv.className = "incorrect";
+        lastIncorrectWord = currentWord;
+
+        // 禁用所有选项按钮
+        Array.from(optionsDiv.children).forEach(button => {
+          button.classList.add("disabled");
+        });
+
+        document.getElementById("retry-button").style.display = "block";
+      }
+    }
+
+    // 次の問題へ
+    function nextQuestion() {
+      document.getElementById("next-button").style.display = "none";
+      startChallenge();
+    }
+
+    // 再挑戦
+    function retryQuestion() {
+      document.getElementById("retry-button").style.display = "none";
+      remainingWords.push(lastIncorrectWord);
+      startChallenge();
+    }
+
+    // 全問クリア時のアニメーション
+    function showCompletionAnimation() {
+      document.getElementById("completion-animation").style.display = "block";
+      setTimeout(() => {
+        document.getElementById("back-button").style.display = "block";
+      }, 2000);
+    }
+
+    // 戻るボタンのリンク先設定
+    function goBack() {
+      window.location.href = "7k-t1-g.html"; // 同じフォルダ内のファイルに遷移
+    }
+  </script>
+</body>
+</html>

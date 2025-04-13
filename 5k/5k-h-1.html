@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>楽しい中国語　第5課</title>
+  <style>
+    /* 画面幅に応じて文字を自動調整する */
+    html {
+      font-size: clamp(12px, 2vw, 18px);
+    }
+    /* ページ全体の配色（濃い青をメインに） */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+    /* ヘッダー */
+    header {
+      background-color: #003366;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: calc(1.5em + 1vw);
+    }
+    /* コンテナ */
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* 表示モード切替部分 */
+    .controls {
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .controls label {
+      font-size: calc(1em + 0.5vw);
+      margin-right: 10px;
+    }
+    .controls select {
+      padding: 8px 12px;
+      font-size: calc(1em + 0.5vw);
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    /* ボタン共通 */
+    button {
+      display: inline-block;
+      margin: 10px 5px;
+      padding: 10px 20px;
+      font-size: calc(1em + 0.5vw);
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .prev-button { background-color: #CC0000; }
+    .prev-button:hover { background-color: #990000; }
+    .play-button { background-color: #003366; }
+    .play-button:hover { background-color: #002244; }
+    .stop-button { background-color: #FF6600; }
+    .stop-button:hover { background-color: #CC5200; }
+    .next-button { background-color: #CC0000; }
+    .next-button:hover { background-color: #990000; }
+    /* 例文部分 */
+    .sentence {
+      margin-bottom: 30px;
+      padding: 15px;
+      border-left: 4px solid #003366;
+      background-color: #f1f1f1;
+      border-radius: 4px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease,
+                  background-color 0.3s ease, border-color 0.3s ease;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .sentence:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    .sentence.active {
+      background-color: #c8e6c9;
+      border-left-color: #2e7d32;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+    /* 非表示 */
+    .hidden { display: none; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+    table td {
+      text-align: left;
+      padding: 5px;
+      border: none;
+      font-size: calc(0.9em + 0.5vw);
+      max-width: 3ch;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    .chinese {
+      font-family: "SimHei", "Heiti", sans-serif;
+      font-weight: bold;
+      color: #003366;
+    }
+    .pinyin {
+      font-style: italic;
+      color: #555;
+    }
+    .translation {
+      font-weight: bold;
+      color: #333;
+      margin-top: 5px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      font-size: calc(0.8em + 0.5vw);
+      color: #777;
+    }
+    .audio-player {
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+    audio {
+      width: 100%;
+      max-width: 400px;
+      margin: auto;
+    }
+    /* スマートフォン向け */
+    @media screen and (max-width: 600px) {
+      header { font-size: 1.2rem; padding: 10px; }
+      .container {
+        max-width: 100%;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 6px;
+      }
+      .controls label { font-size: 1em; }
+      .controls select {
+        font-size: 1em;
+        padding: 6px 10px;
+      }
+      button { font-size: 1em; padding: 8px 12px; margin: 5px 3px; }
+      .sentence { margin-bottom: 20px; padding: 10px; }
+      table td { font-size: 1em; max-width: none; white-space: normal; }
+      footer { font-size: 0.9em; margin-top: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ヘッダー -->
+  <header>
+    第5課 - 欢迎你来我家
+  </header>
+
+  <div class="container">
+    <!-- 表示モード切替 -->
+    <div class="controls">
+      <label for="displayMode">表示モード：</label>
+      <select id="displayMode">
+        <option value="chineseOnly">中国語</option>
+        <option value="chinesePinyin">中国語＋ピンイン</option>
+        <option value="chineseTranslation">中国語＋日本語訳</option>
+        <option value="all">中国語＋ピンイン＋日本語訳</option>
+      </select>
+    </div>
+
+    <!-- ナビゲーションボタン -->
+    <div style="text-align: center;">
+      <button class="prev-button" onclick="location.href='5k.html'">前の画面</button>
+      <button class="play-button" id="playButton">順番に再生</button>
+      <button class="stop-button" id="stopButton">停止</button>
+      <button class="next-button" onclick="location.href='5k-h-2.html'">次の画面</button>
+    </div>
+
+    <!-- 【文１】 山本:欢迎你来我家。请进！ -->
+    <div class="sentence" data-audio="sound/5k-h1-044-01.mp3">
+      <table>
+        <tr>
+          <td class="chinese">山</td>
+          <td class="chinese">本</td>
+          <td class="chinese">:</td>
+          <td class="chinese">欢</td>
+          <td class="chinese">迎</td>
+          <td class="chinese">你</td>
+          <td class="chinese">来</td>
+          <td class="chinese">我</td>
+          <td class="chinese">家</td>
+          <td class="chinese">。</td>
+          <td class="chinese">请</td>
+          <td class="chinese">进</td>
+          <td class="chinese">！</td>
+          <!-- 空セルでパディング -->
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+        </tr>
+        <tr class="pinyin hidden">
+          <td>Shān</td>
+          <td>běn</td>
+          <td>:</td>
+          <td>huān</td>
+          <td>yíng</td>
+          <td>nǐ</td>
+          <td>lái</td>
+          <td>wǒ</td>
+          <td>jiā</td>
+          <td>。</td>
+          <td>qǐng</td>
+          <td>jìn</td>
+          <td>！</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+        </tr>
+      </table>
+      <div class="translation hidden">
+        山本:ようこそ私の家へ。どうぞ入ってください。
+      </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-01.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 【文２】 李：你家真大！真漂亮啊！ -->
+    <div class="sentence" data-audio="sound/5k-h1-044-02.mp3">
+      <table>
+        <tr>
+          <td class="chinese">李</td>
+          <td class="chinese">:</td>
+          <td class="chinese">你</td>
+          <td class="chinese">家</td>
+          <td class="chinese">真</td>
+          <td class="chinese">大</td>
+          <td class="chinese">！</td>
+          <td class="chinese">真</td>
+          <td class="chinese">漂</td>
+          <td class="chinese">亮</td>
+          <td class="chinese">啊</td>
+          <td class="chinese">！</td>
+          <!-- 空セル -->
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+        </tr>
+        <tr class="pinyin hidden">
+         <td>Lǐ</td>
+          <td>:</td>
+ <td>nǐ</td>
+          <td>jiā</td>
+          <td>zhēn</td>
+          <td>dà</td>
+          <td>！</td>
+          <td>zhēn</td>
+          <td>piào</td>
+          <td>liàng</td>
+          <td>ā</td>
+          <td>！</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+        
+        </tr>
+      </table>
+      <div class="translation hidden">
+        李  :あなたの家は本当に大きいです。本当にきれいですね。
+      </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-02.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 【文３】 山本：谢谢！请坐！请喝茶！ -->
+    <div class="sentence" data-audio="sound/5k-h1-044-03.mp3">
+      <table>
+        <tr>
+          <td class="chinese">山</td>
+          <td class="chinese">本</td>
+          <td class="chinese">:</td>
+          <td class="chinese">谢</td>
+          <td class="chinese">谢</td>
+          <td class="chinese">！</td>
+          <td class="chinese">请</td>
+          <td class="chinese">坐</td>
+          <td class="chinese">！</td>
+          <td class="chinese">请</td>
+          <td class="chinese">喝</td>
+          <td class="chinese">茶</td>
+          <td class="chinese">！</td>
+          <!-- 空セル -->
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+        </tr>
+        <tr class="pinyin hidden">
+ <td>Shān</td>
+          <td>běn</td>
+          <td>:</td>          
+<td>xiè</td>
+          <td>xiè</td>
+          <td>!</td>
+          <td>qǐng</td>
+          <td>zuò</td>
+          <td>!</td>
+          <td>qǐng</td>
+          <td>hē</td>
+          <td>chá</td>
+          <td>!</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+        
+        </tr>
+      </table>
+      <div class="translation hidden">
+山本:ありがとう。どうぞ座ってください、どうぞお茶を飲んでください。
+      </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-03.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 【文４】 李：谢谢！你家有很多书啊！你喜欢看书吗？ -->
+    <div class="sentence" data-audio="sound/5k-h1-044-04.mp3">
+      <table>
+        <tr>
+          <td class="chinese">李</td>
+          <td class="chinese">:</td>
+          <td class="chinese">谢</td>
+          <td class="chinese">谢</td>
+          <td class="chinese">！</td>
+          <td class="chinese">你</td>
+          <td class="chinese">家</td>
+          <td class="chinese">有</td>
+          <td class="chinese">很</td>
+          <td class="chinese">多</td>
+          <td class="chinese">书</td>
+          <td class="chinese">啊</td>
+          <td class="chinese">！</td>
+          <td class="chinese">你</td>
+          <td class="chinese">喜</td>
+          <td class="chinese">欢</td>
+          <td class="chinese">看</td>
+          <td class="chinese">书</td>
+          <td class="chinese">吗</td>
+          <td class="chinese">？</td>
+        </tr>
+        <tr class="pinyin hidden">
+  <td>Lǐ</td>
+          <td>:</td>         
+ <td>xiè</td>
+          <td>xiè</td>
+          <td>!</td>
+          <td>nǐ</td>
+          <td>jiā</td>
+          <td>yǒu</td>
+          <td>hěn</td>
+          <td>duō</td>
+          <td>shū</td>
+          <td>ā</td>
+          <td>!</td>
+          <td>nǐ</td>
+          <td>xǐ</td>
+          <td>huan</td>
+          <td>kàn</td>
+          <td>shū</td>
+          <td>ma</td>
+          <td>？</td>
+          <td>　</td>
+          <td>　</td>
+        </tr>
+      </table>
+      <div class="translation hidden">
+李  :ありがとう。あなたの家には本がたくさんありますね。本を読むのが好きですか。  
+    </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-04.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 【文５】 山本：我非常喜欢看书，最喜欢看小说。 -->
+    <div class="sentence" data-audio="sound/5k-h1-044-05.mp3">
+      <table>
+        <tr>
+          <td class="chinese">山</td>
+          <td class="chinese">本</td>
+          <td class="chinese">:</td>
+          <td class="chinese">我</td>
+          <td class="chinese">非</td>
+          <td class="chinese">常</td>
+          <td class="chinese">喜</td>
+          <td class="chinese">欢</td>
+          <td class="chinese">看</td>
+          <td class="chinese">书</td>
+          <td class="chinese">，</td>
+          <td class="chinese">最</td>
+          <td class="chinese">喜</td>
+          <td class="chinese">欢</td>
+          <td class="chinese">看</td>
+          <td class="chinese">小</td>
+          <td class="chinese">说</td>
+          <td class="chinese">。</td>
+          <!-- 空セル -->
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+        </tr>
+        <tr class="pinyin hidden">
+ <td>Shān</td>
+          <td>běn</td>
+          <td>:</td>          
+<td>wǒ</td>
+          <td>fēi</td>
+          <td>cháng</td>
+          <td>xǐ</td>
+          <td>huan</td>
+          <td>kàn</td>
+          <td>shū</td>
+          <td>，</td>
+          <td>zuì</td>
+          <td>xǐ</td>
+          <td>huan</td>
+          <td>kàn</td>
+          <td>xiǎo</td>
+          <td>shuō</td>
+          <td>。</td>
+          <td>　</td>
+          
+        </tr>
+      </table>
+      <div class="translation hidden">
+山本:私は本を読むのが非常に好きです。小説を読むのが一番好きです。
+      </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-05.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+    <!-- 【文６】 李：我最喜欢看漫画。 -->
+    <div class="sentence" data-audio="sound/5k-h1-044-06.mp3">
+      <table>
+        <tr>
+          <td class="chinese">李</td>
+          <td class="chinese">:</td>
+          <td class="chinese">我</td>
+          <td class="chinese">最</td>
+          <td class="chinese">喜</td>
+          <td class="chinese">欢</td>
+          <td class="chinese">看</td>
+          <td class="chinese">漫</td>
+          <td class="chinese">画</td>
+          <td class="chinese">。</td>
+          <!-- 空セル -->
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+          <td class="chinese">　</td>
+        </tr>
+        <tr class="pinyin hidden">
+          <td>Lǐ</td>
+          <td>:</td>
+          <td>wǒ</td>
+          <td>zuì</td>
+          <td>xǐ</td>
+          <td>huan</td>
+          <td>kàn</td>
+          <td>màn</td>
+          <td>huà</td>
+          <td>。</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+          <td>　</td>
+        </tr>
+      </table>
+      <div class="translation hidden">
+李  :私は漫画を読むのが一番好きです。
+      </div>
+      <div class="audio-player">
+        <audio controls>
+          <source src="sound/5k-h1-044-06.mp3" type="audio/mpeg">
+          オーディオがサポートされていません。
+        </audio>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>© 楽しい中国語アプリ</footer>
+
+  <script>
+    // すべての sentence 要素と select 要素を取得
+    const sentences = document.querySelectorAll('.sentence');
+    const displayModeSelect = document.getElementById('displayMode');
+    
+    // 表示モード切替の関数
+    function updateDisplayMode() {
+      const mode = displayModeSelect.value;
+      sentences.forEach(sentence => {
+        const pinyinRow = sentence.querySelector('.pinyin');
+        const translation = sentence.querySelector('.translation');
+        pinyinRow.classList.add('hidden');
+        translation.classList.add('hidden');
+        if (mode === 'chinesePinyin') {
+          pinyinRow.classList.remove('hidden');
+        } else if (mode === 'chineseTranslation') {
+          translation.classList.remove('hidden');
+        } else if (mode === 'all') {
+          pinyinRow.classList.remove('hidden');
+          translation.classList.remove('hidden');
+        }
+      });
+    }
+    updateDisplayMode();
+    displayModeSelect.addEventListener('change', updateDisplayMode);
+    
+    // クリックで個別再生
+    let currentAudio = null;
+    let activeSentence = null;
+    sentences.forEach(sentence => {
+      const audio = sentence.querySelector('audio');
+      sentence.addEventListener('click', () => {
+        if (activeSentence === sentence) {
+          audio.pause();
+          audio.currentTime = 0;
+          sentence.classList.remove('active');
+          activeSentence = null;
+          return;
+        }
+        if (activeSentence) {
+          currentAudio.pause();
+          currentAudio.currentTime = 0;
+          activeSentence.classList.remove('active');
+        }
+        activeSentence = sentence;
+        currentAudio = audio;
+        sentence.classList.add('active');
+        audio.play();
+        audio.onended = () => {
+          sentence.classList.remove('active');
+          activeSentence = null;
+        };
+      });
+    });
+    
+    // 順番再生
+    let isPlaying = false;
+    let currentAudioIndex = 0;
+    let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
+    const playButton = document.getElementById('playButton');
+    const stopButton = document.getElementById('stopButton');
+    
+    playButton.addEventListener('click', () => {
+      if (isPlaying) {
+        audioElements.forEach(a => a.pause());
+        isPlaying = false;
+        playButton.textContent = '順番に再生';
+      } else {
+        isPlaying = true;
+        playButton.textContent = '一時停止';
+        currentAudioIndex = 0;
+        playNextAudio();
+      }
+    });
+    
+    stopButton.addEventListener('click', () => {
+      audioElements.forEach(a => {
+        a.pause();
+        a.currentTime = 0;
+      });
+      sentences.forEach(s => s.classList.remove('active'));
+      isPlaying = false;
+      currentAudioIndex = 0;
+      playButton.textContent = '順番に再生';
+    });
+    
+    function playNextAudio() {
+      if (currentAudioIndex >= audioElements.length || !isPlaying) {
+        isPlaying = false;
+        playButton.textContent = '順番に再生';
+        return;
+      }
+      const audio = audioElements[currentAudioIndex];
+      const sentence = sentences[currentAudioIndex];
+      sentences.forEach(s => s.classList.remove('active'));
+      sentence.classList.add('active');
+      audio.play();
+      audio.onended = () => {
+        sentence.classList.remove('active');
+        currentAudioIndex++;
+        playNextAudio();
+      };
+    }
+  </script>
+</body>
+</html>

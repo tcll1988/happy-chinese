@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>音声から単語を当てるゲーム</title>
+  <style>
+    /* 基本スタイル */
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 100vh;
+      color: #333333;
+    }
+    h1 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+    /* ゲーム説明のスタイル */
+    #instructions {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #555;
+      text-align: left;
+      max-width: 400px;
+    }
+    /* 再生ボタンのスタイル */
+    #play-button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #3498db;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #play-button:hover {
+      background: #2980b9;
+      transform: scale(1.05);
+    }
+    /* 選択肢ボタンのスタイル */
+    #options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 15px;
+      width: 80%;
+      max-width: 300px;
+      margin: auto;
+    }
+    #options button {
+      padding: 12px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #ecf0f1;
+      color: #333333;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #options button:hover {
+      transform: scale(1.05);
+    }
+    /* フィードバックのスタイル */
+    #feedback {
+      font-size: 20px;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .correct {
+      color: #2ecc71;
+    }
+    .incorrect {
+      color: #e74c3c;
+    }
+    /* 戻るボタンのスタイル */
+    #back-button {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      background: #e74c3c;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #back-button:hover {
+      background: #c0392b;
+      transform: scale(1.05);
+    }
+    /* 「再挑戦」ボタンのスタイル */
+    #retry-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      background: #f1c40f;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #retry-button:hover {
+      background: #e67e22;
+      transform: scale(1.05);
+    }
+    /* 説明を非表示にするアニメーション */
+    .hidden {
+      display: none;
+    }
+    /* レスポンシブデザイン */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 20px;
+      }
+      #play-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+      #options button {
+        font-size: 16px;
+        padding: 10px;
+      }
+      #feedback {
+        font-size: 18px;
+      }
+      #back-button {
+        font-size: 16px;
+        padding: 10px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>音声から単語を当てるゲーム</h1>
+  <!-- ゲーム説明 -->
+  <div id="instructions">
+    <p>このゲームでは、再生される音声を聞いて正しい日本語の意味を選んでください。</p>
+    <p>1. 「音声を再生」ボタンを押して音声を聞きます。</p>
+    <p>2. 表示される選択肢の中から正解だと思うものを選びます。</p>
+    <p>3. 正解か不正解かがフィードバックされます。</p>
+  </div>
+  <!-- 音声再生ボタン -->
+  <button id="play-button" onclick="playButtonHandler()">音声を再生</button>
+  <div id="options"></div>
+  <div id="feedback"></div>
+  <!-- 再挑戦ボタン -->
+  <button id="retry-button" class="hidden" onclick="retryQuestion()">再挑戦</button>
+  <!-- 戻るボタン -->
+  <button id="back-button" class="hidden" onclick="goBack()">戻る</button>
+  <script>
+    // 単語データ（音声ファイルは「sound」フォルダ内に配置）
+    const words = [
+      { text: "请客",      pinyin: "qǐngkè",         japanese: "おごる;ご馳走する",         audio: "sound/7k-t-058-01.mp3" },
+      { text: "想",       pinyin: "xiǎng",          japanese: "～したいと思う",            audio: "sound/7k-t-058-02.mp3" },
+      { text: "吃",       pinyin: "chī",            japanese: "食べる",                    audio: "sound/7k-t-058-03.mp3" },
+      { text: "担担面",    pinyin: "dàndanmiàn",     japanese: "担々麺",                    audio: "sound/7k-t-058-04.mp3" },
+      { text: "不太",     pinyin: "bú tài",         japanese: "あまり〜ない",               audio: "sound/7k-t-058-05.mp3" },
+      { text: "小笼包",    pinyin: "xiǎolóngbāo",    japanese: "小籠包",                    audio: "sound/7k-t-058-06.mp3" },
+      { text: "家",       pinyin: "jiā",            japanese: "軒（店の単位）",            audio: "sound/7k-t-058-07.mp3" },
+      { text: "店",       pinyin: "diàn",           japanese: "店",                        audio: "sound/7k-t-058-08.mp3" },
+      { text: "好吃",     pinyin: "hǎochī",         japanese: "美味しい（食べ物）",        audio: "sound/7k-t-058-09.mp3" },
+      { text: "好的",     pinyin: "hǎo de",         japanese: "いいですね",               audio: "sound/7k-t-058-10.mp3" },
+      { text: "那儿",     pinyin: "nàr",            japanese: "そこ;あそこ",               audio: "sound/7k-t-058-11.mp3" },
+      { text: "欢迎光临",  pinyin: "Huānyíng guānglín", japanese: "いらっしゃいませ",       audio: "sound/7k-t-058-12.mp3" },
+      { text: "您几位",    pinyin: "nín jǐ wèi",     japanese: "何名様",                    audio: "sound/7k-t-058-13.mp3" },
+      { text: "来",       pinyin: "lái",            japanese: "～をください",              audio: "sound/7k-t-058-14.mp3" },
+      { text: "份",       pinyin: "fèn",           japanese: "〜人前",                     audio: "sound/7k-t-058-15.mp3" },
+      { text: "个",       pinyin: "gè",            japanese: "個（人と物の単位）",         audio: "sound/7k-t-058-16.mp3" },
+      { text: "回锅肉",    pinyin: "huíguōròu",      japanese: "ホイコーロー",             audio: "sound/7k-t-058-17.mp3" },
+      { text: "再",       pinyin: "zài",           japanese: "また;それから",              audio: "sound/7k-t-058-18.mp3" },
+      { text: "杯",       pinyin: "bēi",           japanese: "杯（飲み物の単位）",         audio: "sound/7k-t-058-19.mp3" },
+      { text: "乌龙茶",    pinyin: "wūlóngchá",      japanese: "ウーロン茶",               audio: "sound/7k-t-058-20.mp3" },
+      { text: "干杯",     pinyin: "gān bēi",        japanese: "乾杯",                     audio: "sound/7k-t-058-21.mp3" },
+      { text: "太……了",   pinyin: "tài……le",       japanese: "とても;非常に",             audio: "sound/7k-t-058-22.mp3" },
+      { text: "这儿",     pinyin: "zhèr",           japanese: "ここ",                      audio: "sound/7k-t-058-23.mp3" },
+      { text: "好喝",     pinyin: "hǎohē",          japanese: "美味しい（飲み物）",         audio: "sound/7k-t-058-24.mp3" }
+    ];
+
+    let currentWord = null;
+    let answeredWords = [];
+    let isAnswered = false;
+
+    // 音声再生関数
+    function playAudio(src) {
+      const audio = new Audio(src);
+      audio.play().catch(err => console.error("再生エラー", err));
+    }
+
+    // 「音声を再生」ボタンの処理
+    function playButtonHandler() {
+      // ゲーム未開始なら新しい問題を出す
+      if (!currentWord) {
+        document.getElementById("instructions").classList.add("hidden");
+        playQuestion();
+      } else {
+        // 既に問題表示中なら、同じ問題の音声を再生
+        playAudio(currentWord.audio);
+      }
+    }
+
+    // ゲーム開始：最初の問題を再生
+    function playQuestion() {
+      // 全問解答済みなら終了
+      if (answeredWords.length === words.length) {
+        endGame();
+        return;
+      }
+
+      // 未回答の単語をランダムに選ぶ
+      do {
+        currentWord = words[Math.floor(Math.random() * words.length)];
+      } while (answeredWords.includes(currentWord.text));
+
+      playAudio(currentWord.audio);
+      generateOptions();
+      document.getElementById("feedback").innerText = "";
+      document.getElementById("retry-button").classList.add("hidden");
+      isAnswered = false;
+    }
+
+    // 選択肢を生成（正解を含む4つ）
+    function generateOptions() {
+      let options = [currentWord];
+      while (options.length < 4) {
+        let candidate = words[Math.floor(Math.random() * words.length)];
+        if (!options.find(opt => opt.text === candidate.text)) {
+          options.push(candidate);
+        }
+      }
+      // ランダム並べ替え
+      options.sort(() => 0.5 - Math.random());
+
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.innerText = option.japanese; // 日本語表記
+        btn.onclick = () => checkAnswer(option);
+        optionsDiv.appendChild(btn);
+      });
+    }
+
+    // 答えをチェック
+    function checkAnswer(selected) {
+      if (isAnswered) return; // 二重回答防止
+
+      const feedbackDiv = document.getElementById("feedback");
+      if (selected.text === currentWord.text) {
+        feedbackDiv.innerText = "正解！";
+        feedbackDiv.className = "correct";
+        answeredWords.push(currentWord.text);
+        setTimeout(playQuestion, 1000); // 次の問題へ
+      } else {
+        feedbackDiv.innerText = `不正解、正解は「${currentWord.japanese}」です。`;
+        feedbackDiv.className = "incorrect";
+        document.getElementById("retry-button").classList.remove("hidden");
+        isAnswered = true;
+      }
+    }
+
+    // 再挑戦ボタンの処理
+    function retryQuestion() {
+      document.getElementById("retry-button").classList.add("hidden");
+      playAudio(currentWord.audio);
+      generateOptions();
+      document.getElementById("feedback").innerText = "";
+      isAnswered = false;
+    }
+
+    // ゲーム終了時の処理
+    function endGame() {
+      document.getElementById("options").innerHTML = "";
+      document.getElementById("feedback").innerText = "すべての問題に答えました！お疲れ様でした。";
+      document.getElementById("back-button").classList.remove("hidden");
+    }
+
+    // 戻るボタンの処理
+    function goBack() {
+      window.location.href = "7k-t1-g.html";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,412 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国語の肯定文・否定文・疑問文</title>
+    <style>
+        body {
+            font-family: 'MS Gothic', 'Meiryo', sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            animation: fadeIn 1s ease-in;
+            min-height: 100vh;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 2s infinite;
+        }
+        section {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+        }
+        section:hover {
+            transform: translateY(-5px);
+        }
+        .example-row {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #ffffff, #f0f9ff);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .example-row:hover {
+            background: linear-gradient(135deg, #f0f9ff, #ffffff);
+        }
+        .chinese {
+            font-family: 'SimHei', 'MS Gothic', sans-serif;
+        }
+        .speaker {
+            margin-left: 15px;
+            cursor: pointer;
+            color: #3498db;
+            font-size: 1.5em;
+            transition: all 0.3s ease;
+        }
+        .speaker:hover {
+            color: #e74c3c;
+            transform: scale(1.2);
+        }
+        .question {
+            margin: 25px 0;
+        }
+        button {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 5px;
+            font-weight: bold;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+        button:active {
+            transform: translateY(0);
+        }
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .correct {
+            background: linear-gradient(135deg, #d4edda, #b6e3c1);
+            color: #155724;
+            animation: float 2s ease-in-out infinite;
+        }
+        .incorrect {
+            background: linear-gradient(135deg, #f8d7da, #f3b6b0);
+            color: #721c24;
+            animation: shake 0.5s;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes shake {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            50% { transform: translateX(5px); }
+            75% { transform: translateX(-5px); }
+            100% { transform: translateX(0); }
+        }
+        .hidden { display: none; }
+        .back-btn {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            width: 100%;
+            margin-top: 20px;
+        }
+        .back-btn:hover {
+            background: linear-gradient(135deg, #c0392b, #e74c3c);
+        }
+        .point-list {
+            list-style: none;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        .point-list li {
+            position: relative;
+            padding-left: 25px;
+            margin: 10px 0;
+        }
+        .point-list li::before {
+            content: '★';
+            position: absolute;
+            left: 0;
+            color: #f1c40f;
+        }
+        .column-box {
+            background: #fef9e7;
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 4px solid #f39c12;
+        }
+        .answer-section {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+        .input-box {
+            margin: 15px 0;
+            padding: 10px;
+            border: 2px solid #3498db;
+            border-radius: 10px;
+            font-family: 'SimHei', 'MS Gothic', sans-serif;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .input-feedback {
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>中国語の肯定文・否定文・疑問文</h1>
+
+    <section>
+        <h2>1. 肯定文</h2>
+        <div class="point-list">
+            <li>構文：主語 + 是 + 目的語</li>
+            <li>意味：～は～です/である</li>
+            <li>ポイント：<br>
+                - 日本語の「は」に相当する位置に「是」が来る
+            </li>
+        </div>
+        <div class="example-row">
+            <span class="chinese">我是留学生。 (Wǒ shì liúxuéshēng)</span> 私は留学生です。
+            <span class="speaker" onclick="playSound('sound/1k-p-3-1.mp3')">&#128266;</span>
+        </div>
+        <div class="example-row">
+            <span class="chinese">这是教科书。 (Zhè shì jiàokēshū)</span> これは教科書です。
+            <span class="speaker" onclick="playSound('sound/1k-p-3-2.mp3')">&#128266;</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. 否定文</h2>
+        <div class="point-list">
+            <li>構文：主語 + 不是 + 目的語</li>
+            <li>意味：～は～ではない</li>
+            <li>注意点：<br>
+                - 否定形は「不（bú）＋是」で「不是」となる
+            </li>
+        </div>
+        <div class="example-row">
+            <span class="chinese">李明不是留学生。 (Lǐ Míng bú shì liúxuéshēng)</span> 李明さんは留学生ではありません。
+            <span class="speaker" onclick="playSound('sound/1k-p-3-3.mp3')">&#128266;</span>
+        </div>
+        <div class="example-row">
+            <span class="chinese">今天不是星期日。 (Jīntiān bú shì xīngqīrì)</span> 今日は日曜日ではない。
+            <span class="speaker" onclick="playSound('sound/1k-p-3-4.mp3')">&#128266;</span>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. 疑問文（2パターン）</h2>
+        <div class="point-list">
+            <li>パターン①：主語 + 是不是 + 目的語？</li>
+            <li>パターン②：主語 + 是 + 目的語 + 吗？</li>
+        </div>
+        <div class="example-row">
+            <span class="chinese">山本是不是大学生？(Shānběn shì bú shì dàxuéshēng?)</span> 山本さんは大学生ですか？
+            <span class="speaker" onclick="playSound('sound/1k-p-3-5.mp3')">&#128266;</span>
+        </div>
+        <div class="example-row">
+            <span class="chinese">山本是大学生吗？(Shānběn shì dàxuéshēng ma?)</span> 山本さんは大学生ですか？
+            <span class="speaker" onclick="playSound('sound/1k-p-3-6.mp3')">&#128266;</span>
+        </div>
+    </section>
+
+    <section id="quiz">
+        <h2>練習問題</h2>
+        <div class="question" id="q1">
+            <p>問題1：文の種類を判別しよう</p>
+            <p>「他是医生吗？(Tā shì yīshēng ma?)」</p>
+            <button onclick="checkAnswer(1, '疑問文')">疑問文</button>
+            <button onclick="checkAnswer(1, '否定文')">否定文</button>
+            <button onclick="checkAnswer(1, '肯定文')">肯定文</button>
+            <div class="feedback hidden" id="f1"></div>
+        </div>
+
+        <div class="question hidden" id="q2">
+            <p>「我们不是学生 (Wǒmen bú shì xuéshēng)」</p>
+            <button onclick="checkAnswer(2, '否定文')">否定文</button>
+            <button onclick="checkAnswer(2, '疑問文')">疑問文</button>
+            <button onclick="checkAnswer(2, '肯定文')">肯定文</button>
+            <div class="feedback hidden" id="f2"></div>
+        </div>
+
+        <div class="question hidden" id="q3">
+            <p>問題2：日本語を中国語に訳そう</p>
+            <p>「これは教科書です。」</p>
+            <input type="text" class="input-box" id="inputAnswer" placeholder="中国語で入力">
+            <button onclick="checkInputAnswer()">回答</button>
+            <div class="input-feedback hidden" id="inputFeedback"></div>
+        </div>
+
+        <div class="hidden" id="congrats">
+            <p class="feedback correct" style="text-align: center;">
+                <span id="message"></span><br>
+                <small>おめでとうございます！</small>
+            </p>
+        </div>
+    </section>
+
+    <section class="column-box">
+        <h3>コラム：日本語との違い</h3>
+        <p>中国語の「是」と日本語の「です」は以下の点が異なります：</p>
+        <ul class="point-list">
+            <li>疑問文で「吗」が必要（例：你是学生吗？）</li>
+            <li>否定文で「不是」が一単位として機能</li>
+            <li>形容詞の前では使わない（×「这是有趣的」→ ○「这很有趣」）</li>
+        </ul>
+    </section>
+
+    <button class="back-btn" onclick="location.href='1k-p.html'">戻る</button>
+
+    <script>
+        let currentQuestion = 1;
+        const messages = [
+            "文法マスター！",
+            "完璧な理解力！",
+            "構文を完全習得！",
+            "ネイティブ級の回答！",
+            "素晴らしい進歩です！"
+        ];
+
+        function playSound(url) {
+            const audio = new Audio(url);
+            audio.play();
+            const speaker = event.target;
+            
+            // 波紋エフェクト
+            const ripple = document.createElement('span');
+            ripple.className = 'ripple';
+            speaker.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 600);
+        }
+
+        function checkAnswer(question, answer) {
+            const feedback = document.getElementById(`f${question}`);
+            const correctAnswers = {
+                1: '疑問文',
+                2: '否定文'
+            };
+            
+            if (answer === correctAnswers[question]) {
+                feedback.className = 'feedback correct';
+                feedback.textContent = '正解！';
+                document.getElementById(`q${question}`).classList.add('hidden');
+                if (question === 1) {
+                    document.getElementById('q2').classList.remove('hidden');
+                } else if (question === 2) {
+                    document.getElementById('q3').classList.remove('hidden');
+                }
+            } else {
+                feedback.className = 'feedback incorrect';
+                feedback.textContent = `不正解！正解は${correctAnswers[question]}です`;
+                document.getElementById(`q${question}`).querySelectorAll('button')
+                    .forEach(btn => btn.disabled = true);
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                    document.getElementById(`q${question}`).querySelectorAll('button')
+                        .forEach(btn => btn.disabled = false);
+                }, 2000);
+            }
+            feedback.classList.remove('hidden');
+        }
+
+        function checkInputAnswer() {
+            const input = document.getElementById('inputAnswer').value.trim();
+            const feedback = document.getElementById('inputFeedback');
+            
+            // 正解パターン（大文字小文字と句読点を無視）
+            const correctPattern = /^这是教科书。?$/i;
+            
+            if (correctPattern.test(input)) {
+                feedback.className = 'input-feedback correct';
+                feedback.textContent = '正解！完璧です！';
+                document.getElementById('q3').classList.add('hidden');
+                showCongrats();
+            } else {
+                feedback.className = 'input-feedback incorrect';
+                feedback.textContent = '不正解！正解は「这是教科书。」です';
+                document.getElementById('inputAnswer').disabled = true;
+                setTimeout(() => {
+                    feedback.classList.add('hidden');
+                    document.getElementById('inputAnswer').disabled = false;
+                }, 2000);
+            }
+            feedback.classList.remove('hidden');
+        }
+
+        function showCongrats() {
+            const message = messages[Math.floor(Math.random() * messages.length)];
+            document.getElementById('message').textContent = message;
+            document.getElementById('congrats').classList.remove('hidden');
+            
+            // コンフェッティ演出
+            const confettiContainer = document.createElement('div');
+            confettiContainer.className = 'confetti-container';
+            document.body.appendChild(confettiContainer);
+            
+            for(let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.animationDelay = Math.random() * 2 + 's';
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 50%)`;
+                confettiContainer.appendChild(confetti);
+            }
+            
+            setTimeout(() => {
+                confettiContainer.remove();
+            }, 3000);
+        }
+    </script>
+    <style>
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #ff0;
+            animation: confetti-fall 2s linear infinite;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); }
+            100% { transform: translateY(100vh) rotate(360deg); }
+        }
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            background: rgba(52, 152, 219, 0.3);
+            animation: ripple-animation 0.6s linear;
+        }
+        @keyframes ripple-animation {
+            to {
+                transform: translate(-50%, -50%) scale(3);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第3課　文法学習</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://rsms.me/">
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    <style>
+        /* Custom styles */
+        body {
+            /* Japanese Serif Font Stack (MS Mincho first) */
+            font-family: 'MS Mincho', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+            background-color: #f0f4f8; /* Light blue-gray background */
+            -webkit-font-smoothing: antialiased; /* Smoother font rendering */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Style for hidden sections */
+        .grammar-section.hidden {
+            display: none;
+            opacity: 0;
+        }
+        /* Style for visible sections with fade-in */
+        .grammar-section.visible {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Style for clickable sentences/items */
+        .clickable-sentence, .clickable-item {
+            cursor: pointer;
+            color: #2563eb; /* Blue color */
+            text-decoration: underline;
+            transition: color 0.3s ease;
+        }
+        .clickable-sentence:hover, .clickable-item:hover {
+            color: #1d4ed8; /* Darker blue on hover */
+        }
+        /* Basic button styling */
+        .quiz-button, .nav-button { /* Added .nav-button */
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+            font-weight: 500;
+            margin-top: 10px;
+            margin-right: 5px;
+            font-family: inherit; /* Inherit body font (Japanese Serif) */
+            text-decoration: none; /* Remove underline from link styled as button */
+            display: inline-block; /* Ensure proper layout */
+        }
+        .quiz-button {
+             background-color: #3b82f6; /* Blue button */
+        }
+        .quiz-button:hover {
+            background-color: #2563eb;
+        }
+        .quiz-button:active, .nav-button:active {
+             transform: scale(0.98); /* Slight shrink on click */
+        }
+        .quiz-button-secondary, .nav-button { /* Apply secondary style to nav button */
+            background-color: #6b7280; /* Gray button */
+        }
+        .quiz-button-secondary:hover, .nav-button:hover {
+            background-color: #4b5563;
+        }
+        /* Ensure radio/checkbox labels inherit font */
+        label {
+             font-family: inherit;
+             line-height: 1.6; /* Improve spacing for radio buttons */
+             display: inline-block; /* Ensure label aligns with radio */
+             margin-left: 4px; /* Space between radio and label text */
+        }
+        /* Style radio buttons */
+        input[type="radio"] {
+             margin-right: 5px;
+             vertical-align: middle; /* Align radio button with text */
+        }
+        /* Feedback styling */
+        .feedback {
+            margin-top: 10px;
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-weight: 500;
+            border: 1px solid transparent;
+            font-family: inherit; /* Ensure feedback uses Japanese Serif */
+        }
+        .feedback-correct {
+            background-color: #dcfce7; /* Light green */
+            color: #166534; /* Dark green */
+            border-color: #86efac;
+        }
+        .feedback-incorrect {
+            background-color: #fee2e2; /* Light red */
+            color: #991b1b; /* Dark red */
+            border-color: #fca5a5;
+        }
+        /* Add some animation to TOC items */
+        #table-of-contents ul li a {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+            display: block; /* Make the whole area clickable */
+            padding: 12px 16px; /* Add padding */
+            margin-bottom: 8px; /* Add space between items */
+            background-color: #ffffff; /* White background */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); /* Subtle shadow */
+            font-family: inherit; /* Ensure TOC uses Japanese Serif */
+        }
+        #table-of-contents ul li a:hover {
+            transform: translateX(5px); /* Move slightly on hover */
+            background-color: #eff6ff; /* Light blue background on hover */
+        }
+        /* Container styling */
+        .container {
+            max-width: 800px; /* Limit width on larger screens */
+            margin: 20px auto; /* Center container */
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative; /* Needed if using absolute positioning for back button */
+        }
+        /* Header styling */
+        h1, h2, h3 {
+            color: #1e3a8a; /* Dark blue header */
+            font-family: inherit; /* Ensure headers use Japanese Serif */
+        }
+        h1 { /* Adjust h1 margin if back button is placed before it */
+             margin-top: 0; /* Remove default top margin if needed */
+        }
+        h2 {
+            border-bottom: 2px solid #93c5fd; /* Light blue underline */
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+        /* Explanation box styling */
+        .explanation-box {
+            background-color: #e0f2fe; /* Very light blue */
+            border-left: 4px solid #3b82f6; /* Blue left border */
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+        }
+        .explanation-box h3 {
+            font-weight: 600;
+            color: #1e3a8a;
+            margin-bottom: 8px;
+        }
+        /* Example styling */
+        .example {
+            margin-bottom: 12px;
+            padding: 10px;
+            background-color: #f9fafb; /* Very light gray */
+            border-radius: 6px;
+        }
+         .example p {
+            margin-bottom: 4px;
+        }
+        /* Styling for lists (time examples) */
+        .time-list-item {
+            margin-bottom: 8px;
+            padding-left: 10px;
+            border-left: 2px solid #d1d5db;
+        }
+        /* Chinese Text Font (SimSun first) */
+        .chinese-text {
+            font-size: 1.1em;
+            font-weight: 500;
+            font-family: 'SimSun', 'Songti SC', 'Noto Serif SC', serif;
+        }
+        /* Pinyin Font (Inter Sans-serif) */
+        .pinyin-text {
+            color: #6b7280; /* Gray for Pinyin */
+            font-style: italic;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95em; /* Slightly smaller pinyin */
+        }
+        /* Japanese Text Font (Inherits from body - Japanese Serif) */
+        .japanese-text {
+            color: #374151; /* Darker gray for Japanese */
+        }
+        /* Quiz container styling */
+        .quiz-section {
+            margin-top: 25px;
+            padding: 20px;
+            background-color: #f3f4f6; /* Light gray background */
+            border-radius: 8px;
+        }
+        .quiz-section h3 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1f2937; /* Dark gray */
+        }
+        .question-container { /* Container for the single question */
+             min-height: 140px; /* Adjust height to prevent layout jumps */
+             margin-bottom: 15px;
+        }
+        .question {
+             padding: 15px;
+             background-color: #ffffff;
+             border-radius: 6px;
+             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        /* Style for question instructions */
+        .question-instruction {
+            font-size: 0.9em;
+            color: #4b5563; /* Slightly darker gray */
+            margin-bottom: 10px;
+            font-style: italic;
+            font-family: inherit; /* Ensure instructions use Japanese Serif */
+        }
+        /* Style for multiple choice options */
+        .choice-option {
+             margin-bottom: 8px; /* Space between options */
+        }
+        /* Success Animation */
+        .success-message {
+            padding: 15px;
+            margin-top: 15px;
+            background-color: #dcfce7;
+            color: #166534;
+            border: 1px solid #86efac;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: bold;
+            animation: successPop 0.6s ease-out forwards;
+            transform-origin: center;
+            font-family: inherit; /* Ensure success message uses Japanese Serif */
+        }
+        .success-message.hidden {
+            display: none;
+            opacity: 0;
+            transform: scale(0.5);
+        }
+        @keyframes successPop {
+            0% { opacity: 0; transform: scale(0.5); }
+            60% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div class="container">
+        <a href="3k.html" class="nav-button mb-6 mr-0 mt-0">&lt; 戻る</a>
+
+        <h1 class="text-2xl md:text-3xl font-bold mb-6 text-center">第3課　文法学習</h1>
+
+        <div id="table-of-contents">
+            <h2 class="text-xl font-semibold mb-4">目次</h2>
+            <ul class="list-none p-0">
+                <li><a href="#" onclick="showSection('grammar-1'); return false;" class="text-blue-700 hover:text-blue-900">1. 時刻の言い方について</a></li>
+                <li><a href="#" onclick="showSection('grammar-2'); return false;" class="text-blue-700 hover:text-blue-900">2. “从”と“到”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-3'); return false;" class="text-blue-700 hover:text-blue-900">3. “呢”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-4'); return false;" class="text-blue-700 hover:text-blue-900">4. “在”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-5'); return false;" class="text-blue-700 hover:text-blue-900">5. “也”について</a></li>
+                <li><a href="#" onclick="showSection('grammar-6'); return false;" class="text-blue-700 hover:text-blue-900">6. 形容詞述語文について</a></li>
+            </ul>
+        </div>
+
+        <div id="grammar-content" class="mt-8">
+
+            <div id="grammar-1" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">1. 時刻の言い方について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“点 (diǎn)”＝「時」、 “分 (fēn)”＝「分」。</p>
+                    <p><strong>特殊な言い方：</strong></p>
+                    <ul>
+                        <li>2時： “二点 (èr diǎn)” ではなく “两点 (liǎng diǎn)” と言うのが一般的です。</li>
+                        <li>15分： “十五分 (shíwǔ fēn)” または “一刻 (yí kè)”</li>
+                        <li>30分： “三十分 (sānshí fēn)” または “半 (bàn)”</li>
+                        <li>45分： “四十五分 (sìshíwǔ fēn)” または “三刻 (sān kè)”</li>
+                        <li>～分前： “差 (chà) ～分 ～点” (例：差十分八点 = 8時10分前 = 7時50分)</li>
+                    </ul>
+                     <p><strong>語彙：</strong>零 (líng)＝ゼロ, 现在 (xiànzài)＝今</p>
+                </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                    <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-1-1.mp3">现在几点？</span></p>
+                    <p class="pinyin-text">A: Xiànzài jǐ diǎn? </p>
+                    <p class="japanese-text">A: 今は何時ですか。</p>
+                    </div>
+ <div class="example">
+                    <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/3k-p-1-2.mp3">现在三点二十分。</span> </p>
+                    <p class="pinyin-text">B: Xiànzài sān diǎn èrshí fēn.</p>
+                    <p class="japanese-text">B: 今は三時二十分です。</p>
+                     
+                </div>
+                 <h3 class="font-semibold mt-4 mb-2">時刻の例：</h3>
+                 <div class="example">
+                     <div class="time-list-item">
+                         6:07 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-3.mp3">六点零七分</span> <span class="pinyin-text">(liù diǎn líng qī fēn)</span>
+                     </div>
+                      <div class="time-list-item">
+                         2:10 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-5.mp3">两点十分</span> <span class="pinyin-text">(liǎng diǎn shí fēn)</span>
+                     </div>
+                      <div class="time-list-item">
+                         8:15 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-7.mp3">八点十五分</span> / 八点一刻 <span class="pinyin-text">(bā diǎn shíwǔ fēn / bā diǎn yí kè)</span>
+                     </div>
+                      <div class="time-list-item">
+                         9:30 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-4.mp3">九点三十分</span> / 九点半 <span class="pinyin-text">(jiǔ diǎn sānshí fēn / jiǔ diǎn bàn)</span>
+                     </div>
+                      <div class="time-list-item">
+                         10:45 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-6.mp3">十点四十五分</span> / 十点三刻 <span class="pinyin-text">(shí diǎn sìshíwǔ fēn / shí diǎn sān kè)</span>
+                     </div>
+                      <div class="time-list-item">
+                         11:56 <span class="chinese-text clickable-item ml-2" data-audio="sound/3k-p-1-8.mp3">十一点五十六分</span> / 差四分十二点 <span class="pinyin-text">(shíyī diǎn wǔshíliù fēn / chà sì fēn shíèr diǎn)</span>
+                     </div>
+                 </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-1" class="question-container"></div>
+                    <div id="feedback-1" class="feedback hidden"></div>
+                    <div id="success-animation-1" class="success-message hidden">時刻の言い方、完璧！🕒</div>
+                    <button id="submit-1" class="quiz-button" onclick="submitQuiz(1)">回答する</button>
+                    <button id="retry-1" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(1)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-2" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">2. “从”と“到”について</h2>
+                 <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“从 (cóng)”＝「～から」、 “到 (dào)”＝「～まで」。</p>
+                    <p><strong>使い方：</strong>時間や場所の起点と終点を表します。</p>
+                    <ul>
+                        <li>从 + 起点 (時刻/場所)</li>
+                        <li>到 + 終点 (時刻/場所)</li>
+                        <li>从 + 起点 + 到 + 終点 (起点から終点まで)</li>
+                    </ul>
+                    <p><strong>語彙：</strong>远 (yuǎn)＝遠い, 下午 (xiàwǔ)＝午後, 学习 (xuéxí)＝勉強する, 大学 (dàxué)＝大学, 药妆店 (yàozhuāngdiàn)＝ドラッグストア</p>
+                </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                     <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-2-1.mp3">下午你从几点到几点学习？</span></p>
+                    <p class="pinyin-text">A: Xiàwǔ nǐ cóng jǐ diǎn dào jǐ diǎn xuéxí?</p>
+                    <p class="japanese-text">A: 午後何時から何時まで勉強しますか。</p>
+                    
+                </div>
+<div class="example">
+                     <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/3k-p-2-2.mp3">我从下午三点到五点学习。</span> </p>
+                    <p class="pinyin-text">B: Wǒ cóng xiàwǔ sān diǎn dào wǔ diǎn xuéxí.</p>
+                    <p class="japanese-text">B: 私は午後3時から5時まで勉強します。</p>
+                    
+                </div>
+                 <div class="example">
+                     <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-2-3.mp3">从大学到药妆店远吗？</span></p>
+                    <p class="pinyin-text">A: Cóng dàxué dào yàozhuāngdiàn yuǎn ma?</p>
+                    <p class="japanese-text">A: 大学からドラッグストアまでは遠いですか。</p>
+                   </div>
+    <div class="example">
+                     <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/3k-p-2-4.mp3">从大学到药妆店很远。</span> </p>
+                    <p class="pinyin-text">B: Cóng dàxué dào yàozhuāngdiàn hěn yuǎn.</p>
+                    <p class="japanese-text">B: 大学からドラッグストアまではとても遠いです。</p>
+                    
+                </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-2" class="question-container"></div>
+                    <div id="feedback-2" class="feedback hidden"></div>
+                    <div id="success-animation-2" class="success-message hidden">从...到... もマスター！➡️</div>
+                    <button id="submit-2" class="quiz-button" onclick="submitQuiz(2)">回答する</button>
+                    <button id="retry-2" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(2)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-3" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">3. “呢”について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>“呢 (ne)” は文末に置いて、「～は？」「～の方は（どうですか）？」と、前に述べられた事柄について他の対象を尋ねたり、話題を転換したりする時に使います。</p>
+                    <p><strong>使い方：</strong>名詞 / 人称代名詞 + 呢？</p>
+                   
+                </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-3-1.mp3">药妆店的客人很多，便利店呢？</span></p>
+                    <p class="pinyin-text">Yàozhuāngdiàn de kèrén hěn duō, biànlìdiàn ne?</p>
+                    <p class="japanese-text">ドラッグストアはお客が多いですが、コンビニは(どうですか)。</p>
+                </div>
+                <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-3-2.mp3">我到下午5点打工，你呢？</span></p>
+                    <p class="pinyin-text">Wǒ dào xiàwǔ wǔ diǎn dǎgōng, nǐ ne?</p>
+                    <p class="japanese-text">私は午後5時までバイトしますが、あなたは(どうですか)。</p>
+                </div>
+                <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-3-3.mp3">我的生日是9月7号，你呢？</span></p>
+                    <p class="pinyin-text">Wǒ de shēngrì shì jiǔ yuè qī hào, nǐ ne?</p>
+                    <p class="japanese-text">私の誕生日は9月7日です。あなたは（いつですか）。</p>
+                </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-3" class="question-container"></div>
+                    <div id="feedback-3" class="feedback hidden"></div>
+                    <div id="success-animation-3" class="success-message hidden">“呢”の使い方もバッチリ！👍</div>
+                    <button id="submit-3" class="quiz-button" onclick="submitQuiz(3)">回答する</button>
+                    <button id="retry-3" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(3)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-4" class="grammar-section hidden">
+                 <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">4. “在”について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>前置詞の“在 (zài)” は、動作が行われる場所を示し、「～で」という意味を表します。</p>
+                    <p><strong>使い方：</strong></p>
+                    <ul>
+                        <li><strong>肯定文：</strong>主語 + 在 + 場所 + 動詞 + (目的語)。</li>
+                        <li><strong>否定文：</strong>主語 + 不 + 在 + 場所 + 動詞 + (目的語)。</li>
+                        <li><strong>疑問文 (吗)：</strong>主語 + 在 + 場所 + 動詞 + (目的語) + 吗？</li>
+                        <li><strong>疑問文 (反復)：</strong>主語 + 在不在 + 場所 + 動詞 + (目的語)？</li>
+                    </ul>
+                     
+                </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                 <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-4-1.mp3">我在大学学习中文。</span></p>
+                    <p class="pinyin-text">Wǒ zài dàxué xuéxí Zhōngwén.</p>
+                    <p class="japanese-text">私は大学で中国語を勉強しています。</p>
+                </div>
+                 <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-4-2.mp3">李明不在便利店打工。</span></p>
+                    <p class="pinyin-text">Lǐ Míng bú zài biànlìdiàn dǎgōng.</p>
+                    <p class="japanese-text">李明さんはコンビニでアルバイトをしていません。</p>
+                </div>
+                 <div class="example">
+                     <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-4-3.mp3">山本在药妆店打工吗？</span> / 山本在不在药妆店打工？</p>
+                    <p class="pinyin-text">Shānběn zài yàozhuāngdiàn dǎgōng ma? / Shānběn zài bu zài yàozhuāngdiàn dǎgōng?</p>
+                    <p class="japanese-text">山本さんはドラッグストアでアルバイトをしていますか。</p>
+                     <p class="text-sm text-gray-500 mt-1">（注：音声は最初の文 "山本在药妆店打工吗？" に対応しています）</p>
+                </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-4" class="question-container"></div>
+                    <div id="feedback-4" class="feedback hidden"></div>
+                    <div id="success-animation-4" class="success-message hidden">場所を表す“在”もOK！📍</div>
+                    <button id="submit-4" class="quiz-button" onclick="submitQuiz(4)">回答する</button>
+                    <button id="retry-4" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(4)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-5" class="grammar-section hidden">
+                 <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">5. “也”について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>意味：</strong>副詞の“也 (yě)” は、「～も」という意味を表します。</p>
+                    <p><strong>使い方：</strong>主語と述語（動詞や形容詞）の間に置かれます。</p>
+                    <p><strong>語順：</strong>主語 + 也 + 述語 + (目的語)。</p>
+                </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                <div class="example">
+                    <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-5-1.mp3">我学习中文，你呢？</span></p>
+                    <p class="pinyin-text">A: Wǒ xuéxí Zhōngwén, nǐ ne?</p>
+                    <p class="japanese-text">A: 私は中国語を勉強します。あなたは。</p>
+                   
+                </div>
+<div class="example">
+                    <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/3k-p-5-2.mp3">我也学习中文。</span> </p>
+                    <p class="pinyin-text">B: Wǒ yě xuéxí Zhōngwén.</p>
+                    <p class="japanese-text">B: 私も中国語を勉強します。</p>
+                     
+                </div>
+                <div class="example">
+                    <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-5-3.mp3">我的生日是5月8号。</span></p>
+                    <p class="pinyin-text">A: Wǒ de shēngrì shì wǔ yuè bā hào.</p>
+                    <p class="japanese-text">A: 私の誕生日は5月8日です。</p>
+                    
+                </div>
+    <div class="example">
+                    <p class="chinese-text">B：<span class="clickable-sentence" data-audio="sound/3k-p-5-4.mp3">我妈妈的生日也是5月8号。</span> </p>
+                    <p class="pinyin-text">B: Wǒ māma de shēngrì yě shì wǔ yuè bā hào.</p>
+                    <p class="japanese-text">B: 私の母の誕生日も5月8日です。</p>
+                   
+                </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-5" class="question-container"></div>
+                    <div id="feedback-5" class="feedback hidden"></div>
+                    <div id="success-animation-5" class="success-message hidden">“也”の使い方も覚えましたね！😊</div>
+                    <button id="submit-5" class="quiz-button" onclick="submitQuiz(5)">回答する</button>
+                    <button id="retry-5" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(5)">もう一度挑戦</button>
+                </div>
+            </div>
+
+            <div id="grammar-6" class="grammar-section hidden">
+                <button onclick="showSection('table-of-contents'); return false;" class="quiz-button quiz-button-secondary mb-4">目次に戻る</button>
+                <h2 class="text-xl font-semibold">6. 形容詞述語文について</h2>
+                <div class="explanation-box">
+                    <h3>ポイント</h3>
+                    <p><strong>定義：</strong>形容詞述語文とは、形容詞が直接述語になる文のことです。</p>
+                    <p><strong>使い方：</strong></p>
+                     <ul>
+                        <li><strong>肯定文：</strong>主語 + 副詞 (多くの場合 “很 hěn”) + 形容詞。 （注：“很”は特に強調しない場合でも慣習的につけられることが多いです。つけないと対比の意味合いが出ることがあります。）</li>
+                        <li><strong>否定文：</strong>主語 + 不 + 形容詞。</li>
+                        <li><strong>疑問文 (吗)：</strong>主語 + 形容詞 + 吗？</li>
+                        <li><strong>疑問文 (反復)：</strong>主語 + 形容詞 + 不 + 形容詞？</li>
+                    </ul>
+                                    </div>
+                <h3 class="font-semibold mt-4 mb-2">例文：</h3>
+                 <div class="example">
+                    <p class="chinese-text"><span class="clickable-sentence" data-audio="sound/3k-p-6-1.mp3">爱知淑德大学的留学生很多。</span></p>
+                    <p class="pinyin-text">Àizhī shūdé dàxué de liúxuéshēng hěn duō.</p>
+                    <p class="japanese-text">愛知淑徳大学の留学生は多いです。</p>
+                </div>
+                 <div class="example">
+                    <p class="chinese-text"> A：<span class="clickable-sentence" data-audio="sound/3k-p-6-2.mp3">你在便利店打工辛苦吗？</span> / 你在便利店打工辛苦不辛苦？</p>
+                    <p class="pinyin-text">A: Nǐ zài biànlìdiàn dǎgōng xīnkǔ ma? / Nǐ zài biànlìdiàn dǎgōng xīnkǔ bu xīnkǔ?</p>
+                    <p class="japanese-text">A: コンビニでのアルバイトは大変ですか。</p>
+           
+                </div>
+    <div class="example">
+                    <p class="chinese-text"> B：<span class="clickable-sentence" data-audio="sound/3k-p-6-3.mp3">不辛苦。</span> </p>
+                    <p class="pinyin-text">B: Bù xīnkǔ.</p>
+                    <p class="japanese-text">B: 大変ではありません。</p>
+                     
+                </div>
+                <div class="quiz-section">
+                    <h3>ミニ練習</h3>
+                    <div id="question-container-6" class="question-container"></div>
+                    <div id="feedback-6" class="feedback hidden"></div>
+                    <div id="success-animation-6" class="success-message hidden">形容詞述語文もクリア！✨</div>
+                    <button id="submit-6" class="quiz-button" onclick="submitQuiz(6)">回答する</button>
+                    <button id="retry-6" class="quiz-button quiz-button-secondary hidden" onclick="loadQuiz(6)">もう一度挑戦</button>
+                </div>
+            </div>
+
+        </div> <audio id="audio-player" style="display: none;"></audio>
+
+    </div> <script>
+        // --- State Variables ---
+        let currentQuizState = {}; // Stores state for each quiz section
+
+        // --- Quiz Data (New content, keys 1-6) ---
+        const quizData = {
+            1: [ // 時刻
+                { type: 'multiple-choice', question: '「8:15」の別の言い方は？', options: ['八点一刻', '八点半', '八点三刻'], answer: '八点一刻' },
+                { type: 'multiple-choice', question: '「差四分十二点」は何時ですか？', options: ['11:56', '12:04', '11:52'], answer: '11:56' },
+                { type: 'multiple-choice', question: '「两点十分」は何時ですか？', options: ['2:10', '10:02', '2:01'], answer: '2:10' },
+                { type: 'multiple-choice', question: '「九点半」は何時ですか？', options: ['9:30', '9:03', '3:09'], answer: '9:30' },
+            ],
+            2: [ // 从...到...
+                { type: 'multiple-choice', question: '「午後3時から5時まで」を中国語で言うと？', options: ['从下午三点到五点', '下午三点从五点到', '下午从三点五点到'], answer: '从下午三点到五点' },
+                { type: 'multiple-choice', question: '「大学からドラッグストアまで」を中国語で言うと？', options: ['从大学到药妆店', '大学从药妆店到', '到大学从药妆店'], answer: '从大学到药妆店' },
+                { type: 'multiple-choice', question: '「从大学到药妆店很远。」の「远」の意味は？', options: ['遠い', '近い', '大きい'], answer: '遠い' },
+                { type: 'multiple-choice', question: '「我从下午三点到五点学习。」の「学习」の意味は？', options: ['勉強する', 'アルバイトする', '行く'], answer: '勉強する' },
+            ],
+            3: [ // 呢
+                { type: 'multiple-choice', question: '「あなたは？」と聞き返す時に使えるのは？', options: ['你呢？', '你吗？', '你也？'], answer: '你呢？' },
+                { type: 'multiple-choice', question: '「私の誕生日は9月7日です。あなたは？」の中国語は？', options: ['我的生日是9月7号，你呢？', '我的生日是9月7号吗？', '我的生日也是9月7号。'], answer: '我的生日是9月7号，你呢？' },
+                { type: 'multiple-choice', question: '「药妆店的客人很多，便利店呢？」の「便利店」の意味は？', options: ['コンビニ', 'ドラッグストア', '大学'], answer: 'コンビニ' },
+                { type: 'multiple-choice', question: '「我到下午5点打工，你呢？」の「打工」の意味は？', options: ['アルバイトする', '勉強する', '帰る'], answer: 'アルバイトする' },
+            ],
+             4: [ // 在
+                { type: 'multiple-choice', question: '「私は大学で中国語を勉強しています。」の正しい中国語は？', options: ['我在大学学习中文。', '我在学习大学中文。', '我大学在学习中文。'], answer: '我在大学学习中文。' },
+                { type: 'multiple-choice', question: '「李明さんはコンビニでアルバイトをしていません。」の正しい中国語は？', options: ['李明不在便利店打工。', '李明在不便利店打工。', '李明便利店不在打工。'], answer: '李明不在便利店打工。' },
+                { type: 'multiple-choice', question: '「山本在药妆店打工吗？」を反復疑問文で言うと？', options: ['山本在不在药妆店打工？', '山本在药妆店打工不打工？', '山本是不是在药妆店打工？'], answer: '山本在不在药妆店打工？' },
+                { type: 'multiple-choice', question: '前置詞「在」は何を表しますか？', options: ['動作の場所', '動作の時間', '動作の対象'], answer: '動作の場所' },
+            ],
+            5: [ // 也
+                { type: 'multiple-choice', question: '「私も中国語を勉強します。」の正しい中国語は？', options: ['我也学习中文。', '我也中文学习。', '我学习也中文。'], answer: '我也学习中文。' },
+                { type: 'multiple-choice', question: '「私の母の誕生日(　)5月8日です。」の(　)に入るのは？', options: ['也', '不', '吗'], answer: '也' },
+                { type: 'multiple-choice', question: '副詞「也」は通常どこに置かれますか？', options: ['主語と述語の間', '文頭', '文末'], answer: '主語と述語の間' },
+                { type: 'multiple-choice', question: '「我学习中文，你呢？」に対する「私も」という答えは？', options: ['我也学习中文。', '我也。', '也我。'], answer: '我也学习中文。' },
+            ],
+            6: [ // 形容詞述語文
+                { type: 'multiple-choice', question: '形容詞述語文の肯定文で、形容詞の前によく置かれる副詞は？', options: ['很', '不', '也'], answer: '很' },
+                { type: 'multiple-choice', question: '「愛知淑徳大学の留学生が多いです。」の正しい中国語は？', options: ['爱知淑德大学的留学生很多。', '爱知淑德大学的留学生是很。', '爱知淑德大学的留学生很多吗。'], answer: '爱知淑德大学的留学生很多。' },
+                { type: 'multiple-choice', question: '「你在便利店打工辛苦吗？」の「辛苦」の意味は？', options: ['大変だ', '楽しい', '遠い'], answer: '大変だ' },
+                { type: 'multiple-choice', question: '「不辛苦。」はどのような意味ですか？', options: ['大変ではありません', '大変です', '大変ですか'], answer: '大変ではありません' },
+            ]
+        };
+
+        // --- DOM Elements ---
+        const toc = document.getElementById('table-of-contents');
+        const grammarSections = document.querySelectorAll('.grammar-section');
+        const audioPlayer = document.getElementById('audio-player');
+
+        // --- Functions ---
+
+        // Function to show a specific section and hide others
+        function showSection(sectionId) {
+            if (sectionId !== 'table-of-contents') {
+                toc.style.display = 'none';
+            } else {
+                 toc.style.display = 'block';
+            }
+
+            grammarSections.forEach(section => {
+                if (section.id === sectionId) {
+                    section.classList.remove('hidden');
+                    section.classList.add('visible');
+                    // Extract internal index (1-6) from sectionId
+                    const grammarIndex = parseInt(sectionId.split('-')[1]);
+                    // Check if grammarIndex is a valid number and exists in quizData
+                    if (!isNaN(grammarIndex) && grammarIndex >= 1 && quizData[grammarIndex]) {
+                         loadQuiz(grammarIndex); // Load quiz using internal index
+                    } else if (!isNaN(grammarIndex) && grammarIndex >= 1 && !quizData[grammarIndex]) {
+                         console.warn(`Quiz data for grammar index ${grammarIndex} not found.`);
+                         const questionContainer = document.getElementById(`question-container-${grammarIndex}`);
+                         if(questionContainer) questionContainer.innerHTML = '<p>練習問題はありません。</p>';
+                         const submitButton = document.getElementById(`submit-${grammarIndex}`);
+                         const retryButton = document.getElementById(`retry-${grammarIndex}`);
+                         if(submitButton) submitButton.style.display = 'none';
+                         if(retryButton) retryButton.style.display = 'none';
+                    }
+                } else {
+                    section.classList.add('hidden');
+                    section.classList.remove('visible');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Function to play audio
+        function playAudio(audioSrc) {
+            if (!audioSrc) return;
+            audioPlayer.src = audioSrc;
+            audioPlayer.play().catch(error => {
+                console.error("音声ファイルの再生に失敗しました:", audioSrc, error);
+            });
+        }
+
+        // Function to shuffle an array (Fisher-Yates algorithm)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        // Function to load/reset a quiz section (Uses internal index 1-6)
+        function loadQuiz(grammarIndex) {
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            const submitButton = document.getElementById(`submit-${grammarIndex}`);
+            const retryButton = document.getElementById(`retry-${grammarIndex}`);
+            const successAnimation = document.getElementById(`success-animation-${grammarIndex}`);
+            const questionContainer = document.getElementById(`question-container-${grammarIndex}`);
+
+             if (!questionContainer || !feedbackContainer || !submitButton || !retryButton || !successAnimation) {
+                 console.error(`Quiz elements not found for grammar index ${grammarIndex}`);
+                 return;
+             }
+             if (!quizData[grammarIndex] || quizData[grammarIndex].length === 0) {
+                 questionContainer.innerHTML = '<p>利用可能な練習問題はありません。</p>';
+                 feedbackContainer.classList.add('hidden');
+                 successAnimation.classList.add('hidden');
+                 submitButton.classList.add('hidden');
+                 retryButton.classList.add('hidden');
+                 return;
+             }
+
+            const allQuestions = shuffleArray([...quizData[grammarIndex]]);
+            const selectedQuestions = allQuestions.slice(0, 2);
+
+            currentQuizState[grammarIndex] = {
+                questions: selectedQuestions,
+                correctAnswers: selectedQuestions.map(q => q.answer),
+                currentQuestionIndex: 0,
+                totalQuestions: selectedQuestions.length,
+                completed: false
+            };
+
+            feedbackContainer.innerHTML = '';
+            feedbackContainer.classList.add('hidden');
+            successAnimation.classList.add('hidden');
+            submitButton.classList.remove('hidden');
+            retryButton.classList.add('hidden');
+
+            displayQuestion(grammarIndex, 0);
+        }
+
+        // Function to display a specific question (Uses internal index 1-6)
+        function displayQuestion(grammarIndex, questionIndex) {
+            const questionContainer = document.getElementById(`question-container-${grammarIndex}`);
+            const state = currentQuizState[grammarIndex];
+
+             if (!questionContainer || !state || questionIndex >= state.totalQuestions) {
+                console.error("Error displaying question for index:", grammarIndex, questionIndex);
+                return;
+            }
+
+            const q = state.questions[questionIndex];
+            if (q.type !== 'multiple-choice') {
+                 console.error("Error: Question type is not multiple-choice.", q);
+                 questionContainer.innerHTML = '<p class="text-red-600">エラー：問題形式が正しくありません。</p>';
+                 return;
+            }
+
+            let quizHtml = `<div class="question">`;
+            const displayQuestionNum = questionIndex + 1;
+            quizHtml += `<p class="font-medium mb-1">質問 ${displayQuestionNum} / ${state.totalQuestions}:</p>`;
+
+            const instructionText = '正しい選択肢を選んでください。';
+            quizHtml += `<p class="question-instruction">${instructionText}</p>`;
+            quizHtml += `<p class="mb-3">${q.question}</p>`;
+
+            const shuffledOptions = shuffleArray([...q.options]);
+            shuffledOptions.forEach((option, optionIndex) => {
+                const isChineseOption = /[\u3000-\u9faf\uFF00-\uFFEF]/.test(option);
+                const optionClass = isChineseOption ? 'chinese-text' : '';
+                const radioId = `q-${grammarIndex}-${questionIndex}-${optionIndex}`;
+                quizHtml += `<div class="choice-option ml-2">
+                                <input type="radio" id="${radioId}" name="q-${grammarIndex}-${questionIndex}" value="${option}" data-question-index="${questionIndex}">
+                                <label for="${radioId}" class="${optionClass}">${option}</label>
+                             </div>`;
+            });
+
+            quizHtml += `</div>`;
+            questionContainer.innerHTML = quizHtml;
+
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            feedbackContainer.innerHTML = '';
+            feedbackContainer.classList.add('hidden');
+        }
+
+
+        // Function to submit the answer for the current question (Uses internal index 1-6)
+        function submitQuiz(grammarIndex) {
+            const state = currentQuizState[grammarIndex];
+             if (!state || state.completed) return;
+
+            const currentQuestionIndex = state.currentQuestionIndex;
+             if (currentQuestionIndex >= state.questions.length) {
+                 console.error("Invalid current question index:", currentQuestionIndex);
+                 return;
+             }
+            const q = state.questions[currentQuestionIndex];
+            const feedbackContainer = document.getElementById(`feedback-${grammarIndex}`);
+            const submitButton = document.getElementById(`submit-${grammarIndex}`);
+            const retryButton = document.getElementById(`retry-${grammarIndex}`);
+            const successAnimation = document.getElementById(`success-animation-${grammarIndex}`);
+
+             if (!feedbackContainer || !submitButton || !retryButton || !successAnimation) {
+                 console.error(`Quiz feedback/control elements not found for grammar index ${grammarIndex}`);
+                 return;
+             }
+
+            const checkedRadio = document.querySelector(`input[name="q-${grammarIndex}-${currentQuestionIndex}"]:checked`);
+            const userAnswer = checkedRadio ? checkedRadio.value : '';
+
+            if (!userAnswer) {
+                 feedbackContainer.innerHTML = `<span class="font-semibold">選択肢を選んでください。</span>`;
+                 feedbackContainer.classList.remove('hidden', 'feedback-correct');
+                 feedbackContainer.classList.add('feedback-incorrect');
+                 return;
+            }
+
+            const isCorrect = userAnswer.toLowerCase() === q.answer.toLowerCase();
+
+            feedbackContainer.classList.remove('hidden', 'feedback-correct', 'feedback-incorrect');
+            if (isCorrect) {
+                feedbackContainer.innerHTML = `<span class="font-semibold">正解！</span> 👍`;
+                feedbackContainer.classList.add('feedback-correct');
+
+                state.currentQuestionIndex++;
+                if (state.currentQuestionIndex < state.totalQuestions) {
+                     setTimeout(() => {
+                         if(currentQuizState[grammarIndex] && !currentQuizState[grammarIndex].completed) {
+                             displayQuestion(grammarIndex, state.currentQuestionIndex);
+                             feedbackContainer.classList.add('hidden');
+                         }
+                     }, 1000);
+                } else {
+                    state.completed = true;
+                    feedbackContainer.innerHTML = '';
+                    feedbackContainer.classList.add('hidden');
+                    successAnimation.classList.remove('hidden');
+                    submitButton.classList.add('hidden');
+                    retryButton.classList.remove('hidden');
+                }
+            } else {
+                const correctAnswerClass = /[\u3000-\u9faf\uFF00-\uFFEF]/.test(q.answer) ? 'chinese-text' : '';
+                feedbackContainer.innerHTML = `<span class="font-semibold">不正解...</span> 正解は: <strong class="${correctAnswerClass}">${q.answer}</strong><br>もう一度選択して「回答する」を押してください。`;
+                feedbackContainer.classList.add('feedback-incorrect');
+            }
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('clickable-sentence') || event.target.classList.contains('clickable-item')) {
+                const audioSrc = event.target.getAttribute('data-audio');
+                playAudio(audioSrc);
+            }
+        });
+
+        // --- Initial Setup ---
+        document.addEventListener('DOMContentLoaded', () => {
+           showSection('table-of-contents');
+        });
+
+    </script>
+
+</body>
+</html>
+```
