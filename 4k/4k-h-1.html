@@ -80,7 +80,7 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease,
                   background-color 0.3s ease, border-color 0.3s ease;
       cursor: pointer;
-      overflow: hidden;
+      overflow: hidden; /* 内容がはみ出る場合に隠す */
     }
     .sentence:hover {
       transform: translateY(-5px);
@@ -130,10 +130,11 @@
       max-width: 400px;
       margin: auto;
     }
-    /* 新增：滚动容器，超出部分可横向滚动 */
-    .scrollable {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+    /* ロゴ画像（任意） */
+    .logo {
+      max-width: 150px;
+      float: left;
+      margin-right: 10px;
     }
     /* スマートフォン向け */
     @media screen and (max-width: 600px) {
@@ -145,14 +146,25 @@
         border-radius: 6px;
       }
       .controls label { font-size: 1em; }
-      .controls select {
-        font-size: 1em;
-        padding: 6px 10px;
-      }
+      .controls select { font-size: 1em; padding: 6px 10px; }
       button { font-size: 1em; padding: 8px 12px; margin: 5px 3px; }
       .sentence { margin-bottom: 20px; padding: 10px; }
       table td { font-size: 1em; max-width: none; white-space: normal; }
       footer { font-size: 0.9em; margin-top: 20px; }
+    }
+    /* 新增：表格自适应与横向滚动（不影响原有機能） */
+    .table-container {
+      overflow-x: auto;
+      width: 100%;
+    }
+    .table-container table {
+      table-layout: auto;
+      width: 100%;
+    }
+    .table-container table td {
+      max-width: none !important;
+      white-space: normal !important;
+      overflow: visible !important;
     }
   </style>
 </head>
@@ -164,7 +176,7 @@
   </header>
 
   <div class="container">
-    <!-- 表示モード切替 -->
+    <!-- 表示モード切替部分 -->
     <div class="controls">
       <label for="displayMode">表示モード：</label>
       <select id="displayMode">
@@ -185,7 +197,7 @@
 
     <!-- 【文１】 山本:你家有几口人？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-01.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">山</td>
@@ -198,7 +210,7 @@
             <td class="chinese">口</td>
             <td class="chinese">人</td>
             <td class="chinese">？</td>
-            <!-- 空セルでパディング -->
+            <!-- 空セル用于填充 -->
             <td class="chinese">　</td>
             <td class="chinese">　</td>
             <td class="chinese">　</td>
@@ -243,7 +255,7 @@
 
     <!-- 【文２】 李：我家有三口人：爸爸、妈妈和我。你家呢？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-02.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">李</td>
@@ -262,7 +274,7 @@
             <td class="chinese">妈</td>
             <td class="chinese">和</td>
             <td class="chinese">我</td>
-            <td class="chinese">。</td>
+            <td class="chinese">，</td>
             <td class="chinese">你</td>
             <td class="chinese">家</td>
             <td class="chinese">呢</td>
@@ -280,13 +292,13 @@
             <td>rén</td>
             <td>：</td>
             <td>bà</td>
-            <td>bà</td>
+            <td>ba</td>
             <td>、</td>
             <td>mā</td>
-            <td>mā</td>
+            <td>ma</td>
             <td>hé</td>
             <td>wǒ</td>
-            <td>。</td>
+            <td>，</td>
             <td>nǐ</td>
             <td>jiā</td>
             <td>ne</td>
@@ -308,7 +320,7 @@
 
     <!-- 【文３】 山本：我家有四口人：爸爸、妈妈、哥哥和我。 -->
     <div class="sentence" data-audio="sound/4k-h1-038-03.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">山</td>
@@ -345,13 +357,13 @@
             <td>rén</td>
             <td>：</td>
             <td>bà</td>
-            <td>bà</td>
+            <td>ba</td>
             <td>、</td>
             <td>mā</td>
-            <td>mā</td>
+            <td>ma</td>
             <td>、</td>
             <td>gē</td>
-            <td>gē</td>
+            <td>ge</td>
             <td>hé</td>
             <td>wǒ</td>
             <td>。</td>
@@ -371,7 +383,7 @@
 
     <!-- 【文４】 李：你家有宠物吗？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-04.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">李</td>
@@ -383,7 +395,7 @@
             <td class="chinese">物</td>
             <td class="chinese">吗</td>
             <td class="chinese">？</td>
-            <!-- 空セル -->
+            <!-- パディング -->
             <td class="chinese">　</td>
             <td class="chinese">　</td>
             <td class="chinese">　</td>
@@ -412,6 +424,7 @@
             <td>　</td>
             <td>　</td>
             <td>　</td>
+            <td>　</td>
           </tr>
         </table>
       </div>
@@ -428,7 +441,7 @@
 
     <!-- 【文５】 山本：我家没有宠物。你家呢？ -->
     <div class="sentence" data-audio="sound/4k-h1-038-05.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">山</td>
@@ -440,12 +453,12 @@
             <td class="chinese">有</td>
             <td class="chinese">宠</td>
             <td class="chinese">物</td>
-            <td class="chinese">。</td>
+            <td class="chinese">，</td>
             <td class="chinese">你</td>
             <td class="chinese">家</td>
             <td class="chinese">呢</td>
             <td class="chinese">？</td>
-            <!-- 空セル -->
+            <!-- パディング -->
             <td class="chinese">　</td>
             <td class="chinese">　</td>
             <td class="chinese">　</td>
@@ -461,7 +474,7 @@
             <td>yǒu</td>
             <td>chǒng</td>
             <td>wù</td>
-            <td>。</td>
+            <td>，</td>
             <td>nǐ</td>
             <td>jiā</td>
             <td>ne</td>
@@ -484,9 +497,9 @@
       </div>
     </div>
 
-    <!-- 【文６】 山本：我家有一只狗和两只猫，都非常可爱！ -->
+    <!-- 【文６】 李：我家有一只狗和两只猫，都非常可爱！ -->
     <div class="sentence" data-audio="sound/4k-h1-038-06.mp3">
-      <div class="scrollable">
+      <div class="table-container">
         <table>
           <tr>
             <td class="chinese">李</td>
@@ -503,7 +516,8 @@
             <td class="chinese">猫</td>
             <td class="chinese">，</td>
             <td class="chinese">都</td>
-            <td class="chinese">非常</td>
+            <td class="chinese">非</td>
+            <td class="chinese">常</td>
             <td class="chinese">可</td>
             <td class="chinese">爱</td>
             <td class="chinese">！</td>
@@ -541,13 +555,13 @@
         </audio>
       </div>
     </div>
-
+    
   </div>
 
   <footer>© 楽しい中国語アプリ</footer>
 
   <script>
-    // すべてのsentence要素とselect要素を取得
+    // すべての sentence 要素と select 要素を取得
     const sentences = document.querySelectorAll('.sentence');
     const displayModeSelect = document.getElementById('displayMode');
     
@@ -557,8 +571,10 @@
       sentences.forEach(sentence => {
         const pinyinRow = sentence.querySelector('.pinyin');
         const translation = sentence.querySelector('.translation');
+        // すべて隠す
         pinyinRow.classList.add('hidden');
         translation.classList.add('hidden');
+        // 表示モードに応じて表示
         if (mode === 'chinesePinyin') {
           pinyinRow.classList.remove('hidden');
         } else if (mode === 'chineseTranslation') {
