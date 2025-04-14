@@ -20,7 +20,7 @@
             line-height: 1.6;
         }
 
-        /* ヘッダー */
+        /* ヘッダは濃い青を背景色にし、文字色を白に */
         header {
             background-color: #003366; /* ASロゴの濃青イメージ */
             color: white;
@@ -55,7 +55,7 @@
             border-radius: 4px;
         }
 
-        /* ボタン共通 */
+        /* ボタンの共通スタイル */
         button {
             display: inline-block;
             margin: 10px 5px;
@@ -67,26 +67,34 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
+        /* 前の画面ボタン */
         .prev-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* ロゴの赤をイメージ */
         }
         .prev-button:hover {
-            background-color: #990000;
+            background-color: #990000; /* 少し濃い赤 */
         }
+
+        /* 再生ボタン */
         .play-button {
             background-color: #003366;
         }
         .play-button:hover {
             background-color: #002244;
         }
+
+        /* 停止ボタン */
         .stop-button {
-            background-color: #FF6600;
+            background-color: #FF6600; /* ワンポイントのオレンジなどでもOK */
         }
         .stop-button:hover {
             background-color: #CC5200;
         }
+
+        /* 次の画面ボタン */
         .next-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* 赤 */
         }
         .next-button:hover {
             background-color: #990000;
@@ -96,21 +104,21 @@
         .sentence {
             margin-bottom: 30px;
             padding: 15px;
-            border-left: 4px solid #003366;
+            border-left: 4px solid #003366; /* 濃青のライン */
             background-color: #f1f1f1;
             border-radius: 4px;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            overflow: hidden;  /* 内容溢出时隐藏 */
+            overflow: hidden; /* 防止内容溢出 */
         }
         .sentence:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
         }
         .sentence.active {
             background-color: #c8e6c9;
             border-left-color: #2e7d32;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
         /* 非表示用 */
@@ -146,32 +154,36 @@
             color: #333;
             margin-top: 5px;
         }
+
         footer {
             text-align: center;
             margin-top: 30px;
             font-size: calc(0.8em + 0.5vw);
             color: #777;
         }
+
         .audio-player {
             margin-top: 20px;
             text-align: center;
-            display: none;
+            display: none; /* デフォルトは非表示 */
         }
         audio {
             width: 100%;
             max-width: 400px;
             margin: auto;
         }
-        /* 横スクロール用コンテナ */
-        .scrollable {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+
+        /* ロゴ画像をヘッダー内で表示したい場合（任意） */
+        .logo {
+            max-width: 150px;
+            float: left;
+            margin-right: 10px;
         }
 
         /* スマートフォン向けメディアクエリ */
         @media screen and (max-width: 600px) {
             header {
-                font-size: 1.2rem;
+                font-size: 1.2rem; /* ヘッダ文字の縮小 */
                 padding: 10px;
             }
             .container {
@@ -206,17 +218,32 @@
                 margin-top: 20px;
             }
         }
+
+        /* 新增：表格自适应与横向滚动（不影响原有功能） */
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        .table-container table {
+            table-layout: auto;
+            width: 100%;
+        }
+        .table-container table td {
+            max-width: none !important;
+            white-space: normal !important;
+            overflow: visible !important;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ヘッダー -->
+    <!-- ヘッダー部分（内容更新済み） -->
     <header>
         第2課 - 今天是我的生日
     </header>
 
     <div class="container">
-        <!-- 表示モード切り替え部分 -->
+        <!-- 切り替え表示の部分 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -237,7 +264,7 @@
 
         <!-- 【文１】 -->
         <div class="sentence" data-audio="sound/2k-h1-014-01.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
                         <td class="chinese">李</td>
@@ -253,7 +280,7 @@
                         <td class="chinese">天</td>
                         <td class="chinese">吗</td>
                         <td class="chinese">？</td>
-                        <td class="chinese"></td>
+                        <td class="chinese">　</td>
                         <td class="chinese">　</td>
                         <td class="chinese">　</td>
                         <td class="chinese">　</td>
@@ -263,7 +290,7 @@
                         <td>Lǐ</td>
                         <td>:</td>
                         <td>Yōu</td>
-                        <td>zi，</td>
+                        <td>zǐ</td>
                         <td>，</td>
                         <td>jīn</td>
                         <td>tiān</td>
@@ -293,8 +320,8 @@
         </div>
 
         <!-- 【文２】 -->
-        <div class="sentence" data-audio="sound/2k-h1-014-02.mp3">
-            <div class="scrollable">
+        <div class="sentence" data-audio="sound/k-h1-014-02.mp3">
+            <div class="table-container">
                 <table>
                     <tr>
                         <td class="chinese">山</td>
@@ -321,7 +348,7 @@
                         <td>běn</td>
                         <td>:</td>
                         <td>Bú</td>
-                        <td>shì，</td>
+                        <td>shì</td>
                         <td>，</td>
                         <td>jīn</td>
                         <td>tiān</td>
@@ -351,7 +378,7 @@
 
         <!-- 【文３】 -->
         <div class="sentence" data-audio="sound/2k-h1-014-03.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
                         <td class="chinese">李</td>
@@ -408,7 +435,7 @@
 
         <!-- 【文４】 -->
         <div class="sentence" data-audio="sound/2k-h1-014-04.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
                         <td class="chinese">山</td>
@@ -453,7 +480,7 @@
                 </table>
             </div>
             <div class="translation hidden">
-               山本:今日は月曜日です。
+                山本:今日は月曜日です。
             </div>
             <div class="audio-player">
                 <audio controls>
@@ -472,16 +499,18 @@
         const sentences = document.querySelectorAll('.sentence');
         const displayModeSelect = document.getElementById('displayMode');
 
-        // 表示モード切り替え関数
+        // 表示モードを切り替える関数
         function updateDisplayMode() {
             const mode = displayModeSelect.value;
+
             sentences.forEach(sentence => {
                 const pinyinRow = sentence.querySelector('.pinyin');
                 const translation = sentence.querySelector('.translation');
                 // まず全部隠す
                 pinyinRow.classList.add('hidden');
                 translation.classList.add('hidden');
-                // 選択された表示モードに応じて表示する
+
+                // 選択された表示モードによって表示をコントロール
                 if (mode === 'chinesePinyin') {
                     pinyinRow.classList.remove('hidden');
                 } else if (mode === 'chineseTranslation') {
@@ -492,15 +521,20 @@
                 }
             });
         }
+
+        // 最初に表示モードを反映
         updateDisplayMode();
+        // セレクトボックス変更で反映
         displayModeSelect.addEventListener('change', updateDisplayMode);
 
         // クリックで個別再生
         let currentAudio = null;
         let activeSentence = null;
+
         sentences.forEach(sentence => {
             const audio = sentence.querySelector('audio');
             sentence.addEventListener('click', () => {
+                // 同じ文を連続クリックで停止→リセット
                 if (activeSentence === sentence) {
                     audio.pause();
                     audio.currentTime = 0;
@@ -508,15 +542,18 @@
                     activeSentence = null;
                     return;
                 }
+                // 他の再生中を強制停止
                 if (activeSentence) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                     activeSentence.classList.remove('active');
                 }
+                // 現在の文を再生
                 activeSentence = sentence;
                 currentAudio = audio;
                 sentence.classList.add('active');
                 audio.play();
+                // 再生終了後にリセット
                 audio.onended = () => {
                     sentence.classList.remove('active');
                     activeSentence = null;
@@ -524,19 +561,22 @@
             });
         });
 
-        // 順番再生
+        // 順番に再生
         let isPlaying = false;
         let currentAudioIndex = 0;
         let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
 
+        // 順番再生ボタン
         playButton.addEventListener('click', () => {
             if (isPlaying) {
+                // 再生中なら停止
                 audioElements.forEach(a => a.pause());
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
             } else {
+                // 最初から再生
                 isPlaying = true;
                 playButton.textContent = '一時停止';
                 currentAudioIndex = 0;
@@ -544,6 +584,7 @@
             }
         });
 
+        // 停止ボタン
         stopButton.addEventListener('click', () => {
             audioElements.forEach(a => {
                 a.pause();
@@ -555,16 +596,21 @@
             playButton.textContent = '順番に再生';
         });
 
+        // 次の音声を再生する関数
         function playNextAudio() {
             if (currentAudioIndex >= audioElements.length || !isPlaying) {
+                // 最後まで再生済or停止指示
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
                 return;
             }
             const audio = audioElements[currentAudioIndex];
             const sentence = sentences[currentAudioIndex];
+
+            // ハイライトを全消し→今回のみに付与
             sentences.forEach(s => s.classList.remove('active'));
             sentence.classList.add('active');
+
             audio.play();
             audio.onended = () => {
                 sentence.classList.remove('active');
