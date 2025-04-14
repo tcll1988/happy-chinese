@@ -20,7 +20,7 @@
             line-height: 1.6;
         }
 
-        /* ヘッダー */
+        /* ヘッダは濃い青を背景色にし、文字色を白に */
         header {
             background-color: #003366; /* ASロゴの濃青イメージ */
             color: white;
@@ -67,26 +67,34 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
+        /* 前の画面ボタン */
         .prev-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* ロゴの赤をイメージ */
         }
         .prev-button:hover {
-            background-color: #990000;
+            background-color: #990000; /* 少し濃い赤 */
         }
+
+        /* 再生ボタン */
         .play-button {
             background-color: #003366;
         }
         .play-button:hover {
             background-color: #002244;
         }
+
+        /* 停止ボタン */
         .stop-button {
-            background-color: #FF6600;
+            background-color: #FF6600; /* ワンポイントのオレンジなどでもOK */
         }
         .stop-button:hover {
             background-color: #CC5200;
         }
+
+        /* 次の画面ボタン */
         .next-button {
-            background-color: #CC0000;
+            background-color: #CC0000; /* 赤 */
         }
         .next-button:hover {
             background-color: #990000;
@@ -96,13 +104,12 @@
         .sentence {
             margin-bottom: 30px;
             padding: 15px;
-            border-left: 4px solid #003366;
+            border-left: 4px solid #003366; /* 濃青のライン */
             background-color: #f1f1f1;
             border-radius: 4px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease,
-                        background-color 0.3s ease, border-color 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer;
-            overflow: hidden;
+            overflow: hidden; /* 防止内容溢出 */
         }
         .sentence:hover {
             transform: translateY(-5px);
@@ -114,7 +121,7 @@
             box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
         }
 
-        /* 非表示 */
+        /* 非表示用 */
         .hidden {
             display: none;
         }
@@ -158,7 +165,7 @@
         .audio-player {
             margin-top: 20px;
             text-align: center;
-            display: none;
+            display: none; /* デフォルトは非表示 */
         }
         audio {
             width: 100%;
@@ -166,16 +173,17 @@
             margin: auto;
         }
 
-        /* 横スクロール用のコンテナ */
-        .scrollable {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+        /* ロゴ画像をヘッダー内で表示したい場合（任意） */
+        .logo {
+            max-width: 150px;
+            float: left;
+            margin-right: 10px;
         }
 
         /* スマートフォン向けメディアクエリ */
         @media screen and (max-width: 600px) {
             header {
-                font-size: 1.2rem;
+                font-size: 1.2rem; /* ヘッダ文字の縮小 */
                 padding: 10px;
             }
             .container {
@@ -210,17 +218,32 @@
                 margin-top: 20px;
             }
         }
+
+        /* 新增：表格自适应与横向滚动（不影响原有功能） */
+        .table-container {
+            overflow-x: auto;
+            width: 100%;
+        }
+        .table-container table {
+            table-layout: auto;
+            width: 100%;
+        }
+        .table-container table td {
+            max-width: none !important;
+            white-space: normal !important;
+            overflow: visible !important;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ヘッダー -->
+    <!-- ヘッダー部分 -->
     <header>
         第１課 - 你好！我叫山本优子。
     </header>
 
     <div class="container">
-        <!-- 表示モード切替 -->
+        <!-- 切り替え表示の部分 -->
         <div class="controls">
             <label for="displayMode">表示モード：</label>
             <select id="displayMode">
@@ -231,7 +254,7 @@
             </select>
         </div>
 
-        <!-- ナビゲーションボタン -->
+        <!-- ボタンエリア -->
         <div style="text-align: center;">
             <button class="prev-button" onclick="location.href='1k.html'">前の画面</button>
             <button class="play-button" id="playButton">順番に再生</button>
@@ -241,9 +264,10 @@
 
         <!-- 【文１】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-01.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
+                        <!-- 共計18セル：実際の内容は 9トークン、残りは空 -->
                         <td class="chinese">山</td>
                         <td class="chinese">本</td>
                         <td class="chinese">优</td>
@@ -298,9 +322,10 @@
 
         <!-- 【文２】 李明（中国語＋ピンイン） → 日本語訳は「李明：こんにちは！」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-02.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
+                        <!-- 本文: "李明:你好！！" 共7トークン＋11空セル -->
                         <td class="chinese">李</td>
                         <td class="chinese">明</td>
                         <td class="chinese">：</td>
@@ -355,9 +380,10 @@
 
         <!-- 【文３】 山本優子（中国語＋ピンイン） → 日本語訳は「山本優子:私は山本で、山本優子と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-03.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
+                        <!-- 本文: "山本優子:我姓山本，叫山本優子．" 共16トークン＋2空セル -->
                         <td class="chinese">山</td>
                         <td class="chinese">本</td>
                         <td class="chinese">优</td>
@@ -412,9 +438,10 @@
 
         <!-- 【文４】 李明（中国語＋ピンイン） → 日本語訳は「李明:私は李で、李明と言います。」 -->
         <div class="sentence" data-audio="sound/1k-h1-001-04.mp3">
-            <div class="scrollable">
+            <div class="table-container">
                 <table>
                     <tr>
+                        <!-- 本文: "李明:我姓李，叫李明．" 共11トークン＋7空セル -->
                         <td class="chinese">李</td>
                         <td class="chinese">明</td>
                         <td class="chinese">：</td>
@@ -479,6 +506,7 @@
         // 表示モードを切り替える関数
         function updateDisplayMode() {
             const mode = displayModeSelect.value;
+
             sentences.forEach(sentence => {
                 const pinyinRow = sentence.querySelector('.pinyin');
                 const translation = sentence.querySelector('.translation');
@@ -497,7 +525,10 @@
                 }
             });
         }
+
+        // 最初に表示モードを反映
         updateDisplayMode();
+        // セレクトボックス変更で反映
         displayModeSelect.addEventListener('change', updateDisplayMode);
 
         // クリックで個別再生
@@ -507,6 +538,7 @@
         sentences.forEach(sentence => {
             const audio = sentence.querySelector('audio');
             sentence.addEventListener('click', () => {
+                // 同じ文を連続クリックで停止→リセット
                 if (activeSentence === sentence) {
                     audio.pause();
                     audio.currentTime = 0;
@@ -514,15 +546,18 @@
                     activeSentence = null;
                     return;
                 }
+                // 他の再生中を強制停止
                 if (activeSentence) {
                     currentAudio.pause();
                     currentAudio.currentTime = 0;
                     activeSentence.classList.remove('active');
                 }
+                // 現在の文を再生
                 activeSentence = sentence;
                 currentAudio = audio;
                 sentence.classList.add('active');
                 audio.play();
+                // 再生終了後にリセット
                 audio.onended = () => {
                     sentence.classList.remove('active');
                     activeSentence = null;
@@ -530,19 +565,22 @@
             });
         });
 
-        // 順番再生
+        // 順番に再生
         let isPlaying = false;
         let currentAudioIndex = 0;
         let audioElements = Array.from(sentences).map(s => s.querySelector('audio'));
         const playButton = document.getElementById('playButton');
         const stopButton = document.getElementById('stopButton');
 
+        // 順番再生ボタン
         playButton.addEventListener('click', () => {
             if (isPlaying) {
+                // 再生中なら停止
                 audioElements.forEach(a => a.pause());
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
             } else {
+                // 最初から再生
                 isPlaying = true;
                 playButton.textContent = '一時停止';
                 currentAudioIndex = 0;
@@ -550,6 +588,7 @@
             }
         });
 
+        // 停止ボタン
         stopButton.addEventListener('click', () => {
             audioElements.forEach(a => {
                 a.pause();
@@ -561,16 +600,21 @@
             playButton.textContent = '順番に再生';
         });
 
+        // 次の音声を再生する関数
         function playNextAudio() {
             if (currentAudioIndex >= audioElements.length || !isPlaying) {
+                // 最後まで再生済or停止指示
                 isPlaying = false;
                 playButton.textContent = '順番に再生';
                 return;
             }
             const audio = audioElements[currentAudioIndex];
             const sentence = sentences[currentAudioIndex];
+
+            // ハイライトを全消し→今回のみに付与
             sentences.forEach(s => s.classList.remove('active'));
             sentence.classList.add('active');
+
             audio.play();
             audio.onended = () => {
                 sentence.classList.remove('active');
